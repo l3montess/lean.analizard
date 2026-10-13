@@ -1,4 +1,4 @@
-/* Generado por scripts/update.mjs (Argentina y Europa League se editan a mano). */
+/* Generado por scripts/update.mjs (Argentina se edita a mano). */
 window.DATA = [
  {
   "id": "arg",
@@ -338,18 +338,19 @@ window.DATA = [
   "name": "Premier League",
   "pill": "Inglaterra",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "12/10/2026",
+  "asof": "13/10/2026",
   "groups": {
    "Liga": [
     [
-     "Manchester City",
+     "Man City",
      6,
      6,
      0,
      0,
      16,
      5,
-     18
+     18,
+     ""
     ],
     [
      "Arsenal",
@@ -359,17 +360,19 @@ window.DATA = [
      1,
      10,
      5,
-     15
+     15,
+     ""
     ],
     [
-     "Brighton",
+     "Brighton Hove",
      6,
      4,
      1,
      1,
      18,
      5,
-     13
+     13,
+     ""
     ],
     [
      "Brentford",
@@ -379,7 +382,8 @@ window.DATA = [
      0,
      12,
      6,
-     10
+     10,
+     ""
     ],
     [
      "Everton",
@@ -389,7 +393,8 @@ window.DATA = [
      0,
      8,
      5,
-     10
+     10,
+     ""
     ],
     [
      "Chelsea",
@@ -399,7 +404,8 @@ window.DATA = [
      2,
      15,
      13,
-     10
+     10,
+     ""
     ],
     [
      "Leeds United",
@@ -409,7 +415,8 @@ window.DATA = [
      1,
      8,
      5,
-     9
+     9,
+     ""
     ],
     [
      "Hull City",
@@ -419,7 +426,8 @@ window.DATA = [
      1,
      8,
      6,
-     9
+     9,
+     ""
     ],
     [
      "Liverpool",
@@ -429,7 +437,8 @@ window.DATA = [
      1,
      7,
      7,
-     9
+     9,
+     ""
     ],
     [
      "Ipswich Town",
@@ -439,7 +448,8 @@ window.DATA = [
      3,
      9,
      12,
-     9
+     9,
+     ""
     ],
     [
      "Newcastle",
@@ -449,7 +459,8 @@ window.DATA = [
      2,
      10,
      13,
-     8
+     8,
+     ""
     ],
     [
      "Crystal Palace",
@@ -459,17 +470,19 @@ window.DATA = [
      3,
      9,
      12,
-     7
+     7,
+     ""
     ],
     [
-     "Manchester United",
+     "Man United",
      6,
      1,
      3,
      2,
      9,
      9,
-     6
+     6,
+     ""
     ],
     [
      "Coventry City",
@@ -479,17 +492,19 @@ window.DATA = [
      4,
      5,
      11,
-     6
+     6,
+     ""
     ],
     [
-     "Nottingham Forest",
+     "Nottingham",
      6,
      1,
      2,
      3,
      5,
      8,
-     5
+     5,
+     ""
     ],
     [
      "Aston Villa",
@@ -499,7 +514,8 @@ window.DATA = [
      3,
      6,
      11,
-     5
+     5,
+     ""
     ],
     [
      "Sunderland",
@@ -509,7 +525,8 @@ window.DATA = [
      4,
      6,
      12,
-     4
+     4,
+     ""
     ],
     [
      "Bournemouth",
@@ -519,7 +536,8 @@ window.DATA = [
      3,
      7,
      13,
-     3
+     3,
+     ""
     ],
     [
      "Tottenham",
@@ -529,7 +547,8 @@ window.DATA = [
      3,
      3,
      9,
-     3
+     3,
+     ""
     ],
     [
      "Fulham",
@@ -539,15 +558,31 @@ window.DATA = [
      4,
      6,
      10,
-     2
+     2,
+     ""
     ]
    ]
   },
   "scorers": [
    [
     "Erling Haaland",
-    "Manchester City",
+    "Man City",
+    6
+   ],
+   [
+    "João Pedro",
+    "Chelsea",
     5
+   ],
+   [
+    "Morgan Rogers",
+    "Chelsea",
+    4
+   ],
+   [
+    "Rayan Cherki",
+    "Man City",
+    4
    ],
    [
     "Alexander Isak",
@@ -555,38 +590,23 @@ window.DATA = [
     4
    ],
    [
-    "Brian Brobbey",
-    "Sunderland",
+    "Bukayo Saka",
+    "Arsenal",
     3
    ],
    [
-    "Dominic Calvert-Lewin",
-    "Leeds United",
+    "Thierno Barry",
+    "Everton",
     3
    ],
    [
-    "Rayan Cherki",
-    "Manchester City",
-    3
-   ],
-   [
-    "Bruno Fernandes",
-    "Manchester United",
+    "Marcus Tavernier",
+    "Bournemouth",
     3
    ],
    [
     "Pascal Groß",
-    "Brighton",
-    3
-   ],
-   [
-    "João Pedro",
-    "Chelsea",
-    3
-   ],
-   [
-    "Bukayo Saka",
-    "Arsenal",
+    "Brighton Hove",
     3
    ],
    [
@@ -595,132 +615,152 @@ window.DATA = [
     3
    ],
    [
-    "Marcus Tavernier",
-    "Bournemouth",
+    "Bruno Fernandes",
+    "Man United",
     3
+   ],
+   [
+    "Bryan Mbeumo",
+    "Man United",
+    3
+   ],
+   [
+    "Mohamed Belloumi",
+    "Hull City",
+    3
+   ],
+   [
+    "Brian Brobbey",
+    "Sunderland",
+    3
+   ],
+   [
+    "Kai Havertz",
+    "Arsenal",
+    2
    ]
   ],
-  "scNote": "Goleadores al 20/09/2026 (la fuente consultada no tenía una lista más reciente). Pueden haber cambiado.",
+  "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
     "2026-10-17T11:30:00Z",
     "Everton",
     "Chelsea",
-    30.2,
-    25.6,
-    44.2
-   ],
-   [
-    "2026-10-17T14:00:00Z",
-    "Brentford",
-    "Liverpool",
-    39.3,
-    25.4,
-    35.3
+    44.3,
+    21.8,
+    33.9
    ],
    [
     "2026-10-17T14:00:00Z",
     "Fulham",
     "Hull City",
-    55.8,
-    23.8,
-    20.4
+    27.8,
+    25.8,
+    46.4
    ],
    [
     "2026-10-17T14:00:00Z",
-    "Manchester City",
+    "Man City",
     "Ipswich Town",
-    79,
-    12.9,
-    8.1
+    67.5,
+    17.1,
+    15.4
+   ],
+   [
+    "2026-10-17T14:00:00Z",
+    "Brentford",
+    "Liverpool",
+    52.8,
+    23.6,
+    23.6
    ],
    [
     "2026-10-17T16:30:00Z",
     "Newcastle",
     "Aston Villa",
-    43.3,
-    25.8,
-    30.9
+    46,
+    21.9,
+    32.1
    ],
    [
     "2026-10-18T13:00:00Z",
     "Bournemouth",
     "Sunderland",
-    46.4,
-    26.7,
-    26.9
-   ],
-   [
-    "2026-10-18T13:00:00Z",
-    "Brighton",
-    "Crystal Palace",
-    62,
-    20.9,
-    17.1
+    41.9,
+    22.9,
+    35.3
    ],
    [
     "2026-10-18T13:00:00Z",
     "Leeds United",
-    "Manchester United",
-    38.9,
-    26.1,
-    35
+    "Man United",
+    46.4,
+    25.1,
+    28.5
+   ],
+   [
+    "2026-10-18T13:00:00Z",
+    "Brighton Hove",
+    "Crystal Palace",
+    70.5,
+    15.8,
+    13.7
    ],
    [
     "2026-10-18T15:30:00Z",
-    "Nottingham Forest",
+    "Nottingham",
     "Arsenal",
-    16,
-    22.8,
-    61.2
+    23.1,
+    26.1,
+    50.8
    ],
    [
     "2026-10-19T19:00:00Z",
     "Tottenham",
     "Coventry City",
-    65.4,
-    19.5,
-    15.1
+    39.2,
+    27.3,
+    33.6
    ]
   ],
   "src": [
    [
-    "Posiciones: Sky Sports",
-    "https://www.skysports.com/premier-league-table"
-   ],
-   [
-    "Goleadores: Wikipedia, 2026–27 Premier League",
-    "https://en.wikipedia.org/wiki/2026%E2%80%9327_Premier_League"
+    "football-data.org",
+    "https://www.football-data.org"
    ]
-  ]
+  ],
+  "cal": [],
+  "probSrc": "un modelo de Poisson propio basado en los goles de la temporada"
  },
  {
   "id": "esp",
   "name": "LaLiga",
   "pill": "España",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "12/10/2026",
+  "asof": "13/10/2026",
   "groups": {
    "Liga": [
     [
-     "Barcelona",
+     "Barça",
      8,
      8,
      0,
      0,
      34,
      7,
-     24
+     24,
+     ""
     ],
     [
-     "Atlético Madrid",
+     "Atleti",
      8,
      6,
      1,
      1,
      18,
      8,
-     19
+     19,
+     ""
     ],
     [
      "Real Betis",
@@ -730,7 +770,8 @@ window.DATA = [
      1,
      14,
      9,
-     19
+     19,
+     ""
     ],
     [
      "Real Madrid",
@@ -740,17 +781,19 @@ window.DATA = [
      2,
      19,
      8,
-     18
+     18,
+     ""
     ],
     [
-     "Sevilla",
+     "Sevilla FC",
      8,
      4,
      2,
      2,
      13,
      12,
-     14
+     14,
+     ""
     ],
     [
      "Real Sociedad",
@@ -760,7 +803,8 @@ window.DATA = [
      3,
      12,
      15,
-     13
+     13,
+     ""
     ],
     [
      "Alavés",
@@ -770,7 +814,8 @@ window.DATA = [
      3,
      12,
      8,
-     11
+     11,
+     ""
     ],
     [
      "Deportivo",
@@ -780,27 +825,30 @@ window.DATA = [
      2,
      12,
      11,
-     10
+     10,
+     ""
     ],
     [
-     "Celta Vigo",
+     "Celta",
      8,
      1,
      5,
      2,
      8,
      6,
-     8
+     8,
+     ""
     ],
     [
-     "Athletic Bilbao",
+     "Athletic",
      6,
      2,
      2,
      2,
      7,
      6,
-     8
+     8,
+     ""
     ],
     [
      "Villarreal",
@@ -810,7 +858,8 @@ window.DATA = [
      4,
      13,
      13,
-     8
+     8,
+     ""
     ],
     [
      "Espanyol",
@@ -820,7 +869,8 @@ window.DATA = [
      4,
      11,
      11,
-     8
+     8,
+     ""
     ],
     [
      "Rayo Vallecano",
@@ -830,7 +880,8 @@ window.DATA = [
      3,
      11,
      16,
-     8
+     8,
+     ""
     ],
     [
      "Getafe",
@@ -840,17 +891,19 @@ window.DATA = [
      4,
      4,
      10,
-     8
+     8,
+     ""
     ],
     [
-     "Racing Santander",
+     "Santander",
      8,
      2,
      2,
      4,
      13,
      23,
-     8
+     8,
+     ""
     ],
     [
      "Osasuna",
@@ -860,7 +913,8 @@ window.DATA = [
      4,
      8,
      18,
-     8
+     8,
+     ""
     ],
     [
      "Levante",
@@ -870,7 +924,8 @@ window.DATA = [
      3,
      11,
      15,
-     6
+     6,
+     ""
     ],
     [
      "Elche",
@@ -880,7 +935,8 @@ window.DATA = [
      4,
      11,
      17,
-     6
+     6,
+     ""
     ],
     [
      "Valencia",
@@ -890,7 +946,8 @@ window.DATA = [
      5,
      6,
      15,
-     5
+     5,
+     ""
     ],
     [
      "Málaga",
@@ -900,29 +957,20 @@ window.DATA = [
      4,
      4,
      13,
-     4
+     4,
+     ""
     ]
    ]
   },
   "scorers": [
    [
     "Raphinha",
-    "Barcelona",
+    "Barça",
     12
-   ],
-   [
-    "Yassir Zabiri",
-    "Racing Santander",
-    7
    ],
    [
     "Sergio Camello",
     "Rayo Vallecano",
-    7
-   ],
-   [
-    "Lamine Yamal",
-    "Barcelona",
     7
    ],
    [
@@ -931,14 +979,29 @@ window.DATA = [
     7
    ],
    [
-    "Ante Budimir",
-    "Osasuna",
-    6
+    "Yassir Zabiri",
+    "Santander",
+    7
+   ],
+   [
+    "Lamine Yamal",
+    "Barça",
+    7
    ],
    [
     "Roberto Fernández",
     "Espanyol",
     6
+   ],
+   [
+    "Ante Budimir",
+    "Osasuna",
+    6
+   ],
+   [
+    "Pierre-Emerick Aubameyang",
+    "Deportivo",
+    5
    ],
    [
     "Fer Niño",
@@ -951,136 +1014,57 @@ window.DATA = [
     5
    ],
    [
-    "Pierre-Emerick Aubameyang",
-    "Deportivo",
-    5
+    "Álex Baena",
+    "Atleti",
+    4
    ],
    [
     "Fermín López",
-    "Barcelona",
+    "Barça",
     4
    ],
    [
-    "Álex Baena",
-    "Atlético Madrid",
-    4
-   ],
-   [
-    "J. David",
-    "Atlético Madrid",
-    3
-   ],
-   [
-    "M. Díaz",
+    "Mariano Díaz",
     "Alavés",
     3
    ],
    [
-    "Iván Romero",
-    "Levante",
+    "Pape Gueye",
+    "Villarreal",
+    3
+   ],
+   [
+    "Jude Bellingham",
+    "Real Madrid",
     3
    ]
   ],
-  "scNote": "Algunos equipos jugaron 6 o 7 partidos y el resto 8. Los empates en puntos se ordenan por diferencia de gol, no por el desempate oficial.",
+  "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
-    "2026-10-16T19:00:00Z",
-    "Deportivo",
+    "2026-10-21T18:00:00Z",
     "Levante",
-    44.7,
-    27.6,
-    27.7
-   ],
-   [
-    "2026-10-17T12:00:00Z",
-    "Espanyol",
-    "Atlético Madrid",
-    21.8,
-    25,
-    53.2
-   ],
-   [
-    "2026-10-17T14:15:00Z",
-    "Villarreal",
-    "Elche",
-    65.2,
-    18.9,
-    15.9
-   ],
-   [
-    "2026-10-17T16:30:00Z",
-    "Real Betis",
-    "Barcelona",
-    15.1,
-    16.3,
-    68.6
-   ],
-   [
-    "2026-10-17T19:00:00Z",
-    "Valencia",
-    "Athletic Bilbao",
-    27.4,
-    27.9,
-    44.7
-   ],
-   [
-    "2026-10-18T12:00:00Z",
-    "Osasuna",
-    "Racing Santander",
-    47.9,
-    25.7,
-    26.4
-   ],
-   [
-    "2026-10-18T14:15:00Z",
-    "Celta Vigo",
-    "Alavés",
-    47,
-    27.9,
-    25.1
-   ],
-   [
-    "2026-10-18T16:30:00Z",
-    "Málaga",
-    "Real Sociedad",
-    29.8,
-    27,
-    43.2
-   ],
-   [
-    "2026-10-18T19:00:00Z",
-    "Real Madrid",
-    "Sevilla",
-    77.8,
-    13.3,
-    8.9
-   ],
-   [
-    "2026-10-19T19:00:00Z",
-    "Getafe",
-    "Rayo Vallecano",
-    33,
-    31,
-    36
+    "Athletic",
+    32.9,
+    23.8,
+    43.3
    ]
   ],
   "src": [
    [
-    "Posiciones: Foot Mercato",
-    "https://www.footmercato.net/espagne/liga/classement"
-   ],
-   [
-    "Goleadores: Foot Mercato",
-    "https://www.footmercato.net/espagne/liga/buteur"
+    "football-data.org",
+    "https://www.football-data.org"
    ]
-  ]
+  ],
+  "cal": [],
+  "probSrc": "un modelo de Poisson propio basado en los goles de la temporada"
  },
  {
   "id": "fra",
   "name": "Ligue 1",
   "pill": "Francia",
   "desc": "Temporada 2026-27. 18 equipos.",
-  "asof": "12/10/2026",
+  "asof": "13/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1091,7 +1075,8 @@ window.DATA = [
      0,
      10,
      5,
-     14
+     14,
+     ""
     ],
     [
      "Lille",
@@ -1101,27 +1086,30 @@ window.DATA = [
      1,
      9,
      4,
-     13
+     13,
+     ""
     ],
     [
-     "Rennes",
+     "Stade Rennais",
      6,
      4,
      1,
      1,
      12,
      10,
-     13
+     13,
+     ""
     ],
     [
-     "Lyon",
+     "Olympique Lyon",
      6,
      3,
      2,
      1,
      11,
      4,
-     11
+     11,
+     ""
     ],
     [
      "Paris FC",
@@ -1131,7 +1119,8 @@ window.DATA = [
      1,
      8,
      4,
-     11
+     11,
+     ""
     ],
     [
      "PSG",
@@ -1141,7 +1130,8 @@ window.DATA = [
      1,
      11,
      8,
-     11
+     11,
+     ""
     ],
     [
      "Brest",
@@ -1151,7 +1141,8 @@ window.DATA = [
      2,
      12,
      9,
-     8
+     8,
+     ""
     ],
     [
      "Lorient",
@@ -1161,7 +1152,8 @@ window.DATA = [
      2,
      6,
      6,
-     8
+     8,
+     ""
     ],
     [
      "Nice",
@@ -1171,17 +1163,19 @@ window.DATA = [
      2,
      5,
      7,
-     8
+     8,
+     ""
     ],
     [
-     "Lens",
+     "RC Lens",
      6,
      2,
      1,
      3,
      11,
      10,
-     7
+     7,
+     ""
     ],
     [
      "Strasbourg",
@@ -1191,17 +1185,19 @@ window.DATA = [
      3,
      11,
      12,
-     7
+     7,
+     ""
     ],
     [
-     "Angers",
+     "Angers SCO",
      6,
      2,
      1,
      3,
      7,
      10,
-     7
+     7,
+     ""
     ],
     [
      "Marseille",
@@ -1211,7 +1207,8 @@ window.DATA = [
      4,
      9,
      8,
-     6
+     6,
+     ""
     ],
     [
      "Le Mans",
@@ -1221,7 +1218,8 @@ window.DATA = [
      2,
      10,
      12,
-     6
+     6,
+     ""
     ],
     [
      "Toulouse",
@@ -1231,7 +1229,8 @@ window.DATA = [
      2,
      9,
      11,
-     6
+     6,
+     ""
     ],
     [
      "Auxerre",
@@ -1241,7 +1240,8 @@ window.DATA = [
      4,
      8,
      16,
-     6
+     6,
+     ""
     ],
     [
      "Troyes",
@@ -1251,7 +1251,8 @@ window.DATA = [
      4,
      4,
      13,
-     4
+     4,
+     ""
     ],
     [
      "Le Havre",
@@ -1261,64 +1262,60 @@ window.DATA = [
      4,
      4,
      8,
-     2
+     2,
+     ""
     ]
    ]
   },
   "scorers": [
    [
-    "C. Tengstedt",
-    "Toulouse",
-    4
-   ],
-   [
-    "Ferran Torres",
-    "PSG",
-    4
-   ],
-   [
-    "C. Archer",
-    "Auxerre",
-    4
-   ],
-   [
-    "P. Brunner",
-    "Monaco",
-    4
-   ],
-   [
-    "E. Lepaul",
-    "Rennes",
-    4
-   ],
-   [
-    "K. Doumbia",
-    "Brest",
-    4
-   ],
-   [
-    "L. Mafouta",
-    "Le Mans",
-    4
-   ],
-   [
-    "A. Gouiri",
+    "Amine Gouiri",
     "Marseille",
     4
    ],
    [
-    "L. Sinayoko",
+    "Louis Mafouta",
+    "Le Mans",
+    4
+   ],
+   [
+    "Kamory Doumbia",
+    "Brest",
+    4
+   ],
+   [
+    "Esteban Lepaul",
+    "Stade Rennais",
+    4
+   ],
+   [
+    "Ferrán Torres",
+    "PSG",
+    4
+   ],
+   [
+    "Lassine Sinayoko",
     "Paris FC",
     4
    ],
    [
-    "E. Nuamah",
-    "Lyon",
-    3
+    "Paris Brunner",
+    "Monaco",
+    4
    ],
    [
-    "A. Bourabaa",
-    "Le Mans",
+    "Cameron Archer",
+    "Auxerre",
+    4
+   ],
+   [
+    "Casper Tengstedt",
+    "Toulouse",
+    4
+   ],
+   [
+    "Florian Thauvin",
+    "RC Lens",
     3
    ],
    [
@@ -1327,113 +1324,116 @@ window.DATA = [
     3
    ],
    [
-    "F. Thauvin",
-    "Lens",
+    "Ernest Nuamah",
+    "Olympique Lyon",
     3
    ],
    [
-    "B. Dia",
-    "Rennes",
+    "Adil Bourabaa",
+    "Le Mans",
+    3
+   ],
+   [
+    "Franjo Ivanovic",
+    "RC Lens",
     2
    ],
    [
-    "F. Ivanović",
-    "Lens",
+    "Tiago Santos",
+    "Lille",
     2
    ]
   ],
-  "scNote": "La fuente de goleadores abrevia los nombres. Los últimos puestos comparten 2 goles con otros jugadores.",
+  "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
     "2026-10-16T18:45:00Z",
     "Le Mans",
     "Toulouse",
-    31.7,
-    26.7,
-    41.6
+    42.7,
+    21.6,
+    35.7
    ],
    [
     "2026-10-17T15:15:00Z",
     "Strasbourg",
     "PSG",
-    14.8,
-    16.7,
-    68.5
+    35.7,
+    21.7,
+    42.7
+   ],
+   [
+    "2026-10-17T18:45:00Z",
+    "Troyes",
+    "RC Lens",
+    24.3,
+    21.6,
+    54
    ],
    [
     "2026-10-17T18:45:00Z",
     "Lille",
     "Brest",
-    52.6,
-    24.6,
-    22.8
-   ],
-   [
-    "2026-10-17T18:45:00Z",
-    "Troyes",
-    "Lens",
-    23.8,
+    44.9,
     24,
-    52.2
+    31
    ],
    [
     "2026-10-18T13:00:00Z",
-    "Angers",
+    "Angers SCO",
     "Marseille",
-    29.6,
-    25.9,
-    44.5
-   ],
-   [
-    "2026-10-18T15:15:00Z",
-    "Le Havre",
-    "Auxerre",
-    38.9,
-    28.1,
-    33
+    33.2,
+    24.4,
+    42.4
    ],
    [
     "2026-10-18T15:15:00Z",
     "Lorient",
     "Monaco",
-    26.8,
-    27.1,
-    46.1
+    28.3,
+    27.6,
+    44.1
    ],
    [
     "2026-10-18T15:15:00Z",
     "Paris FC",
-    "Rennes",
-    42.1,
-    26.5,
-    31.4
+    "Stade Rennais",
+    44.9,
+    24,
+    31
+   ],
+   [
+    "2026-10-18T15:15:00Z",
+    "Le Havre",
+    "Auxerre",
+    49.2,
+    22.8,
+    28
    ],
    [
     "2026-10-18T18:45:00Z",
-    "Lyon",
+    "Olympique Lyon",
     "Nice",
-    57.2,
-    23.2,
-    19.6
+    58.9,
+    24.3,
+    16.8
    ]
   ],
   "src": [
    [
-    "Posiciones: Foot Mercato",
-    "https://www.footmercato.net/france/ligue-1/classement"
-   ],
-   [
-    "Goleadores: Foot Actu",
-    "https://www.foot-actu.com/ligue-1/classement-meilleur-buteur-ligue-1"
+    "football-data.org",
+    "https://www.football-data.org"
    ]
-  ]
+  ],
+  "cal": [],
+  "probSrc": "un modelo de Poisson propio basado en los goles de la temporada"
  },
  {
   "id": "ger",
   "name": "Bundesliga",
   "pill": "Alemania",
   "desc": "Temporada 2026-27. 18 equipos, 5 fechas jugadas.",
-  "asof": "12/10/2026",
+  "asof": "13/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1444,7 +1444,8 @@ window.DATA = [
      0,
      14,
      4,
-     13
+     13,
+     ""
     ],
     [
      "Dortmund",
@@ -1454,17 +1455,19 @@ window.DATA = [
      0,
      11,
      4,
-     13
+     13,
+     ""
     ],
     [
-     "Bayern Múnich",
+     "Bayern",
      5,
      3,
      2,
      0,
      16,
      4,
-     11
+     11,
+     ""
     ],
     [
      "Leverkusen",
@@ -1474,7 +1477,8 @@ window.DATA = [
      1,
      14,
      8,
-     10
+     10,
+     ""
     ],
     [
      "RB Leipzig",
@@ -1484,7 +1488,8 @@ window.DATA = [
      2,
      15,
      5,
-     9
+     9,
+     ""
     ],
     [
      "Augsburg",
@@ -1494,27 +1499,30 @@ window.DATA = [
      1,
      13,
      8,
-     8
+     8,
+     ""
     ],
     [
-     "Werder Bremen",
+     "Bremen",
      5,
      2,
      2,
      1,
      10,
      10,
-     8
+     8,
+     ""
     ],
     [
-     "Mainz 05",
+     "Mainz",
      5,
      2,
      1,
      2,
      13,
      10,
-     7
+     7,
+     ""
     ],
     [
      "Elversberg",
@@ -1524,17 +1532,19 @@ window.DATA = [
      2,
      8,
      8,
-     7
+     7,
+     ""
     ],
     [
-     "Köln",
+     "1. FC Köln",
      5,
      2,
      1,
      2,
      8,
      10,
-     7
+     7,
+     ""
     ],
     [
      "Stuttgart",
@@ -1544,47 +1554,52 @@ window.DATA = [
      3,
      8,
      9,
-     6
+     6,
+     ""
     ],
     [
-     "Hamburger SV",
+     "HSV",
      5,
      2,
      0,
      3,
      5,
      15,
-     6
+     6,
+     ""
     ],
     [
-     "Schalke 04",
+     "Schalke",
      5,
      1,
      2,
      2,
      4,
      6,
-     5
+     5,
+     ""
     ],
     [
-     "Eintracht Frankfurt",
+     "Frankfurt",
      5,
      1,
      2,
      2,
      9,
      16,
-     5
+     5,
+     ""
     ],
     [
-     "Paderborn",
+     "SC Paderborn",
      5,
      1,
      1,
      3,
      3,
      7,
-     4
+     4,
+     ""
     ],
     [
      "Union Berlin",
@@ -1594,7 +1609,8 @@ window.DATA = [
      3,
      5,
      17,
-     4
+     4,
+     ""
     ],
     [
      "Hoffenheim",
@@ -1604,17 +1620,19 @@ window.DATA = [
      4,
      9,
      13,
-     3
+     3,
+     ""
     ],
     [
-     "Mönchengladbach",
+     "M'gladbach",
      5,
      0,
      0,
      5,
      7,
      18,
-     0
+     0,
+     ""
     ]
    ]
   },
@@ -1626,27 +1644,12 @@ window.DATA = [
    ],
    [
     "Michael Olise",
-    "Bayern Múnich",
+    "Bayern",
     4
    ],
    [
     "Younes Ebnoutalib",
-    "Eintracht Frankfurt",
-    4
-   ],
-   [
-    "Christopher Nkunku",
-    "RB Leipzig",
-    4
-   ],
-   [
-    "Phillip Tietz",
-    "Mainz 05",
-    4
-   ],
-   [
-    "Niclas Füllkrug",
-    "Werder Bremen",
+    "Frankfurt",
     4
    ],
    [
@@ -1655,33 +1658,28 @@ window.DATA = [
     4
    ],
    [
+    "Niclas Füllkrug",
+    "Bremen",
+    4
+   ],
+   [
+    "Phillip Tietz",
+    "Mainz",
+    4
+   ],
+   [
+    "Christopher Nkunku",
+    "RB Leipzig",
+    4
+   ],
+   [
     "Antonio Nusa",
     "RB Leipzig",
     3
    ],
    [
-    "Harry Kane",
-    "Bayern Múnich",
-    3
-   ],
-   [
-    "Jonathan Burkardt",
-    "Eintracht Frankfurt",
-    3
-   ],
-   [
-    "Igor Matanović",
+    "Igor Matanovic",
     "Freiburg",
-    3
-   ],
-   [
-    "Maximilian Eggestein",
-    "Freiburg",
-    3
-   ],
-   [
-    "Robin Fellhauer",
-    "Augsburg",
     3
    ],
    [
@@ -1693,100 +1691,118 @@ window.DATA = [
     "Maurice Krattenmacher",
     "Elversberg",
     3
+   ],
+   [
+    "Maximilian Eggestein",
+    "Freiburg",
+    3
+   ],
+   [
+    "Jonathan Burkardt",
+    "Frankfurt",
+    3
+   ],
+   [
+    "Robin Fellhauer",
+    "Augsburg",
+    3
+   ],
+   [
+    "Harry Kane",
+    "Bayern",
+    3
    ]
   ],
-  "scNote": "Tabla y goleadores a la fecha 5. La fecha 6 empieza el 16/10.",
+  "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
     "2026-10-16T18:30:00Z",
-    "Eintracht Frankfurt",
-    "Köln",
-    48.9,
-    23,
-    28.1
+    "Frankfurt",
+    "1. FC Köln",
+    34.7,
+    19.3,
+    46
    ],
    [
     "2026-10-17T13:30:00Z",
     "Union Berlin",
     "Dortmund",
-    19.7,
-    21.6,
-    58.7
+    10.6,
+    14.5,
+    74.9
    ],
    [
     "2026-10-17T13:30:00Z",
-    "Hamburger SV",
+    "HSV",
     "Stuttgart",
-    24.7,
-    22.9,
-    52.4
+    25.4,
+    19.8,
+    54.7
    ],
    [
     "2026-10-17T13:30:00Z",
-    "Werder Bremen",
-    "Paderborn",
-    53.3,
-    23.5,
-    23.2
-   ],
-   [
-    "2026-10-17T13:30:00Z",
-    "Schalke 04",
-    "Mainz 05",
-    32.8,
-    25.9,
-    41.3
+    "Bremen",
+    "SC Paderborn",
+    50.8,
+    22.6,
+    26.6
    ],
    [
     "2026-10-17T13:30:00Z",
     "Elversberg",
     "Augsburg",
-    38.7,
-    24.9,
-    36.4
+    32.9,
+    20.8,
+    46.2
+   ],
+   [
+    "2026-10-17T13:30:00Z",
+    "Schalke",
+    "Mainz",
+    31.5,
+    22.1,
+    46.3
    ],
    [
     "2026-10-17T16:30:00Z",
-    "Bayern Múnich",
+    "Bayern",
     "RB Leipzig",
-    79.9,
-    11.1,
-    9
+    47.8,
+    19.8,
+    32.4
    ],
    [
     "2026-10-18T13:30:00Z",
     "Leverkusen",
     "Freiburg",
-    55.8,
-    22.3,
-    21.9
+    35.8,
+    20.1,
+    44.1
    ],
    [
     "2026-10-18T15:30:00Z",
-    "Mönchengladbach",
+    "M'gladbach",
     "Hoffenheim",
-    29.7,
-    23.6,
-    46.7
+    32.3,
+    18.2,
+    49.6
    ]
   ],
   "src": [
    [
-    "Posiciones: fussballdaten.de",
-    "https://www.fussballdaten.de/bundesliga/"
-   ],
-   [
-    "Goleadores: fussballdaten.de",
-    "https://www.fussballdaten.de/bundesliga/tore/"
+    "football-data.org",
+    "https://www.football-data.org"
    ]
-  ]
+  ],
+  "cal": [],
+  "probSrc": "un modelo de Poisson propio basado en los goles de la temporada"
  },
  {
   "id": "ita",
   "name": "Serie A",
   "pill": "Italia",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "12/10/2026",
+  "asof": "13/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1797,7 +1813,8 @@ window.DATA = [
      0,
      18,
      8,
-     16
+     16,
+     ""
     ],
     [
      "Lazio",
@@ -1807,7 +1824,8 @@ window.DATA = [
      0,
      11,
      4,
-     16
+     16,
+     ""
     ],
     [
      "Roma",
@@ -1817,7 +1835,8 @@ window.DATA = [
      0,
      14,
      3,
-     14
+     14,
+     ""
     ],
     [
      "Cagliari",
@@ -1827,7 +1846,8 @@ window.DATA = [
      1,
      6,
      3,
-     13
+     13,
+     ""
     ],
     [
      "Milan",
@@ -1837,7 +1857,8 @@ window.DATA = [
      0,
      11,
      5,
-     12
+     12,
+     ""
     ],
     [
      "Juventus",
@@ -1847,17 +1868,19 @@ window.DATA = [
      1,
      9,
      5,
-     11
+     11,
+     ""
     ],
     [
-     "Como",
+     "Como 1907",
      6,
      3,
      2,
      1,
      9,
      6,
-     11
+     11,
+     ""
     ],
     [
      "Napoli",
@@ -1867,7 +1890,8 @@ window.DATA = [
      2,
      10,
      6,
-     10
+     10,
+     ""
     ],
     [
      "Frosinone",
@@ -1877,7 +1901,8 @@ window.DATA = [
      2,
      9,
      7,
-     10
+     10,
+     ""
     ],
     [
      "Atalanta",
@@ -1887,7 +1912,8 @@ window.DATA = [
      3,
      8,
      8,
-     9
+     9,
+     ""
     ],
     [
      "Sassuolo",
@@ -1897,7 +1923,8 @@ window.DATA = [
      2,
      10,
      10,
-     8
+     8,
+     ""
     ],
     [
      "Torino",
@@ -1907,7 +1934,8 @@ window.DATA = [
      3,
      7,
      9,
-     7
+     7,
+     ""
     ],
     [
      "Lecce",
@@ -1917,7 +1945,8 @@ window.DATA = [
      4,
      6,
      12,
-     6
+     6,
+     ""
     ],
     [
      "Bologna",
@@ -1927,7 +1956,8 @@ window.DATA = [
      3,
      5,
      7,
-     5
+     5,
+     ""
     ],
     [
      "Udinese",
@@ -1937,7 +1967,8 @@ window.DATA = [
      4,
      9,
      13,
-     4
+     4,
+     ""
     ],
     [
      "Monza",
@@ -1947,7 +1978,8 @@ window.DATA = [
      4,
      9,
      15,
-     4
+     4,
+     ""
     ],
     [
      "Genoa",
@@ -1957,7 +1989,8 @@ window.DATA = [
      4,
      5,
      11,
-     4
+     4,
+     ""
     ],
     [
      "Parma",
@@ -1967,7 +2000,8 @@ window.DATA = [
      4,
      4,
      10,
-     4
+     4,
+     ""
     ],
     [
      "Fiorentina",
@@ -1977,17 +2011,19 @@ window.DATA = [
      4,
      7,
      14,
-     4
+     4,
+     ""
     ],
     [
-     "Venezia",
+     "Venezia FC",
      6,
      0,
      0,
      6,
      5,
      16,
-     0
+     0,
+     ""
     ]
    ]
   },
@@ -1998,169 +2034,167 @@ window.DATA = [
     6
    ],
    [
-    "Martínez",
-    "Inter",
-    4
-   ],
-   [
-    "Maldini",
-    "Cagliari",
-    4
-   ],
-   [
-    "Raimondo",
-    "Frosinone",
-    4
-   ],
-   [
-    "Varela",
+    "Gustavo Varela",
     "Monza",
     4
    ],
    [
-    "Çalhanoğlu",
+    "Antonio Raimondo",
+    "Frosinone",
+    4
+   ],
+   [
+    "Lautaro Martínez",
+    "Inter",
+    4
+   ],
+   [
+    "Daniel Maldini",
+    "Cagliari",
+    4
+   ],
+   [
+    "Hakan Çalhanoğlu",
     "Inter",
     3
    ],
    [
-    "Rabiot",
+    "Kevin De Bruyne",
+    "Napoli",
+    3
+   ],
+   [
+    "Nikola Krstović",
+    "Atalanta",
+    3
+   ],
+   [
+    "Adrien Rabiot",
     "Milan",
     3
    ],
    [
-    "Thuram",
-    "Inter",
-    3
-   ],
-   [
-    "Frattesi",
+    "Davide Frattesi",
     "Lazio",
     3
    ],
    [
-    "Osmajić",
+    "Jurgen Ekkelenkamp",
+    "Udinese",
+    3
+   ],
+   [
+    "Milutin Osmajić",
     "Genoa",
     3
    ],
    [
-    "Moreira",
-    "Milan",
+    "Marcus Thuram-Ulien",
+    "Inter",
     3
    ],
    [
-    "Kvernadze",
+    "Giorgi Kvernadze",
     "Frosinone",
     3
    ],
    [
-    "Mastantuono",
-    "Fiorentina",
-    3
-   ],
-   [
-    "Adzić",
+    "Vasilije Adzic",
     "Sassuolo",
-    3
-   ],
-   [
-    "De Bruyne",
-    "Napoli",
     3
    ]
   ],
-  "scNote": "Goleadores al 11/10, antes de los partidos del lunes (Atalanta-Venezia y Torino-Udinese). La tabla ya los incluye.",
+  "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
     "2026-10-16T18:45:00Z",
     "Frosinone",
     "Sassuolo",
-    38.3,
-    25.7,
-    36
+    45.3,
+    23.3,
+    31.4
    ],
    [
     "2026-10-17T13:00:00Z",
-    "Venezia",
+    "Venezia FC",
     "Napoli",
-    19.6,
-    23.3,
-    57.1
+    16.5,
+    19.7,
+    63.8
    ],
    [
     "2026-10-17T16:00:00Z",
     "Bologna",
     "Inter",
-    17.1,
-    21.9,
-    61
+    21.3,
+    20.9,
+    57.9
    ],
    [
     "2026-10-17T18:45:00Z",
     "Roma",
     "Genoa",
-    71.5,
-    17.6,
-    10.9
+    74.1,
+    16.7,
+    9.2
    ],
    [
     "2026-10-18T10:30:00Z",
     "Udinese",
     "Lecce",
-    51.2,
-    26.6,
-    22.2
+    46,
+    21.9,
+    32.1
    ],
    [
     "2026-10-18T13:00:00Z",
     "Fiorentina",
-    "Como",
-    27.2,
-    25.9,
-    46.9
+    "Como 1907",
+    23.5,
+    22.2,
+    54.3
    ],
    [
     "2026-10-18T16:00:00Z",
     "Milan",
     "Atalanta",
-    51.3,
-    25.5,
-    23.2
+    52.8,
+    23.6,
+    23.6
    ],
    [
     "2026-10-18T18:45:00Z",
     "Juventus",
     "Lazio",
-    58,
-    24.1,
-    17.9
+    33.3,
+    26.8,
+    40
    ],
    [
     "2026-10-19T16:30:00Z",
     "Monza",
     "Cagliari",
-    40.1,
-    29.5,
-    30.4
+    23.8,
+    23.6,
+    52.6
    ],
    [
     "2026-10-19T18:45:00Z",
     "Parma",
     "Torino",
-    31.4,
-    30.2,
-    38.4
+    31.7,
+    26.1,
+    42.2
    ]
   ],
   "src": [
    [
-    "Posiciones: Sky Sport Italia",
-    "https://sport.sky.it/calcio/serie-a/classifica-serie-a-2026-2027"
-   ],
-   [
-    "Goleadores: Sky Sport Italia",
-    "https://sport.sky.it/calcio/serie-a/classifica-marcatori-serie-a-2026-2027"
+    "football-data.org",
+    "https://www.football-data.org"
    ]
-  ]
+  ],
+  "cal": [],
+  "probSrc": "un modelo de Poisson propio basado en los goles de la temporada"
  },
  {
   "id": "ucl",
@@ -2172,14 +2206,15 @@ window.DATA = [
   "groups": {
    "Fase de liga": [
     [
-     "Barcelona",
+     "Barça",
      2,
      2,
      0,
      0,
      9,
      2,
-     6
+     6,
+     ""
     ],
     [
      "Sporting CP",
@@ -2189,7 +2224,8 @@ window.DATA = [
      0,
      5,
      1,
-     6
+     6,
+     ""
     ],
     [
      "Arsenal",
@@ -2199,17 +2235,19 @@ window.DATA = [
      0,
      4,
      0,
-     6
+     6,
+     ""
     ],
     [
-     "Bayern Múnich",
+     "Bayern",
      2,
      1,
      1,
      0,
      8,
      3,
-     4
+     4,
+     ""
     ],
     [
      "PSG",
@@ -2219,27 +2257,30 @@ window.DATA = [
      0,
      6,
      1,
-     3
+     3,
+     ""
     ],
     [
-     "Como",
+     "Como 1907",
      1,
      1,
      0,
      0,
      4,
      1,
-     3
+     3,
+     ""
     ],
     [
-     "Manchester United",
+     "Man United",
      2,
      1,
      0,
      1,
      4,
      2,
-     3
+     3,
+     ""
     ],
     [
      "Stuttgart",
@@ -2249,17 +2290,19 @@ window.DATA = [
      0,
      3,
      1,
-     3
+     3,
+     ""
     ],
     [
-     "Manchester City",
+     "Man City",
      1,
      1,
      0,
      0,
      2,
      0,
-     3
+     3,
+     ""
     ],
     [
      "Villarreal",
@@ -2269,7 +2312,8 @@ window.DATA = [
      1,
      5,
      4,
-     3
+     3,
+     ""
     ],
     [
      "Aston Villa",
@@ -2279,7 +2323,8 @@ window.DATA = [
      0,
      3,
      2,
-     3
+     3,
+     ""
     ],
     [
      "Real Betis",
@@ -2289,7 +2334,19 @@ window.DATA = [
      0,
      3,
      2,
-     3
+     3,
+     ""
+    ],
+    [
+     "Atleti",
+     2,
+     1,
+     0,
+     1,
+     3,
+     2,
+     3,
+     ""
     ],
     [
      "Dortmund",
@@ -2299,17 +2356,8 @@ window.DATA = [
      0,
      3,
      2,
-     3
-    ],
-    [
-     "Atlético Madrid",
-     2,
-     1,
-     0,
-     1,
      3,
-     2,
-     3
+     ""
     ],
     [
      "Liverpool",
@@ -2319,7 +2367,8 @@ window.DATA = [
      0,
      2,
      1,
-     3
+     3,
+     ""
     ],
     [
      "Real Madrid",
@@ -2329,17 +2378,19 @@ window.DATA = [
      0,
      2,
      1,
-     3
+     3,
+     ""
     ],
     [
-     "AEK Atenas",
+     "PAE AEK",
      1,
      1,
      0,
      0,
      1,
      0,
-     3
+     3,
+     ""
     ],
     [
      "Club Brugge",
@@ -2349,17 +2400,19 @@ window.DATA = [
      1,
      6,
      6,
-     3
+     3,
+     ""
     ],
     [
-     "Lens",
+     "RC Lens",
      2,
      1,
      0,
      1,
      3,
      4,
-     3
+     3,
+     ""
     ],
     [
      "RB Leipzig",
@@ -2369,17 +2422,19 @@ window.DATA = [
      1,
      2,
      4,
-     3
+     3,
+     ""
     ],
     [
-     "Sabah",
+     "Sabah FK",
      2,
      1,
      0,
      1,
      2,
      4,
-     3
+     3,
+     ""
     ],
     [
      "Roma",
@@ -2389,17 +2444,19 @@ window.DATA = [
      0,
      1,
      1,
-     1
+     1,
+     ""
     ],
     [
-     "Shakhtar Donetsk",
+     "Shaktar",
      1,
      0,
      1,
      0,
      1,
      1,
-     1
+     1,
+     ""
     ],
     [
      "Fenerbahçe",
@@ -2409,7 +2466,8 @@ window.DATA = [
      0,
      1,
      1,
-     1
+     1,
+     ""
     ],
     [
      "PSV",
@@ -2419,7 +2477,8 @@ window.DATA = [
      1,
      1,
      2,
-     1
+     1,
+     ""
     ],
     [
      "Viking",
@@ -2429,7 +2488,8 @@ window.DATA = [
      1,
      4,
      6,
-     1
+     1,
+     ""
     ],
     [
      "LASK",
@@ -2439,7 +2499,8 @@ window.DATA = [
      1,
      0,
      1,
-     0
+     0,
+     ""
     ],
     [
      "Inter",
@@ -2449,7 +2510,8 @@ window.DATA = [
      2,
      4,
      6,
-     0
+     0,
+     ""
     ],
     [
      "Porto",
@@ -2459,17 +2521,19 @@ window.DATA = [
      1,
      0,
      2,
-     0
+     0,
+     ""
     ],
     [
-     "Slavia Praga",
+     "Slavia Praha",
      2,
      0,
      0,
      2,
      2,
      5,
-     0
+     0,
+     ""
     ],
     [
      "Napoli",
@@ -2479,7 +2543,8 @@ window.DATA = [
      2,
      1,
      4,
-     0
+     0,
+     ""
     ],
     [
      "Lille",
@@ -2489,7 +2554,8 @@ window.DATA = [
      2,
      2,
      6,
-     0
+     0,
+     ""
     ],
     [
      "Feyenoord",
@@ -2499,7 +2565,8 @@ window.DATA = [
      1,
      1,
      5,
-     0
+     0,
+     ""
     ],
     [
      "Galatasaray",
@@ -2509,17 +2576,19 @@ window.DATA = [
      2,
      2,
      7,
-     0
+     0,
+     ""
     ],
     [
-     "Slovan Bratislava",
+     "Sl. Bratislava",
      1,
      0,
      0,
      1,
      1,
      6,
-     0
+     0,
+     ""
     ],
     [
      "Bodø/Glimt",
@@ -2529,20 +2598,61 @@ window.DATA = [
      1,
      0,
      5,
-     0
+     0,
+     ""
     ]
    ]
   },
   "scorers": [
    [
-    "Ermedin Demirović",
+    "Nicolo Tresoldi",
+    "Club Brugge",
+    4
+   ],
+   [
+    "Ermedin Demirovic",
     "Stuttgart",
     3
    ],
    [
-    "Ferran Torres",
+    "Ferrán Torres",
     "PSG",
     3
+   ],
+   [
+    "Harry Kane",
+    "Bayern",
+    3
+   ],
+   [
+    "Erling Haaland",
+    "Man City",
+    2
+   ],
+   [
+    "Santiago Mouriño",
+    "Villarreal",
+    2
+   ],
+   [
+    "Sehrou Guirassy",
+    "Dortmund",
+    2
+   ],
+   [
+    "Bartra",
+    "Real Betis",
+    2
+   ],
+   [
+    "Raphinha",
+    "Barça",
+    2
+   ],
+   [
+    "Karim Adeyemi",
+    "Barça",
+    2
    ],
    [
     "Ousmane Dembélé",
@@ -2550,128 +2660,109 @@ window.DATA = [
     2
    ],
    [
-    "Raphinha",
-    "Barcelona",
-    2
-   ],
-   [
-    "Marc Bartra",
-    "Real Betis",
-    2
-   ],
-   [
-    "Serhou Guirassy",
-    "Dortmund",
-    2
-   ],
-   [
-    "Erling Haaland",
-    "Manchester City",
+    "Luis Suárez",
+    "Sporting CP",
     2
    ],
    [
     "Michael Olise",
-    "Bayern Múnich",
+    "Bayern",
     2
    ],
    [
-    "Danijel Šturm",
-    "Slavia Praga",
+    "Danijel Sturm",
+    "Slavia Praha",
+    2
+   ],
+   [
+    "Lautaro Martínez",
+    "Inter",
     2
    ]
   ],
-  "scNote": "Goleadores al 10/09/2026, antes de la jornada 2. Los goles de la jornada 2 no están sumados.",
+  "scNote": "Actualizado automáticamente.",
   "fixtures": [
-   [
-    "2026-10-14T16:45:00Z",
-    "Feyenoord",
-    "Como",
-    27,
-    23.2,
-    49.8
-   ],
    [
     "2026-10-14T16:45:00Z",
     "LASK",
     "Liverpool",
-    10.3,
-    15.5,
-    74.2
+    13.5,
+    25.9,
+    60.6
+   ],
+   [
+    "2026-10-14T16:45:00Z",
+    "Feyenoord",
+    "Como 1907",
+    4.1,
+    6.4,
+    89.5
    ],
    [
     "2026-10-14T19:00:00Z",
     "Roma",
     "Real Madrid",
     27.8,
-    23.9,
-    48.3
+    25.8,
+    46.4
    ],
    [
     "2026-10-14T19:00:00Z",
-    "Aston Villa",
-    "Fenerbahçe",
-    58.6,
-    22.2,
-    19.2
-   ],
-   [
-    "2026-10-14T19:00:00Z",
-    "Shakhtar Donetsk",
-    "AEK Atenas",
-    36.2,
-    27.3,
-    36.5
+    "Man City",
+    "PSG",
+    19,
+    16.1,
+    64.9
    ],
    [
     "2026-10-14T19:00:00Z",
     "Bodø/Glimt",
     "Dortmund",
-    31.3,
-    23.4,
-    45.3
+    5.6,
+    8.3,
+    86
    ],
    [
     "2026-10-14T19:00:00Z",
-    "Manchester City",
-    "PSG",
-    43.8,
-    24,
-    32.2
+    "Aston Villa",
+    "Fenerbahçe",
+    53.5,
+    20.4,
+    26
    ],
    [
     "2026-10-14T19:00:00Z",
     "Real Betis",
     "Porto",
-    46.7,
-    25.6,
-    27.7
+    73.9,
+    14.9,
+    11.1
    ],
    [
     "2026-10-14T19:00:00Z",
-    "Slovan Bratislava",
-    "Stuttgart",
-    10.4,
-    14.5,
-    75.1
-   ]
-  ],
-  "cal": [
-   [
-    "2026-10-20T16:45:00Z",
-    "Fenerbahçe",
-    "Slavia Praga"
-   ]
-  ],
-  "src": [
-   [
-    "Tabla y partidos: proveedor de datos deportivos (SportRadar)",
-    "https://www.sportradar.com"
+    "Shaktar",
+    "PAE AEK",
+    19.8,
+    34.6,
+    45.6
    ],
    [
-    "Goles y goleadores: Wikipedia, 2026–27 UEFA Champions League",
-    "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League"
+    "2026-10-14T19:00:00Z",
+    "Sl. Bratislava",
+    "Stuttgart",
+    4.1,
+    6.4,
+    89.5
    ]
-  ]
+  ],
+  "cal": [],
+  "src": [
+   [
+    "football-data.org",
+    "https://www.football-data.org"
+   ]
+  ],
+  "probSrc": "un modelo de Poisson propio basado en los goles de la temporada"
  },
  {
   "id": "uel",
