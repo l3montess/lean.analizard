@@ -1873,6 +1873,17 @@ window.DATA = [
   "groups": {
    "Fase de liga": [
     [
+     "PSG",
+     2,
+     2,
+     0,
+     0,
+     10,
+     3,
+     6,
+     ""
+    ],
+    [
      "Barça",
      2,
      2,
@@ -1880,6 +1891,39 @@ window.DATA = [
      0,
      9,
      2,
+     6,
+     ""
+    ],
+    [
+     "Aston Villa",
+     2,
+     2,
+     0,
+     0,
+     9,
+     2,
+     6,
+     ""
+    ],
+    [
+     "Stuttgart",
+     2,
+     2,
+     0,
+     0,
+     6,
+     1,
+     6,
+     ""
+    ],
+    [
+     "Liverpool",
+     2,
+     2,
+     0,
+     0,
+     8,
+     4,
      6,
      ""
     ],
@@ -1906,6 +1950,28 @@ window.DATA = [
      ""
     ],
     [
+     "Real Madrid",
+     2,
+     2,
+     0,
+     0,
+     6,
+     4,
+     6,
+     ""
+    ],
+    [
+     "Real Betis",
+     2,
+     2,
+     0,
+     0,
+     6,
+     4,
+     6,
+     ""
+    ],
+    [
      "Bayern",
      2,
      1,
@@ -1917,24 +1983,24 @@ window.DATA = [
      ""
     ],
     [
-     "PSG",
+     "Shaktar",
+     2,
      1,
      1,
      0,
-     0,
-     6,
-     1,
-     3,
+     4,
+     2,
+     4,
      ""
     ],
     [
      "Como 1907",
-     1,
+     2,
      1,
      0,
-     0,
+     1,
+     6,
      4,
-     1,
      3,
      ""
     ],
@@ -1950,28 +2016,6 @@ window.DATA = [
      ""
     ],
     [
-     "Stuttgart",
-     1,
-     1,
-     0,
-     0,
-     3,
-     1,
-     3,
-     ""
-    ],
-    [
-     "Man City",
-     1,
-     1,
-     0,
-     0,
-     2,
-     0,
-     3,
-     ""
-    ],
-    [
      "Villarreal",
      2,
      1,
@@ -1979,28 +2023,6 @@ window.DATA = [
      1,
      5,
      4,
-     3,
-     ""
-    ],
-    [
-     "Aston Villa",
-     1,
-     1,
-     0,
-     0,
-     3,
-     2,
-     3,
-     ""
-    ],
-    [
-     "Real Betis",
-     1,
-     1,
-     0,
-     0,
-     3,
-     2,
      3,
      ""
     ],
@@ -2016,50 +2038,6 @@ window.DATA = [
      ""
     ],
     [
-     "Dortmund",
-     1,
-     1,
-     0,
-     0,
-     3,
-     2,
-     3,
-     ""
-    ],
-    [
-     "Liverpool",
-     1,
-     1,
-     0,
-     0,
-     2,
-     1,
-     3,
-     ""
-    ],
-    [
-     "Real Madrid",
-     1,
-     1,
-     0,
-     0,
-     2,
-     1,
-     3,
-     ""
-    ],
-    [
-     "PAE AEK",
-     1,
-     1,
-     0,
-     0,
-     1,
-     0,
-     3,
-     ""
-    ],
-    [
      "Club Brugge",
      2,
      1,
@@ -2071,6 +2049,28 @@ window.DATA = [
      ""
     ],
     [
+     "Man City",
+     2,
+     1,
+     0,
+     1,
+     4,
+     4,
+     3,
+     ""
+    ],
+    [
+     "Dortmund",
+     2,
+     1,
+     0,
+     1,
+     3,
+     3,
+     3,
+     ""
+    ],
+    [
      "RC Lens",
      2,
      1,
@@ -2078,6 +2078,17 @@ window.DATA = [
      1,
      3,
      4,
+     3,
+     ""
+    ],
+    [
+     "PAE AEK",
+     2,
+     1,
+     0,
+     1,
+     2,
+     3,
      3,
      ""
     ],
@@ -2104,35 +2115,35 @@ window.DATA = [
      ""
     ],
     [
+     "Feyenoord",
+     2,
+     1,
+     0,
+     1,
+     4,
+     7,
+     3,
+     ""
+    ],
+    [
+     "Bodø/Glimt",
+     2,
+     1,
+     0,
+     1,
+     1,
+     5,
+     3,
+     ""
+    ],
+    [
      "Roma",
-     1,
-     0,
-     1,
-     0,
-     1,
-     1,
-     1,
-     ""
-    ],
-    [
-     "Shaktar",
-     1,
-     0,
-     1,
+     2,
      0,
      1,
      1,
-     1,
-     ""
-    ],
-    [
-     "Fenerbahçe",
-     1,
-     0,
-     1,
-     0,
-     1,
-     1,
+     4,
+     5,
      1,
      ""
     ],
@@ -2159,14 +2170,14 @@ window.DATA = [
      ""
     ],
     [
-     "LASK",
-     1,
-     0,
-     0,
-     1,
+     "Fenerbahçe",
+     2,
      0,
      1,
-     0,
+     1,
+     1,
+     7,
+     1,
      ""
     ],
     [
@@ -2182,12 +2193,12 @@ window.DATA = [
     ],
     [
      "Porto",
-     1,
+     2,
      0,
-     0,
-     1,
      0,
      2,
+     2,
+     5,
      0,
      ""
     ],
@@ -2214,6 +2225,17 @@ window.DATA = [
      ""
     ],
     [
+     "LASK",
+     2,
+     0,
+     0,
+     2,
+     3,
+     7,
+     0,
+     ""
+    ],
+    [
      "Lille",
      2,
      0,
@@ -2221,17 +2243,6 @@ window.DATA = [
      2,
      2,
      6,
-     0,
-     ""
-    ],
-    [
-     "Feyenoord",
-     1,
-     0,
-     0,
-     1,
-     1,
-     5,
      0,
      ""
     ],
@@ -2248,23 +2259,12 @@ window.DATA = [
     ],
     [
      "Sl. Bratislava",
+     2,
+     0,
+     0,
+     2,
      1,
-     0,
-     0,
-     1,
-     1,
-     6,
-     0,
-     ""
-    ],
-    [
-     "Bodø/Glimt",
-     1,
-     0,
-     0,
-     1,
-     0,
-     5,
+     9,
      0,
      ""
     ]
@@ -2277,8 +2277,23 @@ window.DATA = [
     4
    ],
    [
+    "Erling Haaland",
+    "Man City",
+    4
+   ],
+   [
     "Ermedin Demirovic",
     "Stuttgart",
+    4
+   ],
+   [
+    "Nicolas Jackson",
+    "Aston Villa",
+    3
+   ],
+   [
+    "Ousmane Dembélé",
+    "PSG",
     3
    ],
    [
@@ -2292,8 +2307,13 @@ window.DATA = [
     3
    ],
    [
-    "Erling Haaland",
-    "Man City",
+    "Bradley Barcola",
+    "Liverpool",
+    3
+   ],
+   [
+    "Kylian Mbappé",
+    "Real Madrid",
     2
    ],
    [
@@ -2322,104 +2342,156 @@ window.DATA = [
     2
    ],
    [
-    "Ousmane Dembélé",
-    "PSG",
-    2
-   ],
-   [
     "Luis Suárez",
     "Sporting CP",
-    2
-   ],
-   [
-    "Michael Olise",
-    "Bayern",
-    2
-   ],
-   [
-    "Danijel Sturm",
-    "Slavia Praha",
-    2
-   ],
-   [
-    "Lautaro Martínez",
-    "Inter",
     2
    ]
   ],
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
-    "2026-10-14T16:45:00Z",
-    "LASK",
+    "2026-10-20T16:45:00Z",
+    "Sabah FK",
+    "Dortmund",
+    30.3,
+    23.3,
+    46.4
+   ],
+   [
+    "2026-10-20T16:45:00Z",
+    "Fenerbahçe",
+    "Slavia Praha",
+    28.4,
+    20.2,
+    51.5
+   ],
+   [
+    "2026-10-20T19:00:00Z",
+    "Man City",
+    "PAE AEK",
+    47.7,
+    22.1,
+    30.2
+   ],
+   [
+    "2026-10-20T19:00:00Z",
+    "Stuttgart",
+    "Atleti",
+    64.6,
+    19.4,
+    16
+   ],
+   [
+    "2026-10-20T19:00:00Z",
     "Liverpool",
-    13.5,
-    25.9,
-    60.6
+    "Villarreal",
+    58.7,
+    16,
+    25.3
    ],
    [
-    "2026-10-14T16:45:00Z",
-    "Feyenoord",
-    "Como 1907",
-    4.1,
-    6.4,
-    89.5
-   ],
-   [
-    "2026-10-14T19:00:00Z",
+    "2026-10-20T19:00:00Z",
     "Roma",
-    "Real Madrid",
+    "Sl. Bratislava",
+    75.6,
+    12.4,
+    12
+   ],
+   [
+    "2026-10-20T19:00:00Z",
+    "Porto",
+    "PSV",
     27.8,
     25.8,
     46.4
    ],
    [
-    "2026-10-14T19:00:00Z",
-    "Man City",
-    "PSG",
-    19,
-    16.1,
-    64.9
-   ],
-   [
-    "2026-10-14T19:00:00Z",
+    "2026-10-20T19:00:00Z",
+    "Napoli",
     "Bodø/Glimt",
-    "Dortmund",
-    5.6,
-    8.3,
-    86
+    46.8,
+    24.2,
+    29
    ],
    [
-    "2026-10-14T19:00:00Z",
-    "Aston Villa",
-    "Fenerbahçe",
-    53.5,
-    20.4,
-    26
+    "2026-10-20T19:00:00Z",
+    "PSG",
+    "Barça",
+    46.4,
+    16.3,
+    37.3
    ],
    [
-    "2026-10-14T19:00:00Z",
-    "Real Betis",
-    "Porto",
-    73.9,
-    14.9,
-    11.1
+    "2026-10-21T16:45:00Z",
+    "Como 1907",
+    "Man United",
+    43.7,
+    20.1,
+    36.2
    ],
    [
-    "2026-10-14T19:00:00Z",
+    "2026-10-21T16:45:00Z",
+    "Lille",
+    "Galatasaray",
+    49.1,
+    19.1,
+    31.9
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Real Madrid",
+    "RB Leipzig",
+    63.8,
+    17,
+    19.2
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Inter",
     "Shaktar",
-    "PAE AEK",
-    19.8,
-    34.6,
-    45.6
+    24.9,
+    18.8,
+    56.3
    ],
    [
-    "2026-10-14T19:00:00Z",
-    "Sl. Bratislava",
-    "Stuttgart",
-    4.1,
-    6.4,
-    89.5
+    "2026-10-21T19:00:00Z",
+    "Bayern",
+    "Arsenal",
+    48.5,
+    20.4,
+    31.1
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Club Brugge",
+    "RC Lens",
+    49.6,
+    18,
+    32.4
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Aston Villa",
+    "Viking",
+    81.4,
+    9.9,
+    8.7
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Sporting CP",
+    "LASK",
+    81,
+    11.3,
+    7.7
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Real Betis",
+    "Feyenoord",
+    67.1,
+    14.3,
+    18.7
    ]
   ],
   "cal": [],
@@ -2433,3 +2505,4 @@ window.DATA = [
  }
 ];
 window.CRESTS = {"Man City":"https://crests.football-data.org/65.png","Arsenal":"https://crests.football-data.org/57.png","Brighton Hove":"https://crests.football-data.org/397.png","Brentford":"https://crests.football-data.org/402.png","Everton":"https://crests.football-data.org/62.png","Chelsea":"https://crests.football-data.org/61.png","Leeds United":"https://crests.football-data.org/341.png","Hull City":"https://crests.football-data.org/322.png","Liverpool":"https://crests.football-data.org/64.png","Ipswich Town":"https://crests.football-data.org/349.png","Newcastle":"https://crests.football-data.org/67.png","Crystal Palace":"https://crests.football-data.org/354.png","Man United":"https://crests.football-data.org/66.png","Coventry City":"https://crests.football-data.org/1076.png","Nottingham":"https://crests.football-data.org/351.png","Aston Villa":"https://crests.football-data.org/58.png","Sunderland":"https://crests.football-data.org/71.png","Bournemouth":"https://crests.football-data.org/bournemouth.png","Tottenham":"https://crests.football-data.org/73.png","Fulham":"https://crests.football-data.org/63.png","Barça":"https://crests.football-data.org/81.png","Atleti":"https://crests.football-data.org/78.png","Real Betis":"https://crests.football-data.org/90.png","Real Madrid":"https://crests.football-data.org/86.png","Sevilla FC":"https://crests.football-data.org/559.png","Real Sociedad":"https://crests.football-data.org/92.png","Alavés":"https://crests.football-data.org/263.png","Deportivo":"https://crests.football-data.org/560.png","Celta":"https://crests.football-data.org/558.png","Athletic":"https://crests.football-data.org/77.png","Villarreal":"https://crests.football-data.org/94.png","Espanyol":"https://crests.football-data.org/80.png","Rayo Vallecano":"https://crests.football-data.org/87.png","Getafe":"https://crests.football-data.org/82.png","Santander":"https://crests.football-data.org/5335.png","Osasuna":"https://crests.football-data.org/79.png","Levante":"https://crests.football-data.org/88.png","Elche":"https://crests.football-data.org/285.png","Valencia":"https://crests.football-data.org/95.png","Málaga":"https://crests.football-data.org/84.png","Monaco":"https://crests.football-data.org/548.png","Lille":"https://crests.football-data.org/521.png","Stade Rennais":"https://crests.football-data.org/529.png","Olympique Lyon":"https://crests.football-data.org/523.png","Paris FC":"https://crests.football-data.org/1045.png","PSG":"https://crests.football-data.org/524.png","Brest":"https://crests.football-data.org/512.png","Lorient":"https://crests.football-data.org/525.png","Nice":"https://crests.football-data.org/522.png","RC Lens":"https://crests.football-data.org/546.png","Strasbourg":"https://crests.football-data.org/576.png","Angers SCO":"https://crests.football-data.org/532.png","Marseille":"https://crests.football-data.org/516.png","Le Mans":"https://crests.football-data.org/535.png","Toulouse":"https://crests.football-data.org/511.png","Auxerre":"https://crests.football-data.org/519.png","Troyes":"https://crests.football-data.org/531.png","Le Havre":"https://crests.football-data.org/533.png","Freiburg":"https://crests.football-data.org/17.png","Dortmund":"https://crests.football-data.org/4.png","Bayern":"https://crests.football-data.org/5.png","Leverkusen":"https://crests.football-data.org/3.png","RB Leipzig":"https://crests.football-data.org/721.png","Augsburg":"https://crests.football-data.org/16.png","Bremen":"https://crests.football-data.org/12.png","Mainz":"https://crests.football-data.org/15.png","Elversberg":"https://crests.football-data.org/719.png","1. FC Köln":"https://crests.football-data.org/1.png","Stuttgart":"https://crests.football-data.org/10.png","HSV":"https://crests.football-data.org/7.png","Schalke":"https://crests.football-data.org/6.png","Frankfurt":"https://crests.football-data.org/19.png","SC Paderborn":"https://crests.football-data.org/29.png","Union Berlin":"https://crests.football-data.org/28.png","Hoffenheim":"https://crests.football-data.org/2.png","M'gladbach":"https://crests.football-data.org/18.png","Inter":"https://crests.football-data.org/108.png","Lazio":"https://crests.football-data.org/110.png","Roma":"https://crests.football-data.org/100.png","Cagliari":"https://crests.football-data.org/104.png","Milan":"https://crests.football-data.org/98.png","Juventus":"https://crests.football-data.org/109.png","Como 1907":"https://crests.football-data.org/7397.png","Napoli":"https://crests.football-data.org/113.png","Frosinone":"https://crests.football-data.org/470.png","Atalanta":"https://crests.football-data.org/102.png","Sassuolo":"https://crests.football-data.org/471.png","Torino":"https://crests.football-data.org/586.png","Lecce":"https://crests.football-data.org/5890.png","Bologna":"https://crests.football-data.org/103.png","Udinese":"https://crests.football-data.org/115.png","Monza":"https://crests.football-data.org/5911.png","Genoa":"https://crests.football-data.org/107.png","Parma":"https://crests.football-data.org/112.png","Fiorentina":"https://crests.football-data.org/99.png","Venezia FC":"https://crests.football-data.org/454.png","Sporting CP":"https://crests.football-data.org/498.png","PAE AEK":"https://crests.football-data.org/1899.png","Club Brugge":"https://crests.football-data.org/851.png","Sabah FK":"https://crests.football-data.org/10233.png","Shaktar":"https://crests.football-data.org/1887.png","Fenerbahçe":"https://crests.football-data.org/613.png","PSV":"https://crests.football-data.org/674.png","Viking":"https://crests.football-data.org/5720.png","LASK":"https://crests.football-data.org/2016.png","Porto":"https://crests.football-data.org/503.png","Slavia Praha":"https://crests.football-data.org/930.png","Feyenoord":"https://crests.football-data.org/675.png","Galatasaray":"https://crests.football-data.org/610.png","Sl. Bratislava":"https://crests.football-data.org/7509.png","Bodø/Glimt":"https://crests.football-data.org/5721.png"};
+window.PHOTOS = {};
