@@ -1,339 +1,6 @@
 /* Generado por scripts/update.mjs (Argentina se edita a mano). */
 window.DATA = [
  {
-  "id": "arg",
-  "name": "Liga Argentina",
-  "pill": "Argentina",
-  "desc": "Torneo Clausura 2026, fase de grupos. Dos zonas de 15 equipos.",
-  "asof": "10/10/2026",
-  "groups": {
-   "Zona A": [
-    [
-     "Instituto",
-     12,
-     8,
-     2,
-     2,
-     19,
-     10,
-     26
-    ],
-    [
-     "Defensa y Justicia",
-     12,
-     7,
-     3,
-     2,
-     18,
-     11,
-     24
-    ],
-    [
-     "Boca Juniors",
-     12,
-     5,
-     6,
-     1,
-     19,
-     13,
-     21
-    ],
-    [
-     "Vélez",
-     11,
-     5,
-     6,
-     0,
-     17,
-     11,
-     21
-    ],
-    [
-     "Lanús",
-     11,
-     5,
-     2,
-     4,
-     13,
-     9,
-     17
-    ],
-    [
-     "Newell's",
-     11,
-     4,
-     5,
-     2,
-     11,
-     8,
-     17
-    ],
-    [
-     "Gimnasia (Mendoza)",
-     11,
-     5,
-     2,
-     4,
-     14,
-     12,
-     17
-    ],
-    [
-     "Independiente",
-     11,
-     5,
-     2,
-     4,
-     11,
-     12,
-     17
-    ],
-    [
-     "Estudiantes (La Plata)",
-     12,
-     4,
-     2,
-     6,
-     15,
-     13,
-     14
-    ],
-    [
-     "Unión",
-     12,
-     4,
-     1,
-     7,
-     17,
-     21,
-     13
-    ],
-    [
-     "Riestra",
-     11,
-     2,
-     5,
-     4,
-     9,
-     11,
-     11
-    ],
-    [
-     "San Lorenzo",
-     11,
-     3,
-     2,
-     6,
-     4,
-     11,
-     11
-    ],
-    [
-     "Platense",
-     11,
-     2,
-     4,
-     5,
-     11,
-     17,
-     10
-    ],
-    [
-     "Central Córdoba",
-     12,
-     2,
-     4,
-     6,
-     10,
-     16,
-     10
-    ],
-    [
-     "Talleres",
-     11,
-     2,
-     2,
-     7,
-     11,
-     18,
-     8
-    ]
-   ],
-   "Zona B": [
-    [
-     "Argentinos Juniors",
-     11,
-     6,
-     3,
-     2,
-     15,
-     10,
-     21
-    ],
-    [
-     "Belgrano",
-     11,
-     5,
-     4,
-     2,
-     12,
-     7,
-     19
-    ],
-    [
-     "Sarmiento (Junín)",
-     11,
-     6,
-     1,
-     4,
-     20,
-     17,
-     19
-    ],
-    [
-     "Rosario Central",
-     11,
-     5,
-     4,
-     2,
-     12,
-     9,
-     19
-    ],
-    [
-     "Huracán",
-     12,
-     5,
-     4,
-     3,
-     11,
-     10,
-     19
-    ],
-    [
-     "Gimnasia (La Plata)",
-     12,
-     5,
-     4,
-     3,
-     17,
-     17,
-     19
-    ],
-    [
-     "Independiente Rivadavia",
-     11,
-     5,
-     3,
-     3,
-     15,
-     14,
-     18
-    ],
-    [
-     "Barracas Central",
-     12,
-     5,
-     3,
-     4,
-     10,
-     9,
-     18
-    ],
-    [
-     "Atlético Tucumán",
-     12,
-     3,
-     5,
-     4,
-     10,
-     10,
-     14
-    ],
-    [
-     "River Plate",
-     10,
-     4,
-     1,
-     5,
-     13,
-     12,
-     13
-    ],
-    [
-     "Tigre",
-     11,
-     3,
-     3,
-     5,
-     10,
-     11,
-     12
-    ],
-    [
-     "Racing",
-     11,
-     3,
-     2,
-     6,
-     13,
-     17,
-     11
-    ],
-    [
-     "Banfield",
-     11,
-     2,
-     4,
-     5,
-     12,
-     17,
-     10
-    ],
-    [
-     "Aldosivi",
-     12,
-     2,
-     2,
-     8,
-     13,
-     20,
-     8
-    ],
-    [
-     "Estudiantes (Río Cuarto)",
-     11,
-     1,
-     3,
-     7,
-     6,
-     15,
-     6
-    ]
-   ]
-  },
-  "scorers": [
-   [
-    "Junior Marabel",
-    "Sarmiento (Junín)",
-    8
-   ],
-   [
-    "Agustín Módica",
-    "Gimnasia (Mendoza)",
-    8
-   ]
-  ],
-  "scNote": "La fuente solo informa a los dos máximos goleadores del Clausura.",
-  "fixtures": [],
-  "src": [
-   [
-    "Posiciones y goleadores: Wikipedia, 2026 AFA Liga Profesional",
-    "https://en.wikipedia.org/wiki/2026_AFA_Liga_Profesional_de_F%C3%BAtbol"
-   ]
-  ]
- },
- {
   "id": "epl",
   "name": "Premier League",
   "pill": "Inglaterra",
@@ -2683,6 +2350,78 @@ window.DATA = [
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
+    "2026-10-13T16:45:00Z",
+    "RC Lens",
+    "Sporting CP",
+    17.4,
+    19.3,
+    63.3
+   ],
+   [
+    "2026-10-13T16:45:00Z",
+    "Sabah FK",
+    "Slavia Praha",
+    47.7,
+    22.1,
+    30.2
+   ],
+   [
+    "2026-10-13T19:00:00Z",
+    "Inter",
+    "Club Brugge",
+    37.5,
+    17.1,
+    45.5
+   ],
+   [
+    "2026-10-13T19:00:00Z",
+    "Galatasaray",
+    "Barça",
+    5.6,
+    8.3,
+    86
+   ],
+   [
+    "2026-10-13T19:00:00Z",
+    "Atleti",
+    "Man United",
+    34.8,
+    24.8,
+    40.4
+   ],
+   [
+    "2026-10-13T19:00:00Z",
+    "Arsenal",
+    "Lille",
+    84.1,
+    11.4,
+    4.5
+   ],
+   [
+    "2026-10-13T19:00:00Z",
+    "Viking",
+    "Bayern",
+    18.3,
+    14.4,
+    67.3
+   ],
+   [
+    "2026-10-13T19:00:00Z",
+    "RB Leipzig",
+    "PSV",
+    32.4,
+    27.9,
+    39.7
+   ],
+   [
+    "2026-10-13T19:00:00Z",
+    "Villarreal",
+    "Napoli",
+    64.2,
+    18.1,
+    17.8
+   ],
+   [
     "2026-10-14T16:45:00Z",
     "LASK",
     "Liverpool",
@@ -2763,484 +2502,6 @@ window.DATA = [
    ]
   ],
   "probSrc": "un modelo de Poisson propio basado en los goles de la temporada"
- },
- {
-  "id": "uel",
-  "name": "Europa League",
-  "pill": "Europa League",
-  "cup": true,
-  "desc": "Temporada 2026-27, fase de liga. Se jugó la jornada 1 de 8. 36 equipos.",
-  "asof": "17/09/2026",
-  "groups": {
-   "Fase de liga": [
-    [
-     "Juventus",
-     1,
-     1,
-     0,
-     0,
-     5,
-     0,
-     3
-    ],
-    [
-     "Crystal Palace",
-     1,
-     1,
-     0,
-     0,
-     4,
-     0,
-     3
-    ],
-    [
-     "Sparta Prague",
-     1,
-     1,
-     0,
-     0,
-     4,
-     1,
-     3
-    ],
-    [
-     "Beşiktaş",
-     1,
-     1,
-     0,
-     0,
-     4,
-     1,
-     3
-    ],
-    [
-     "Union Saint-Gilloise",
-     1,
-     1,
-     0,
-     0,
-     3,
-     0,
-     3
-    ],
-    [
-     "Ferencváros",
-     1,
-     1,
-     0,
-     0,
-     3,
-     1,
-     3
-    ],
-    [
-     "Benfica",
-     1,
-     1,
-     0,
-     0,
-     2,
-     0,
-     3
-    ],
-    [
-     "Leverkusen",
-     1,
-     1,
-     0,
-     0,
-     2,
-     0,
-     3
-    ],
-    [
-     "OFI",
-     1,
-     1,
-     0,
-     0,
-     2,
-     0,
-     3
-    ],
-    [
-     "Bournemouth",
-     1,
-     1,
-     0,
-     0,
-     2,
-     1,
-     3
-    ],
-    [
-     "Lyon",
-     1,
-     1,
-     0,
-     0,
-     2,
-     1,
-     3
-    ],
-    [
-     "Torreense",
-     1,
-     1,
-     0,
-     0,
-     2,
-     1,
-     3
-    ],
-    [
-     "Olympiacos",
-     1,
-     1,
-     0,
-     0,
-     2,
-     1,
-     3
-    ],
-    [
-     "Red Bull Salzburg",
-     1,
-     1,
-     0,
-     0,
-     1,
-     0,
-     3
-    ],
-    [
-     "Omonia",
-     1,
-     1,
-     0,
-     0,
-     1,
-     0,
-     3
-    ],
-    [
-     "Sunderland",
-     1,
-     1,
-     0,
-     0,
-     1,
-     0,
-     3
-    ],
-    [
-     "Dinamo Zagreb",
-     1,
-     0,
-     1,
-     0,
-     0,
-     0,
-     1
-    ],
-    [
-     "Hapoel Be'er Sheva",
-     1,
-     0,
-     1,
-     0,
-     0,
-     0,
-     1
-    ],
-    [
-     "Rennes",
-     1,
-     0,
-     1,
-     0,
-     0,
-     0,
-     1
-    ],
-    [
-     "Sturm Graz",
-     1,
-     0,
-     1,
-     0,
-     0,
-     0,
-     1
-    ],
-    [
-     "Jagiellonia Białystok",
-     1,
-     0,
-     0,
-     1,
-     1,
-     2,
-     0
-    ],
-    [
-     "Anderlecht",
-     1,
-     0,
-     0,
-     1,
-     1,
-     2,
-     0
-    ],
-    [
-     "Lillestrøm",
-     1,
-     0,
-     0,
-     1,
-     1,
-     2,
-     0
-    ],
-    [
-     "Real Sociedad",
-     1,
-     0,
-     0,
-     1,
-     1,
-     2,
-     0
-    ],
-    [
-     "AZ",
-     1,
-     0,
-     0,
-     1,
-     0,
-     1,
-     0
-    ],
-    [
-     "Celta Vigo",
-     1,
-     0,
-     0,
-     1,
-     0,
-     1,
-     0
-    ],
-    [
-     "Levski Sofia",
-     1,
-     0,
-     0,
-     1,
-     0,
-     1,
-     0
-    ],
-    [
-     "Celtic",
-     1,
-     0,
-     0,
-     1,
-     1,
-     3,
-     0
-    ],
-    [
-     "Celje",
-     1,
-     0,
-     0,
-     1,
-     0,
-     2,
-     0
-    ],
-    [
-     "Milan",
-     1,
-     0,
-     0,
-     1,
-     0,
-     2,
-     0
-    ],
-    [
-     "Hoffenheim",
-     1,
-     0,
-     0,
-     1,
-     0,
-     2,
-     0
-    ],
-    [
-     "Marseille",
-     1,
-     0,
-     0,
-     1,
-     1,
-     4,
-     0
-    ],
-    [
-     "Ararat-Armenia",
-     1,
-     0,
-     0,
-     1,
-     1,
-     4,
-     0
-    ],
-    [
-     "Viktoria Plzeň",
-     1,
-     0,
-     0,
-     1,
-     0,
-     3,
-     0
-    ],
-    [
-     "Lech Poznań",
-     1,
-     0,
-     0,
-     1,
-     0,
-     4,
-     0
-    ],
-    [
-     "NEC",
-     1,
-     0,
-     0,
-     1,
-     0,
-     5,
-     0
-    ]
-   ]
-  },
-  "scorers": [
-   [
-    "Tobias Guddal",
-    "Sparta Prague",
-    2
-   ]
-  ],
-  "scNote": "La fuente solo nombra a Tobias Guddal. Otros 17 jugadores tienen 1 gol, pero no figuran por nombre.",
-  "fixtures": [],
-  "cal": [
-   [
-    "2026-10-15",
-    "Sparta Prague",
-    "Lillestrøm"
-   ],
-   [
-    "2026-10-15",
-    "AZ",
-    "Hapoel Be'er Sheva"
-   ],
-   [
-    "2026-10-15",
-    "Red Bull Salzburg",
-    "Milan"
-   ],
-   [
-    "2026-10-15",
-    "Lech Poznań",
-    "Leverkusen"
-   ],
-   [
-    "2026-10-15",
-    "Celje",
-    "Omonia"
-   ],
-   [
-    "2026-10-15",
-    "Lyon",
-    "Crystal Palace"
-   ],
-   [
-    "2026-10-15",
-    "Union Saint-Gilloise",
-    "Real Sociedad"
-   ],
-   [
-    "2026-10-15",
-    "Torreense",
-    "Sunderland"
-   ],
-   [
-    "2026-10-15",
-    "Bournemouth",
-    "Sturm Graz"
-   ],
-   [
-    "2026-10-15",
-    "Ferencváros",
-    "Viktoria Plzeň"
-   ],
-   [
-    "2026-10-15",
-    "Dinamo Zagreb",
-    "Anderlecht"
-   ],
-   [
-    "2026-10-15",
-    "Jagiellonia Białystok",
-    "Ararat-Armenia"
-   ],
-   [
-    "2026-10-15",
-    "NEC",
-    "Levski Sofia"
-   ],
-   [
-    "2026-10-15",
-    "Marseille",
-    "Olympiacos"
-   ],
-   [
-    "2026-10-15",
-    "Celta Vigo",
-    "Juventus"
-   ],
-   [
-    "2026-10-15",
-    "Benfica",
-    "Celtic"
-   ],
-   [
-    "2026-10-15",
-    "Rennes",
-    "OFI"
-   ],
-   [
-    "2026-10-15",
-    "Hoffenheim",
-    "Beşiktaş"
-   ]
-  ],
-  "src": [
-   [
-    "Tabla y calendario: Wikipedia, 2026–27 UEFA Europa League",
-    "https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Europa_League"
-   ]
-  ]
  }
 ];
+window.CRESTS = {"Man City":"https://crests.football-data.org/65.png","Arsenal":"https://crests.football-data.org/57.png","Brighton Hove":"https://crests.football-data.org/397.png","Brentford":"https://crests.football-data.org/402.png","Everton":"https://crests.football-data.org/62.png","Chelsea":"https://crests.football-data.org/61.png","Leeds United":"https://crests.football-data.org/341.png","Hull City":"https://crests.football-data.org/322.png","Liverpool":"https://crests.football-data.org/64.png","Ipswich Town":"https://crests.football-data.org/349.png","Newcastle":"https://crests.football-data.org/67.png","Crystal Palace":"https://crests.football-data.org/354.png","Man United":"https://crests.football-data.org/66.png","Coventry City":"https://crests.football-data.org/1076.png","Nottingham":"https://crests.football-data.org/351.png","Aston Villa":"https://crests.football-data.org/58.png","Sunderland":"https://crests.football-data.org/71.png","Bournemouth":"https://crests.football-data.org/bournemouth.png","Tottenham":"https://crests.football-data.org/73.png","Fulham":"https://crests.football-data.org/63.png","Barça":"https://crests.football-data.org/81.png","Atleti":"https://crests.football-data.org/78.png","Real Betis":"https://crests.football-data.org/90.png","Real Madrid":"https://crests.football-data.org/86.png","Sevilla FC":"https://crests.football-data.org/559.png","Real Sociedad":"https://crests.football-data.org/92.png","Alavés":"https://crests.football-data.org/263.png","Deportivo":"https://crests.football-data.org/560.png","Celta":"https://crests.football-data.org/558.png","Athletic":"https://crests.football-data.org/77.png","Villarreal":"https://crests.football-data.org/94.png","Espanyol":"https://crests.football-data.org/80.png","Rayo Vallecano":"https://crests.football-data.org/87.png","Getafe":"https://crests.football-data.org/82.png","Santander":"https://crests.football-data.org/5335.png","Osasuna":"https://crests.football-data.org/79.png","Levante":"https://crests.football-data.org/88.png","Elche":"https://crests.football-data.org/285.png","Valencia":"https://crests.football-data.org/95.png","Málaga":"https://crests.football-data.org/84.png","Monaco":"https://crests.football-data.org/548.png","Lille":"https://crests.football-data.org/521.png","Stade Rennais":"https://crests.football-data.org/529.png","Olympique Lyon":"https://crests.football-data.org/523.png","Paris FC":"https://crests.football-data.org/1045.png","PSG":"https://crests.football-data.org/524.png","Brest":"https://crests.football-data.org/512.png","Lorient":"https://crests.football-data.org/525.png","Nice":"https://crests.football-data.org/522.png","RC Lens":"https://crests.football-data.org/546.png","Strasbourg":"https://crests.football-data.org/576.png","Angers SCO":"https://crests.football-data.org/532.png","Marseille":"https://crests.football-data.org/516.png","Le Mans":"https://crests.football-data.org/535.png","Toulouse":"https://crests.football-data.org/511.png","Auxerre":"https://crests.football-data.org/519.png","Troyes":"https://crests.football-data.org/531.png","Le Havre":"https://crests.football-data.org/533.png","Freiburg":"https://crests.football-data.org/17.png","Dortmund":"https://crests.football-data.org/4.png","Bayern":"https://crests.football-data.org/5.png","Leverkusen":"https://crests.football-data.org/3.png","RB Leipzig":"https://crests.football-data.org/721.png","Augsburg":"https://crests.football-data.org/16.png","Bremen":"https://crests.football-data.org/12.png","Mainz":"https://crests.football-data.org/15.png","Elversberg":"https://crests.football-data.org/719.png","1. FC Köln":"https://crests.football-data.org/1.png","Stuttgart":"https://crests.football-data.org/10.png","HSV":"https://crests.football-data.org/7.png","Schalke":"https://crests.football-data.org/6.png","Frankfurt":"https://crests.football-data.org/19.png","SC Paderborn":"https://crests.football-data.org/29.png","Union Berlin":"https://crests.football-data.org/28.png","Hoffenheim":"https://crests.football-data.org/2.png","M'gladbach":"https://crests.football-data.org/18.png","Inter":"https://crests.football-data.org/108.png","Lazio":"https://crests.football-data.org/110.png","Roma":"https://crests.football-data.org/100.png","Cagliari":"https://crests.football-data.org/104.png","Milan":"https://crests.football-data.org/98.png","Juventus":"https://crests.football-data.org/109.png","Como 1907":"https://crests.football-data.org/7397.png","Napoli":"https://crests.football-data.org/113.png","Frosinone":"https://crests.football-data.org/470.png","Atalanta":"https://crests.football-data.org/102.png","Sassuolo":"https://crests.football-data.org/471.png","Torino":"https://crests.football-data.org/586.png","Lecce":"https://crests.football-data.org/5890.png","Bologna":"https://crests.football-data.org/103.png","Udinese":"https://crests.football-data.org/115.png","Monza":"https://crests.football-data.org/5911.png","Genoa":"https://crests.football-data.org/107.png","Parma":"https://crests.football-data.org/112.png","Fiorentina":"https://crests.football-data.org/99.png","Venezia FC":"https://crests.football-data.org/454.png","Sporting CP":"https://crests.football-data.org/498.png","PAE AEK":"https://crests.football-data.org/1899.png","Club Brugge":"https://crests.football-data.org/851.png","Sabah FK":"https://crests.football-data.org/10233.png","Shaktar":"https://crests.football-data.org/1887.png","Fenerbahçe":"https://crests.football-data.org/613.png","PSV":"https://crests.football-data.org/674.png","Viking":"https://crests.football-data.org/5720.png","LASK":"https://crests.football-data.org/2016.png","Porto":"https://crests.football-data.org/503.png","Slavia Praha":"https://crests.football-data.org/930.png","Feyenoord":"https://crests.football-data.org/675.png","Galatasaray":"https://crests.football-data.org/610.png","Sl. Bratislava":"https://crests.football-data.org/7509.png","Bodø/Glimt":"https://crests.football-data.org/5721.png"};
