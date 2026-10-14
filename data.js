@@ -5,7 +5,7 @@ window.DATA = [
   "name": "Premier League",
   "pill": "Inglaterra",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "13/10/2026",
+  "asof": "14/10/2026",
   "groups": {
    "Liga": [
     [
@@ -404,7 +404,7 @@ window.DATA = [
   "name": "LaLiga",
   "pill": "España",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "13/10/2026",
+  "asof": "14/10/2026",
   "groups": {
    "Liga": [
     [
@@ -731,7 +731,7 @@ window.DATA = [
   "name": "Ligue 1",
   "pill": "Francia",
   "desc": "Temporada 2026-27. 18 equipos.",
-  "asof": "13/10/2026",
+  "asof": "14/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1100,7 +1100,7 @@ window.DATA = [
   "name": "Bundesliga",
   "pill": "Alemania",
   "desc": "Temporada 2026-27. 18 equipos, 5 fechas jugadas.",
-  "asof": "13/10/2026",
+  "asof": "14/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1469,7 +1469,7 @@ window.DATA = [
   "name": "Serie A",
   "pill": "Italia",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "13/10/2026",
+  "asof": "14/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1869,7 +1869,7 @@ window.DATA = [
   "pill": "Champions",
   "cup": true,
   "desc": "Temporada 2026-27, fase de liga. Jornada 2 de 8 en juego: la mitad de los equipos ya la jugó y el resto juega el 14/10. 36 equipos.",
-  "asof": "13/10/2026",
+  "asof": "14/10/2026",
   "groups": {
    "Fase de liga": [
     [
@@ -2349,78 +2349,6 @@ window.DATA = [
   ],
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
-   [
-    "2026-10-13T16:45:00Z",
-    "RC Lens",
-    "Sporting CP",
-    17.4,
-    19.3,
-    63.3
-   ],
-   [
-    "2026-10-13T16:45:00Z",
-    "Sabah FK",
-    "Slavia Praha",
-    47.7,
-    22.1,
-    30.2
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Inter",
-    "Club Brugge",
-    37.5,
-    17.1,
-    45.5
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Galatasaray",
-    "Barça",
-    5.6,
-    8.3,
-    86
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Atleti",
-    "Man United",
-    34.8,
-    24.8,
-    40.4
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Arsenal",
-    "Lille",
-    84.1,
-    11.4,
-    4.5
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Viking",
-    "Bayern",
-    18.3,
-    14.4,
-    67.3
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "RB Leipzig",
-    "PSV",
-    32.4,
-    27.9,
-    39.7
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Villarreal",
-    "Napoli",
-    64.2,
-    18.1,
-    17.8
-   ],
    [
     "2026-10-14T16:45:00Z",
     "LASK",
