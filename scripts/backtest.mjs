@@ -180,4 +180,3 @@ function report(parts, detail, fuente){
   fs.writeFileSync(new URL('../backtest.json',import.meta.url), JSON.stringify({generado:new Date().toISOString(),fuente,total,detalle:detail},null,1));
 }
 if (process.argv[1]===fileURLToPath(import.meta.url)) main();
-
