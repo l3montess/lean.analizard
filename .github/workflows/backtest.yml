@@ -11,10 +11,11 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - name: Bajar historial (football-data.co.uk, sin clave)
-        run: node scripts/history.mjs
+        run: node scripts/history.mjs --force
       - name: Probar modelos contra partidos ya jugados
         run: node scripts/backtest.mjs
       - run: |
           git config user.name "datos-bot"; git config user.email "bot@users.noreply.github.com"
           git add history.json backtest.json
           git diff --cached --quiet || (git commit -m "Historial y resultados de la prueba" && git pull --rebase && git push)
+
