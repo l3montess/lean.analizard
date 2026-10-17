@@ -54,15 +54,38 @@ export function modelMarket(st,h,a,m){
   let o25=0.5; if(m.ou){ const ov=1/m.ou[0], un=1/m.ou[1]; o25=ov/(ov+un); }
   return { p:inv.map(x=>x/t), o25 };
 }
-const MODELS = { A:(st,h,a)=>modelA(st,h,a), B:(st,h,a)=>modelB(st,h,a), C:(st,h,a)=>modelElo(st,h,a), mercado:modelMarket };
+
+// Modelo X: como B, pero la fuerza de cada equipo mezcla los goles reales con un "xG casero" sacado de los remates
+// (30 % por remate al arco y 4 % por remate afuera, reescalado para que el total coincida con los goles de la liga).
+// Los goles tienen mucha suerte; los remates son más estables.
+const xgp=(shots,sot)=>0.30*sot+0.04*Math.max(0,shots-sot);
+export function modelX(st,h,a,k=6){
+  const mh = st.n>=20 ? st.hg/st.n : 1.5, ma = st.n>=20 ? st.ag/st.n : 1.2, avg=(mh+ma)/2;
+  const sc = st.xg && st.xg.den>0 ? st.xg.goals/st.xg.den : 1;
+  const str=t=>{ const T=st.t[t]; const gf=.5*T.gf+.5*T.xf*sc, ga=.5*T.ga+.5*T.xa*sc;
+    return { att:((gf+k*avg)/(T.n+k))/avg, def:((ga+k*avg)/(T.n+k))/avg }; };
+  const H=str(h), A=str(a);
+  return grid(mh*H.att*A.def, ma*A.att*H.def);
+}
+// Modelo D: promedio de X (goles + remates) y Elo. Modelo E: D con las probabilidades "estiradas o achicadas"
+// según lo que se vio en los partidos anteriores (temperatura T; T>1 afina a los favoritos, T<1 los modera).
+const blend=(a,b,w=.5)=>{ const p=a.p.map((x,i)=>w*x+(1-w)*b.p[i]); return { p, o25:a.o25 }; };
+export const temper=(pr,T)=>{ const q=pr.p.map(x=>Math.max(1e-9,x)**T), t=q.reduce((x,y)=>x+y,0); return { p:q.map(x=>x/t), o25:pr.o25 }; };
+export function fitT(hist){
+  let best=1, bl=Infinity;
+  for(let T=0.6;T<=1.8001;T+=0.05){ let l=0; for(const [p,y] of hist){ const q=p.map(x=>Math.max(1e-9,x)**T), t=q[0]+q[1]+q[2]; l-=Math.log(q[y]/t); } if(l<bl){bl=l;best=T;} }
+  return best;
+}
+const MODELS = { X:(st,h,a)=>modelX(st,h,a), A:(st,h,a)=>modelA(st,h,a), B:(st,h,a)=>modelB(st,h,a), C:(st,h,a)=>modelElo(st,h,a), mercado:modelMarket };
 
 function outcome(m){ return m.hg>m.ag?0:m.hg===m.ag?1:2; }
 
 export function evaluate(matches, ctx={}){
   matches=[...matches].filter(m=>m.hg!=null).sort((x,y)=>x.date<y.date?-1:1);
   const st={ n:0,hg:0,ag:0,t:{},elo:ctx.elo||{} };
-  const tt=id=>st.t[id]||(st.t[id]={n:0,gf:0,ga:0});
-  const acc={}; const names=[...Object.keys(MODELS),'base'];
+  const tt=id=>st.t[id]||(st.t[id]={n:0,gf:0,ga:0,xf:0,xa:0});
+  const acc={}; const names=[...Object.keys(MODELS),'D','E','base'];
+  const cal=ctx.cal||(ctx.cal={ hist:[], T:1 });
   names.forEach(k=>acc[k]={n:0,hit:0,brier:0,ll:0,o25:0,bins:Array.from({length:10},()=>({n:0,pred:0,real:0}))});
   let base=[1/3,1/3,1/3];
   for(const m of matches){
@@ -71,6 +94,8 @@ export function evaluate(matches, ctx={}){
       const y=outcome(m), over=(m.hg+m.ag)>=3?1:0;
       const preds={ base:{p:base,o25:0.5}};
       for(const [k,f] of Object.entries(MODELS)) preds[k]=f(st,m.h,m.a,m);
+      preds.D=blend(preds.X,preds.C); preds.E=temper(preds.D,cal.T);
+      cal.hist.push([preds.D.p,y]); if(cal.hist.length>=200 && cal.hist.length%100===0) cal.T=fitT(cal.hist);
       const comparable = !ctx.needOdds || m.odds;                  // con historial: todos se miden en los mismos partidos (los que tienen cuotas)
       for(const k of (comparable?names:[])){
         if(!preds[k]) continue;                                   // p. ej. 'mercado' sin cuotas
@@ -84,6 +109,10 @@ export function evaluate(matches, ctx={}){
     }
     // actualizar historial DESPUÉS de predecir
     eloUpdate(st,m);
+    { const hasS=m.hs!=null&&m.hst!=null&&m.as!=null&&m.ast!=null, sc=st.xg&&st.xg.den>0?st.xg.goals/st.xg.den:1;
+      const xh=hasS?xgp(m.hs,m.hst):m.hg/sc, xa=hasS?xgp(m.as,m.ast):m.ag/sc;
+      H.xf=(H.xf||0)+xh; H.xa=(H.xa||0)+xa; A.xf=(A.xf||0)+xa; A.xa=(A.xa||0)+xh;
+      if(hasS){ const g=st.xg||(st.xg={goals:0,den:0}); g.goals+=m.hg+m.ag; g.den+=xh+xa; } }
     H.n++; H.gf+=m.hg; H.ga+=m.ag; A.n++; A.gf+=m.ag; A.ga+=m.hg; st.n++; st.hg+=m.hg; st.ag+=m.ag;
     const y=outcome(m); const c=st.cnt||(st.cnt=[0,0,0]); c[y]++; if(st.n>=30) base=c.map(v=>v/st.n);   // línea base: frecuencia histórica de 1/X/2
   }
@@ -108,11 +137,11 @@ export function summarize(acc){
 // Con history.json (football-data.co.uk): varias temporadas, sin límite de pedidos y con cuotas del mercado.
 function fromHistory(file){
   const H=JSON.parse(fs.readFileSync(file,'utf8')), parts=[], detail={}, byL={};
-  for(const r of H.partidos){ const [lg,se,date,h,a,hg,ag,o1,o2,o3,u1,u2]=r;
-    const m={h,a,date,hg,ag}; if(o1) m.odds=[o1,o2,o3]; if(u1) m.ou=[u1,u2];
+  for(const r of H.partidos){ const [lg,se,date,h,a,hg,ag,o1,o2,o3,u1,u2,hs,as_,hst,ast]=r;
+    const m={h,a,date,hg,ag,hs,as:as_,hst,ast}; if(o1) m.odds=[o1,o2,o3]; if(u1) m.ou=[u1,u2];
     ((byL[lg]=byL[lg]||{})[se]=byL[lg][se]||[]).push(m); }
   for(const [lg,seasons] of Object.entries(byL)){
-    const ctx={ elo:{}, needOdds:true };
+    const ctx={ elo:{}, needOdds:true, cal:{ hist:[], T:1 } };
     for(const se of Object.keys(seasons).sort()){
       for(const t of Object.keys(ctx.elo)) ctx.elo[t]=1500+0.75*(ctx.elo[t]-1500);   // al empezar cada temporada, vuelven un poco al promedio
       const acc=evaluate(seasons[se],ctx); parts.push(acc); detail[`${lg}-${se}`]=summarize(acc);
@@ -151,3 +180,4 @@ function report(parts, detail, fuente){
   fs.writeFileSync(new URL('../backtest.json',import.meta.url), JSON.stringify({generado:new Date().toISOString(),fuente,total,detalle:detail},null,1));
 }
 if (process.argv[1]===fileURLToPath(import.meta.url)) main();
+
