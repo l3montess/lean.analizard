@@ -5,7 +5,7 @@ window.DATA = [
   "name": "Premier League",
   "pill": "Inglaterra",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "16/10/2026",
+  "asof": "17/10/2026",
   "groups": {
    "Liga": [
     [
@@ -42,6 +42,28 @@ window.DATA = [
      ""
     ],
     [
+     "Everton",
+     7,
+     2,
+     5,
+     0,
+     8,
+     5,
+     11,
+     ""
+    ],
+    [
+     "Chelsea",
+     7,
+     3,
+     2,
+     2,
+     15,
+     13,
+     11,
+     ""
+    ],
+    [
      "Brentford",
      6,
      2,
@@ -49,28 +71,6 @@ window.DATA = [
      0,
      12,
      6,
-     10,
-     ""
-    ],
-    [
-     "Everton",
-     6,
-     2,
-     4,
-     0,
-     8,
-     5,
-     10,
-     ""
-    ],
-    [
-     "Chelsea",
-     6,
-     3,
-     1,
-     2,
-     15,
-     13,
      10,
      ""
     ],
@@ -325,14 +325,6 @@ window.DATA = [
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
-    "2026-10-17T11:30:00Z",
-    "Everton",
-    "Chelsea",
-    44.3,
-    21.8,
-    33.9
-   ],
-   [
     "2026-10-17T14:00:00Z",
     "Fulham",
     "Hull City",
@@ -419,7 +411,7 @@ window.DATA = [
   "name": "LaLiga",
   "pill": "España",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "16/10/2026",
+  "asof": "17/10/2026",
   "groups": {
    "Liga": [
     [
@@ -761,7 +753,7 @@ window.DATA = [
   "name": "Ligue 1",
   "pill": "Francia",
   "desc": "Temporada 2026-27. 18 equipos.",
-  "asof": "16/10/2026",
+  "asof": "17/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1137,7 +1129,7 @@ window.DATA = [
   "name": "Bundesliga",
   "pill": "Alemania",
   "desc": "Temporada 2026-27. 18 equipos, 5 fechas jugadas.",
-  "asof": "16/10/2026",
+  "asof": "17/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1513,7 +1505,7 @@ window.DATA = [
   "name": "Serie A",
   "pill": "Italia",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "16/10/2026",
+  "asof": "17/10/2026",
   "groups": {
    "Liga": [
     [
@@ -1920,7 +1912,7 @@ window.DATA = [
   "pill": "Champions",
   "cup": true,
   "desc": "Temporada 2026-27, fase de liga. Jornada 2 de 8 en juego: la mitad de los equipos ya la jugó y el resto juega el 14/10. 36 equipos.",
-  "asof": "16/10/2026",
+  "asof": "17/10/2026",
   "groups": {
    "Fase de liga": [
     [
@@ -2416,148 +2408,148 @@ window.DATA = [
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
-    "2026-10-13T16:45:00Z",
-    "RC Lens",
-    "Sporting CP",
-    17.4,
-    19.3,
-    63.3
+    "2026-10-20T16:45:00Z",
+    "Sabah FK",
+    "Dortmund",
+    30.3,
+    23.3,
+    46.4
    ],
    [
-    "2026-10-13T16:45:00Z",
-    "Sabah FK",
+    "2026-10-20T16:45:00Z",
+    "Fenerbahçe",
     "Slavia Praha",
+    28.4,
+    20.2,
+    51.5
+   ],
+   [
+    "2026-10-20T19:00:00Z",
+    "Man City",
+    "PAE AEK",
     47.7,
     22.1,
     30.2
    ],
    [
-    "2026-10-13T19:00:00Z",
-    "Inter",
-    "Club Brugge",
-    37.5,
-    17.1,
-    45.5
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Galatasaray",
-    "Barça",
-    5.6,
-    8.3,
-    86
-   ],
-   [
-    "2026-10-13T19:00:00Z",
+    "2026-10-20T19:00:00Z",
+    "Stuttgart",
     "Atleti",
-    "Man United",
-    34.8,
-    24.8,
-    40.4
+    64.6,
+    19.4,
+    16
    ],
    [
-    "2026-10-13T19:00:00Z",
-    "Arsenal",
-    "Lille",
-    84.1,
-    11.4,
-    4.5
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Viking",
-    "Bayern",
-    18.3,
-    14.4,
-    67.3
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "RB Leipzig",
-    "PSV",
-    32.4,
-    27.9,
-    39.7
-   ],
-   [
-    "2026-10-13T19:00:00Z",
-    "Villarreal",
-    "Napoli",
-    64.2,
-    18.1,
-    17.8
-   ],
-   [
-    "2026-10-14T16:45:00Z",
-    "LASK",
+    "2026-10-20T19:00:00Z",
     "Liverpool",
-    16.1,
-    13.3,
-    70.6
+    "Villarreal",
+    58.7,
+    16,
+    25.3
    ],
    [
-    "2026-10-14T16:45:00Z",
-    "Feyenoord",
-    "Como 1907",
-    25.1,
-    16.1,
-    58.8
-   ],
-   [
-    "2026-10-14T19:00:00Z",
+    "2026-10-20T19:00:00Z",
     "Roma",
-    "Real Madrid",
-    31.5,
-    18,
-    50.5
+    "Sl. Bratislava",
+    75.6,
+    12.4,
+    12
    ],
    [
-    "2026-10-14T19:00:00Z",
-    "Man City",
-    "PSG",
-    18.3,
-    14.4,
-    67.3
-   ],
-   [
-    "2026-10-14T19:00:00Z",
-    "Bodø/Glimt",
-    "Dortmund",
-    20.4,
-    21.4,
-    58.2
-   ],
-   [
-    "2026-10-14T19:00:00Z",
-    "Aston Villa",
-    "Fenerbahçe",
-    92.7,
-    5,
-    2.3
-   ],
-   [
-    "2026-10-14T19:00:00Z",
-    "Real Betis",
+    "2026-10-20T19:00:00Z",
     "Porto",
-    68.2,
-    15.4,
-    16.4
+    "PSV",
+    27.8,
+    25.8,
+    46.4
    ],
    [
-    "2026-10-14T19:00:00Z",
-    "Shaktar",
-    "PAE AEK",
-    58.9,
-    21.9,
+    "2026-10-20T19:00:00Z",
+    "Napoli",
+    "Bodø/Glimt",
+    46.8,
+    24.2,
+    29
+   ],
+   [
+    "2026-10-20T19:00:00Z",
+    "PSG",
+    "Barça",
+    46.4,
+    16.3,
+    37.3
+   ],
+   [
+    "2026-10-21T16:45:00Z",
+    "Como 1907",
+    "Man United",
+    43.7,
+    20.1,
+    36.2
+   ],
+   [
+    "2026-10-21T16:45:00Z",
+    "Lille",
+    "Galatasaray",
+    49.1,
+    19.1,
+    31.9
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Real Madrid",
+    "RB Leipzig",
+    63.8,
+    17,
     19.2
    ],
    [
-    "2026-10-14T19:00:00Z",
-    "Sl. Bratislava",
-    "Stuttgart",
-    2.3,
-    6.1,
-    91.6
+    "2026-10-21T19:00:00Z",
+    "Inter",
+    "Shaktar",
+    24.9,
+    18.8,
+    56.3
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Bayern",
+    "Arsenal",
+    48.5,
+    20.4,
+    31.1
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Club Brugge",
+    "RC Lens",
+    49.6,
+    18,
+    32.4
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Aston Villa",
+    "Viking",
+    81.4,
+    9.9,
+    8.7
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Sporting CP",
+    "LASK",
+    81,
+    11.3,
+    7.7
+   ],
+   [
+    "2026-10-21T19:00:00Z",
+    "Real Betis",
+    "Feyenoord",
+    67.1,
+    14.3,
+    18.7
    ]
   ],
   "cal": [],
