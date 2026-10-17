@@ -1,7 +1,56 @@
 {
- "generado": "2026-10-17T20:28:48.204Z",
+ "generado": "2026-10-17T20:33:37.722Z",
  "fuente": "football-data.co.uk",
  "total": {
+  "X": {
+   "partidos": 6169,
+   "aciertos": 52.5,
+   "brier": 0.5961,
+   "logloss": 0.9989,
+   "brier_mas25": 0.2446,
+   "calibracion_local": [
+    {
+     "predicho": 17,
+     "real": 13,
+     "n": 223
+    },
+    {
+     "predicho": 26,
+     "real": 22,
+     "n": 795
+    },
+    {
+     "predicho": 35,
+     "real": 33,
+     "n": 1455
+    },
+    {
+     "predicho": 45,
+     "real": 45,
+     "n": 1654
+    },
+    {
+     "predicho": 55,
+     "real": 58,
+     "n": 1192
+    },
+    {
+     "predicho": 64,
+     "real": 68,
+     "n": 570
+    },
+    {
+     "predicho": 74,
+     "real": 78,
+     "n": 221
+    },
+    {
+     "predicho": 84,
+     "real": 83,
+     "n": 46
+    }
+   ]
+  },
   "A": {
    "partidos": 6169,
    "aciertos": 51.8,
@@ -208,6 +257,114 @@
     }
    ]
   },
+  "D": {
+   "partidos": 6169,
+   "aciertos": 52.6,
+   "brier": 0.5919,
+   "logloss": 0.9924,
+   "brier_mas25": 0.2446,
+   "calibracion_local": [
+    {
+     "predicho": 8,
+     "real": 3,
+     "n": 32
+    },
+    {
+     "predicho": 16,
+     "real": 16,
+     "n": 350
+    },
+    {
+     "predicho": 25,
+     "real": 22,
+     "n": 862
+    },
+    {
+     "predicho": 35,
+     "real": 34,
+     "n": 1216
+    },
+    {
+     "predicho": 45,
+     "real": 43,
+     "n": 1377
+    },
+    {
+     "predicho": 55,
+     "real": 56,
+     "n": 1089
+    },
+    {
+     "predicho": 65,
+     "real": 63,
+     "n": 762
+    },
+    {
+     "predicho": 74,
+     "real": 75,
+     "n": 382
+    },
+    {
+     "predicho": 83,
+     "real": 83,
+     "n": 98
+    }
+   ]
+  },
+  "E": {
+   "partidos": 6169,
+   "aciertos": 52.6,
+   "brier": 0.5924,
+   "logloss": 0.993,
+   "brier_mas25": 0.2446,
+   "calibracion_local": [
+    {
+     "predicho": 8,
+     "real": 9,
+     "n": 35
+    },
+    {
+     "predicho": 16,
+     "real": 17,
+     "n": 369
+    },
+    {
+     "predicho": 25,
+     "real": 22,
+     "n": 857
+    },
+    {
+     "predicho": 35,
+     "real": 34,
+     "n": 1175
+    },
+    {
+     "predicho": 45,
+     "real": 43,
+     "n": 1324
+    },
+    {
+     "predicho": 55,
+     "real": 55,
+     "n": 1089
+    },
+    {
+     "predicho": 65,
+     "real": 62,
+     "n": 783
+    },
+    {
+     "predicho": 74,
+     "real": 75,
+     "n": 410
+    },
+    {
+     "predicho": 83,
+     "real": 80,
+     "n": 127
+    }
+   ]
+  },
   "base": {
    "partidos": 6169,
    "aciertos": 43.5,
@@ -235,6 +392,40 @@
  },
  "detalle": {
   "ger-2223": {
+   "X": {
+    "partidos": 261,
+    "aciertos": 50.2,
+    "brier": 0.6106,
+    "logloss": 1.0179,
+    "brier_mas25": 0.2392,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 36,
+      "n": 28
+     },
+     {
+      "predicho": 35,
+      "real": 41,
+      "n": 49
+     },
+     {
+      "predicho": 45,
+      "real": 48,
+      "n": 80
+     },
+     {
+      "predicho": 55,
+      "real": 63,
+      "n": 51
+     },
+     {
+      "predicho": 64,
+      "real": 61,
+      "n": 33
+     }
+    ]
+   },
    "A": {
     "partidos": 261,
     "aciertos": 49.4,
@@ -381,6 +572,74 @@
      }
     ]
    },
+   "D": {
+    "partidos": 261,
+    "aciertos": 50.2,
+    "brier": 0.6075,
+    "logloss": 1.013,
+    "brier_mas25": 0.2392,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 39,
+      "n": 28
+     },
+     {
+      "predicho": 35,
+      "real": 38,
+      "n": 56
+     },
+     {
+      "predicho": 44,
+      "real": 49,
+      "n": 74
+     },
+     {
+      "predicho": 54,
+      "real": 65,
+      "n": 40
+     },
+     {
+      "predicho": 64,
+      "real": 64,
+      "n": 42
+     }
+    ]
+   },
+   "E": {
+    "partidos": 261,
+    "aciertos": 50.2,
+    "brier": 0.6079,
+    "logloss": 1.0136,
+    "brier_mas25": 0.2392,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 39,
+      "n": 28
+     },
+     {
+      "predicho": 35,
+      "real": 38,
+      "n": 56
+     },
+     {
+      "predicho": 45,
+      "real": 49,
+      "n": 74
+     },
+     {
+      "predicho": 54,
+      "real": 65,
+      "n": 40
+     },
+     {
+      "predicho": 65,
+      "real": 64,
+      "n": 39
+     }
+    ]
+   },
    "base": {
     "partidos": 261,
     "aciertos": 48.3,
@@ -402,6 +661,45 @@
    }
   },
   "ger-2324": {
+   "X": {
+    "partidos": 261,
+    "aciertos": 53.6,
+    "brier": 0.5877,
+    "logloss": 0.9869,
+    "brier_mas25": 0.2328,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 25,
+      "n": 24
+     },
+     {
+      "predicho": 35,
+      "real": 24,
+      "n": 33
+     },
+     {
+      "predicho": 45,
+      "real": 37,
+      "n": 81
+     },
+     {
+      "predicho": 55,
+      "real": 50,
+      "n": 54
+     },
+     {
+      "predicho": 66,
+      "real": 57,
+      "n": 23
+     },
+     {
+      "predicho": 74,
+      "real": 83,
+      "n": 23
+     }
+    ]
+   },
    "A": {
     "partidos": 261,
     "aciertos": 52.9,
@@ -578,6 +876,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 261,
+    "aciertos": 53.3,
+    "brier": 0.5837,
+    "logloss": 0.9795,
+    "brier_mas25": 0.2328,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 15,
+      "n": 20
+     },
+     {
+      "predicho": 25,
+      "real": 28,
+      "n": 32
+     },
+     {
+      "predicho": 36,
+      "real": 32,
+      "n": 38
+     },
+     {
+      "predicho": 45,
+      "real": 41,
+      "n": 64
+     },
+     {
+      "predicho": 55,
+      "real": 39,
+      "n": 46
+     },
+     {
+      "predicho": 65,
+      "real": 61,
+      "n": 23
+     },
+     {
+      "predicho": 74,
+      "real": 76,
+      "n": 25
+     }
+    ]
+   },
+   "E": {
+    "partidos": 261,
+    "aciertos": 53.3,
+    "brier": 0.5833,
+    "logloss": 0.9793,
+    "brier_mas25": 0.2328,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 16,
+      "n": 19
+     },
+     {
+      "predicho": 25,
+      "real": 27,
+      "n": 33
+     },
+     {
+      "predicho": 36,
+      "real": 30,
+      "n": 37
+     },
+     {
+      "predicho": 45,
+      "real": 41,
+      "n": 68
+     },
+     {
+      "predicho": 55,
+      "real": 40,
+      "n": 45
+     },
+     {
+      "predicho": 65,
+      "real": 57,
+      "n": 23
+     },
+     {
+      "predicho": 75,
+      "real": 83,
+      "n": 30
+     }
+    ]
+   },
    "base": {
     "partidos": 261,
     "aciertos": 42.9,
@@ -594,6 +980,35 @@
    }
   },
   "ger-2425": {
+   "X": {
+    "partidos": 261,
+    "aciertos": 48.3,
+    "brier": 0.6208,
+    "logloss": 1.0355,
+    "brier_mas25": 0.236,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 19,
+      "n": 21
+     },
+     {
+      "predicho": 35,
+      "real": 28,
+      "n": 88
+     },
+     {
+      "predicho": 45,
+      "real": 44,
+      "n": 70
+     },
+     {
+      "predicho": 54,
+      "real": 48,
+      "n": 44
+     }
+    ]
+   },
    "A": {
     "partidos": 261,
     "aciertos": 48.7,
@@ -755,6 +1170,84 @@
      }
     ]
    },
+   "D": {
+    "partidos": 261,
+    "aciertos": 47.9,
+    "brier": 0.6227,
+    "logloss": 1.0379,
+    "brier_mas25": 0.236,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 21,
+      "n": 42
+     },
+     {
+      "predicho": 35,
+      "real": 28,
+      "n": 57
+     },
+     {
+      "predicho": 45,
+      "real": 35,
+      "n": 49
+     },
+     {
+      "predicho": 55,
+      "real": 56,
+      "n": 48
+     },
+     {
+      "predicho": 65,
+      "real": 54,
+      "n": 28
+     },
+     {
+      "predicho": 74,
+      "real": 63,
+      "n": 16
+     }
+    ]
+   },
+   "E": {
+    "partidos": 261,
+    "aciertos": 47.9,
+    "brier": 0.6211,
+    "logloss": 1.0356,
+    "brier_mas25": 0.236,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 22,
+      "n": 41
+     },
+     {
+      "predicho": 35,
+      "real": 31,
+      "n": 62
+     },
+     {
+      "predicho": 45,
+      "real": 37,
+      "n": 49
+     },
+     {
+      "predicho": 55,
+      "real": 52,
+      "n": 50
+     },
+     {
+      "predicho": 65,
+      "real": 48,
+      "n": 25
+     },
+     {
+      "predicho": 75,
+      "real": 82,
+      "n": 17
+     }
+    ]
+   },
    "base": {
     "partidos": 261,
     "aciertos": 37.9,
@@ -776,6 +1269,40 @@
    }
   },
   "ger-2526": {
+   "X": {
+    "partidos": 261,
+    "aciertos": 55.2,
+    "brier": 0.5871,
+    "logloss": 0.9909,
+    "brier_mas25": 0.2335,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 25,
+      "n": 28
+     },
+     {
+      "predicho": 35,
+      "real": 25,
+      "n": 68
+     },
+     {
+      "predicho": 45,
+      "real": 50,
+      "n": 72
+     },
+     {
+      "predicho": 55,
+      "real": 69,
+      "n": 49
+     },
+     {
+      "predicho": 64,
+      "real": 70,
+      "n": 20
+     }
+    ]
+   },
    "A": {
     "partidos": 261,
     "aciertos": 55.9,
@@ -922,6 +1449,79 @@
      }
     ]
    },
+   "D": {
+    "partidos": 261,
+    "aciertos": 55.6,
+    "brier": 0.5744,
+    "logloss": 0.9717,
+    "brier_mas25": 0.2335,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 13,
+      "n": 15
+     },
+     {
+      "predicho": 26,
+      "real": 21,
+      "n": 34
+     },
+     {
+      "predicho": 35,
+      "real": 23,
+      "n": 48
+     },
+     {
+      "predicho": 45,
+      "real": 51,
+      "n": 59
+     },
+     {
+      "predicho": 56,
+      "real": 65,
+      "n": 43
+     },
+     {
+      "predicho": 65,
+      "real": 68,
+      "n": 31
+     }
+    ]
+   },
+   "E": {
+    "partidos": 261,
+    "aciertos": 55.6,
+    "brier": 0.5758,
+    "logloss": 0.9729,
+    "brier_mas25": 0.2335,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 22,
+      "n": 37
+     },
+     {
+      "predicho": 35,
+      "real": 29,
+      "n": 56
+     },
+     {
+      "predicho": 45,
+      "real": 48,
+      "n": 58
+     },
+     {
+      "predicho": 54,
+      "real": 63,
+      "n": 41
+     },
+     {
+      "predicho": 64,
+      "real": 72,
+      "n": 36
+     }
+    ]
+   },
    "base": {
     "partidos": 261,
     "aciertos": 43.7,
@@ -939,6 +1539,45 @@
   },
   "ger-2627": {},
   "epl-2223": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 54.8,
+    "brier": 0.5827,
+    "logloss": 0.9795,
+    "brier_mas25": 0.2414,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 15,
+      "n": 26
+     },
+     {
+      "predicho": 35,
+      "real": 32,
+      "n": 60
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 75
+     },
+     {
+      "predicho": 55,
+      "real": 55,
+      "n": 86
+     },
+     {
+      "predicho": 64,
+      "real": 77,
+      "n": 43
+     },
+     {
+      "predicho": 74,
+      "real": 69,
+      "n": 26
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 53.3,
@@ -1110,6 +1749,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 54.2,
+    "brier": 0.5805,
+    "logloss": 0.9756,
+    "brier_mas25": 0.2414,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 20,
+      "n": 15
+     },
+     {
+      "predicho": 26,
+      "real": 21,
+      "n": 34
+     },
+     {
+      "predicho": 35,
+      "real": 36,
+      "n": 61
+     },
+     {
+      "predicho": 46,
+      "real": 41,
+      "n": 76
+     },
+     {
+      "predicho": 55,
+      "real": 62,
+      "n": 71
+     },
+     {
+      "predicho": 64,
+      "real": 72,
+      "n": 46
+     },
+     {
+      "predicho": 75,
+      "real": 73,
+      "n": 22
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 54.2,
+    "brier": 0.5803,
+    "logloss": 0.9752,
+    "brier_mas25": 0.2414,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 27,
+      "n": 15
+     },
+     {
+      "predicho": 26,
+      "real": 20,
+      "n": 35
+     },
+     {
+      "predicho": 35,
+      "real": 36,
+      "n": 56
+     },
+     {
+      "predicho": 46,
+      "real": 41,
+      "n": 79
+     },
+     {
+      "predicho": 55,
+      "real": 60,
+      "n": 68
+     },
+     {
+      "predicho": 64,
+      "real": 75,
+      "n": 48
+     },
+     {
+      "predicho": 76,
+      "real": 68,
+      "n": 22
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 48.5,
@@ -1131,6 +1858,50 @@
    }
   },
   "epl-2324": {
+   "X": {
+    "partidos": 329,
+    "aciertos": 57.4,
+    "brier": 0.564,
+    "logloss": 0.9545,
+    "brier_mas25": 0.2289,
+    "calibracion_local": [
+     {
+      "predicho": 18,
+      "real": 14,
+      "n": 21
+     },
+     {
+      "predicho": 26,
+      "real": 18,
+      "n": 45
+     },
+     {
+      "predicho": 35,
+      "real": 34,
+      "n": 64
+     },
+     {
+      "predicho": 44,
+      "real": 50,
+      "n": 78
+     },
+     {
+      "predicho": 55,
+      "real": 63,
+      "n": 60
+     },
+     {
+      "predicho": 65,
+      "real": 66,
+      "n": 38
+     },
+     {
+      "predicho": 75,
+      "real": 89,
+      "n": 18
+     }
+    ]
+   },
    "A": {
     "partidos": 329,
     "aciertos": 53.8,
@@ -1307,6 +2078,99 @@
      }
     ]
    },
+   "D": {
+    "partidos": 329,
+    "aciertos": 55.9,
+    "brier": 0.5611,
+    "logloss": 0.9491,
+    "brier_mas25": 0.2289,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 15,
+      "n": 27
+     },
+     {
+      "predicho": 25,
+      "real": 20,
+      "n": 46
+     },
+     {
+      "predicho": 35,
+      "real": 43,
+      "n": 65
+     },
+     {
+      "predicho": 44,
+      "real": 39,
+      "n": 59
+     },
+     {
+      "predicho": 55,
+      "real": 65,
+      "n": 54
+     },
+     {
+      "predicho": 65,
+      "real": 62,
+      "n": 42
+     },
+     {
+      "predicho": 75,
+      "real": 80,
+      "n": 25
+     }
+    ]
+   },
+   "E": {
+    "partidos": 329,
+    "aciertos": 55.9,
+    "brier": 0.5607,
+    "logloss": 0.9483,
+    "brier_mas25": 0.2289,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 14,
+      "n": 29
+     },
+     {
+      "predicho": 25,
+      "real": 20,
+      "n": 44
+     },
+     {
+      "predicho": 35,
+      "real": 42,
+      "n": 62
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 58
+     },
+     {
+      "predicho": 55,
+      "real": 59,
+      "n": 49
+     },
+     {
+      "predicho": 65,
+      "real": 59,
+      "n": 44
+     },
+     {
+      "predicho": 74,
+      "real": 81,
+      "n": 27
+     },
+     {
+      "predicho": 84,
+      "real": 87,
+      "n": 15
+     }
+    ]
+   },
    "base": {
     "partidos": 329,
     "aciertos": 46.2,
@@ -1323,6 +2187,45 @@
    }
   },
   "epl-2425": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 51.8,
+    "brier": 0.5957,
+    "logloss": 0.9965,
+    "brier_mas25": 0.2446,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 5,
+      "n": 21
+     },
+     {
+      "predicho": 26,
+      "real": 21,
+      "n": 58
+     },
+     {
+      "predicho": 35,
+      "real": 42,
+      "n": 83
+     },
+     {
+      "predicho": 45,
+      "real": 51,
+      "n": 95
+     },
+     {
+      "predicho": 55,
+      "real": 60,
+      "n": 40
+     },
+     {
+      "predicho": 64,
+      "real": 50,
+      "n": 22
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 51.2,
@@ -1494,6 +2397,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 51.8,
+    "brier": 0.5948,
+    "logloss": 0.9937,
+    "brier_mas25": 0.2446,
+    "calibracion_local": [
+     {
+      "predicho": 15,
+      "real": 10,
+      "n": 30
+     },
+     {
+      "predicho": 25,
+      "real": 26,
+      "n": 47
+     },
+     {
+      "predicho": 35,
+      "real": 36,
+      "n": 64
+     },
+     {
+      "predicho": 45,
+      "real": 42,
+      "n": 65
+     },
+     {
+      "predicho": 55,
+      "real": 60,
+      "n": 58
+     },
+     {
+      "predicho": 65,
+      "real": 56,
+      "n": 34
+     },
+     {
+      "predicho": 74,
+      "real": 63,
+      "n": 24
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 51.8,
+    "brier": 0.5962,
+    "logloss": 0.9953,
+    "brier_mas25": 0.2446,
+    "calibracion_local": [
+     {
+      "predicho": 15,
+      "real": 13,
+      "n": 30
+     },
+     {
+      "predicho": 25,
+      "real": 29,
+      "n": 49
+     },
+     {
+      "predicho": 35,
+      "real": 34,
+      "n": 58
+     },
+     {
+      "predicho": 45,
+      "real": 41,
+      "n": 61
+     },
+     {
+      "predicho": 55,
+      "real": 61,
+      "n": 59
+     },
+     {
+      "predicho": 65,
+      "real": 54,
+      "n": 37
+     },
+     {
+      "predicho": 75,
+      "real": 54,
+      "n": 24
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 40.9,
@@ -1515,6 +2506,40 @@
    }
   },
   "epl-2526": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 49.1,
+    "brier": 0.6211,
+    "logloss": 1.0336,
+    "brier_mas25": 0.2572,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 13,
+      "n": 38
+     },
+     {
+      "predicho": 36,
+      "real": 36,
+      "n": 78
+     },
+     {
+      "predicho": 45,
+      "real": 44,
+      "n": 96
+     },
+     {
+      "predicho": 54,
+      "real": 51,
+      "n": 72
+     },
+     {
+      "predicho": 63,
+      "real": 62,
+      "n": 34
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 46.4,
@@ -1671,6 +2696,84 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 48.5,
+    "brier": 0.6218,
+    "logloss": 1.033,
+    "brier_mas25": 0.2572,
+    "calibracion_local": [
+     {
+      "predicho": 24,
+      "real": 15,
+      "n": 40
+     },
+     {
+      "predicho": 35,
+      "real": 36,
+      "n": 74
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 70
+     },
+     {
+      "predicho": 55,
+      "real": 53,
+      "n": 68
+     },
+     {
+      "predicho": 65,
+      "real": 53,
+      "n": 45
+     },
+     {
+      "predicho": 74,
+      "real": 69,
+      "n": 16
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 48.5,
+    "brier": 0.6227,
+    "logloss": 1.0341,
+    "brier_mas25": 0.2572,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 12,
+      "n": 42
+     },
+     {
+      "predicho": 35,
+      "real": 39,
+      "n": 70
+     },
+     {
+      "predicho": 45,
+      "real": 42,
+      "n": 66
+     },
+     {
+      "predicho": 55,
+      "real": 51,
+      "n": 68
+     },
+     {
+      "predicho": 65,
+      "real": 54,
+      "n": 50
+     },
+     {
+      "predicho": 74,
+      "real": 67,
+      "n": 15
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 42.1,
@@ -1692,6 +2795,14 @@
    }
   },
   "epl-2627": {
+   "X": {
+    "partidos": 10,
+    "aciertos": 40,
+    "brier": 0.646,
+    "logloss": 1.063,
+    "brier_mas25": 0.2586,
+    "calibracion_local": []
+   },
    "A": {
     "partidos": 10,
     "aciertos": 50,
@@ -1724,6 +2835,22 @@
     "brier_mas25": 0.2277,
     "calibracion_local": []
    },
+   "D": {
+    "partidos": 10,
+    "aciertos": 40,
+    "brier": 0.6381,
+    "logloss": 1.0533,
+    "brier_mas25": 0.2586,
+    "calibracion_local": []
+   },
+   "E": {
+    "partidos": 10,
+    "aciertos": 40,
+    "brier": 0.6381,
+    "logloss": 1.0533,
+    "brier_mas25": 0.2586,
+    "calibracion_local": []
+   },
    "base": {
     "partidos": 10,
     "aciertos": 50,
@@ -1734,6 +2861,45 @@
    }
   },
   "fra-2223": {
+   "X": {
+    "partidos": 329,
+    "aciertos": 54.7,
+    "brier": 0.5959,
+    "logloss": 0.9989,
+    "brier_mas25": 0.2493,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 15,
+      "n": 20
+     },
+     {
+      "predicho": 25,
+      "real": 21,
+      "n": 72
+     },
+     {
+      "predicho": 35,
+      "real": 41,
+      "n": 79
+     },
+     {
+      "predicho": 45,
+      "real": 49,
+      "n": 82
+     },
+     {
+      "predicho": 54,
+      "real": 60,
+      "n": 47
+     },
+     {
+      "predicho": 64,
+      "real": 77,
+      "n": 22
+     }
+    ]
+   },
    "A": {
     "partidos": 329,
     "aciertos": 53.5,
@@ -1895,6 +3061,89 @@
      }
     ]
    },
+   "D": {
+    "partidos": 329,
+    "aciertos": 52.9,
+    "brier": 0.59,
+    "logloss": 0.9898,
+    "brier_mas25": 0.2493,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 14,
+      "n": 21
+     },
+     {
+      "predicho": 26,
+      "real": 14,
+      "n": 56
+     },
+     {
+      "predicho": 35,
+      "real": 38,
+      "n": 71
+     },
+     {
+      "predicho": 45,
+      "real": 54,
+      "n": 71
+     },
+     {
+      "predicho": 55,
+      "real": 48,
+      "n": 60
+     },
+     {
+      "predicho": 65,
+      "real": 70,
+      "n": 33
+     }
+    ]
+   },
+   "E": {
+    "partidos": 329,
+    "aciertos": 52.9,
+    "brier": 0.592,
+    "logloss": 0.9924,
+    "brier_mas25": 0.2493,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 5,
+      "n": 21
+     },
+     {
+      "predicho": 26,
+      "real": 16,
+      "n": 55
+     },
+     {
+      "predicho": 35,
+      "real": 38,
+      "n": 65
+     },
+     {
+      "predicho": 45,
+      "real": 49,
+      "n": 67
+     },
+     {
+      "predicho": 55,
+      "real": 52,
+      "n": 56
+     },
+     {
+      "predicho": 65,
+      "real": 64,
+      "n": 36
+     },
+     {
+      "predicho": 75,
+      "real": 71,
+      "n": 17
+     }
+    ]
+   },
    "base": {
     "partidos": 329,
     "aciertos": 43.2,
@@ -1911,6 +3160,40 @@
    }
   },
   "fra-2324": {
+   "X": {
+    "partidos": 261,
+    "aciertos": 48.7,
+    "brier": 0.6136,
+    "logloss": 1.0219,
+    "brier_mas25": 0.2547,
+    "calibracion_local": [
+     {
+      "predicho": 27,
+      "real": 31,
+      "n": 29
+     },
+     {
+      "predicho": 36,
+      "real": 24,
+      "n": 76
+     },
+     {
+      "predicho": 45,
+      "real": 42,
+      "n": 72
+     },
+     {
+      "predicho": 55,
+      "real": 56,
+      "n": 52
+     },
+     {
+      "predicho": 63,
+      "real": 62,
+      "n": 26
+     }
+    ]
+   },
    "A": {
     "partidos": 261,
     "aciertos": 48.3,
@@ -2052,6 +3335,74 @@
      }
     ]
    },
+   "D": {
+    "partidos": 261,
+    "aciertos": 49.8,
+    "brier": 0.6111,
+    "logloss": 1.0187,
+    "brier_mas25": 0.2547,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 33,
+      "n": 40
+     },
+     {
+      "predicho": 35,
+      "real": 18,
+      "n": 55
+     },
+     {
+      "predicho": 46,
+      "real": 43,
+      "n": 68
+     },
+     {
+      "predicho": 55,
+      "real": 56,
+      "n": 45
+     },
+     {
+      "predicho": 65,
+      "real": 59,
+      "n": 37
+     }
+    ]
+   },
+   "E": {
+    "partidos": 261,
+    "aciertos": 49.8,
+    "brier": 0.6116,
+    "logloss": 1.0192,
+    "brier_mas25": 0.2547,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 31,
+      "n": 42
+     },
+     {
+      "predicho": 34,
+      "real": 21,
+      "n": 43
+     },
+     {
+      "predicho": 44,
+      "real": 41,
+      "n": 54
+     },
+     {
+      "predicho": 54,
+      "real": 45,
+      "n": 55
+     },
+     {
+      "predicho": 65,
+      "real": 60,
+      "n": 42
+     }
+    ]
+   },
    "base": {
     "partidos": 261,
     "aciertos": 37.5,
@@ -2073,6 +3424,40 @@
    }
   },
   "fra-2425": {
+   "X": {
+    "partidos": 261,
+    "aciertos": 54,
+    "brier": 0.5794,
+    "logloss": 0.9749,
+    "brier_mas25": 0.2428,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 25,
+      "n": 36
+     },
+     {
+      "predicho": 35,
+      "real": 39,
+      "n": 57
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 67
+     },
+     {
+      "predicho": 54,
+      "real": 60,
+      "n": 50
+     },
+     {
+      "predicho": 64,
+      "real": 73,
+      "n": 30
+     }
+    ]
+   },
    "A": {
     "partidos": 261,
     "aciertos": 55.6,
@@ -2239,6 +3624,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 261,
+    "aciertos": 55.9,
+    "brier": 0.5739,
+    "logloss": 0.9681,
+    "brier_mas25": 0.2428,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 19,
+      "n": 16
+     },
+     {
+      "predicho": 25,
+      "real": 29,
+      "n": 42
+     },
+     {
+      "predicho": 35,
+      "real": 36,
+      "n": 47
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 47
+     },
+     {
+      "predicho": 55,
+      "real": 59,
+      "n": 46
+     },
+     {
+      "predicho": 65,
+      "real": 69,
+      "n": 36
+     },
+     {
+      "predicho": 74,
+      "real": 79,
+      "n": 19
+     }
+    ]
+   },
+   "E": {
+    "partidos": 261,
+    "aciertos": 55.9,
+    "brier": 0.5741,
+    "logloss": 0.9685,
+    "brier_mas25": 0.2428,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 28,
+      "n": 18
+     },
+     {
+      "predicho": 25,
+      "real": 25,
+      "n": 40
+     },
+     {
+      "predicho": 35,
+      "real": 36,
+      "n": 47
+     },
+     {
+      "predicho": 45,
+      "real": 41,
+      "n": 44
+     },
+     {
+      "predicho": 55,
+      "real": 58,
+      "n": 43
+     },
+     {
+      "predicho": 65,
+      "real": 68,
+      "n": 37
+     },
+     {
+      "predicho": 74,
+      "real": 78,
+      "n": 23
+     }
+    ]
+   },
    "base": {
     "partidos": 261,
     "aciertos": 46.7,
@@ -2255,6 +3728,45 @@
    }
   },
   "fra-2526": {
+   "X": {
+    "partidos": 261,
+    "aciertos": 49,
+    "brier": 0.6155,
+    "logloss": 1.0248,
+    "brier_mas25": 0.2507,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 22,
+      "n": 18
+     },
+     {
+      "predicho": 35,
+      "real": 31,
+      "n": 59
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 58
+     },
+     {
+      "predicho": 55,
+      "real": 38,
+      "n": 65
+     },
+     {
+      "predicho": 64,
+      "real": 67,
+      "n": 42
+     },
+     {
+      "predicho": 75,
+      "real": 67,
+      "n": 15
+     }
+    ]
+   },
    "A": {
     "partidos": 261,
     "aciertos": 47.9,
@@ -2411,6 +3923,84 @@
      }
     ]
    },
+   "D": {
+    "partidos": 261,
+    "aciertos": 48.7,
+    "brier": 0.6149,
+    "logloss": 1.0235,
+    "brier_mas25": 0.2507,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 14,
+      "n": 36
+     },
+     {
+      "predicho": 35,
+      "real": 39,
+      "n": 49
+     },
+     {
+      "predicho": 44,
+      "real": 47,
+      "n": 51
+     },
+     {
+      "predicho": 55,
+      "real": 36,
+      "n": 50
+     },
+     {
+      "predicho": 65,
+      "real": 58,
+      "n": 43
+     },
+     {
+      "predicho": 75,
+      "real": 74,
+      "n": 19
+     }
+    ]
+   },
+   "E": {
+    "partidos": 261,
+    "aciertos": 48.7,
+    "brier": 0.6157,
+    "logloss": 1.0245,
+    "brier_mas25": 0.2507,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 14,
+      "n": 35
+     },
+     {
+      "predicho": 35,
+      "real": 38,
+      "n": 48
+     },
+     {
+      "predicho": 44,
+      "real": 48,
+      "n": 52
+     },
+     {
+      "predicho": 55,
+      "real": 37,
+      "n": 49
+     },
+     {
+      "predicho": 65,
+      "real": 56,
+      "n": 43
+     },
+     {
+      "predicho": 75,
+      "real": 75,
+      "n": 20
+     }
+    ]
+   },
    "base": {
     "partidos": 261,
     "aciertos": 42.5,
@@ -2432,6 +4022,14 @@
    }
   },
   "fra-2627": {
+   "X": {
+    "partidos": 9,
+    "aciertos": 55.6,
+    "brier": 0.5286,
+    "logloss": 0.9001,
+    "brier_mas25": 0.2085,
+    "calibracion_local": []
+   },
    "A": {
     "partidos": 9,
     "aciertos": 44.4,
@@ -2464,6 +4062,22 @@
     "brier_mas25": 0.186,
     "calibracion_local": []
    },
+   "D": {
+    "partidos": 9,
+    "aciertos": 66.7,
+    "brier": 0.4966,
+    "logloss": 0.8553,
+    "brier_mas25": 0.2085,
+    "calibracion_local": []
+   },
+   "E": {
+    "partidos": 9,
+    "aciertos": 66.7,
+    "brier": 0.4966,
+    "logloss": 0.8553,
+    "brier_mas25": 0.2085,
+    "calibracion_local": []
+   },
    "base": {
     "partidos": 9,
     "aciertos": 77.8,
@@ -2474,6 +4088,45 @@
    }
   },
   "esp-2223": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 51.8,
+    "brier": 0.6094,
+    "logloss": 1.0175,
+    "brier_mas25": 0.2474,
+    "calibracion_local": [
+     {
+      "predicho": 15,
+      "real": 29,
+      "n": 17
+     },
+     {
+      "predicho": 26,
+      "real": 36,
+      "n": 45
+     },
+     {
+      "predicho": 35,
+      "real": 39,
+      "n": 84
+     },
+     {
+      "predicho": 44,
+      "real": 54,
+      "n": 74
+     },
+     {
+      "predicho": 55,
+      "real": 54,
+      "n": 70
+     },
+     {
+      "predicho": 66,
+      "real": 62,
+      "n": 26
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 50,
@@ -2640,6 +4293,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 52.4,
+    "brier": 0.608,
+    "logloss": 1.0161,
+    "brier_mas25": 0.2474,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 47,
+      "n": 15
+     },
+     {
+      "predicho": 26,
+      "real": 26,
+      "n": 38
+     },
+     {
+      "predicho": 35,
+      "real": 41,
+      "n": 86
+     },
+     {
+      "predicho": 45,
+      "real": 54,
+      "n": 72
+     },
+     {
+      "predicho": 54,
+      "real": 53,
+      "n": 66
+     },
+     {
+      "predicho": 65,
+      "real": 52,
+      "n": 31
+     },
+     {
+      "predicho": 74,
+      "real": 89,
+      "n": 19
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 52.4,
+    "brier": 0.6089,
+    "logloss": 1.0175,
+    "brier_mas25": 0.2474,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 44,
+      "n": 16
+     },
+     {
+      "predicho": 26,
+      "real": 26,
+      "n": 38
+     },
+     {
+      "predicho": 35,
+      "real": 41,
+      "n": 87
+     },
+     {
+      "predicho": 45,
+      "real": 54,
+      "n": 71
+     },
+     {
+      "predicho": 54,
+      "real": 54,
+      "n": 67
+     },
+     {
+      "predicho": 65,
+      "real": 48,
+      "n": 29
+     },
+     {
+      "predicho": 73,
+      "real": 90,
+      "n": 20
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 48.5,
@@ -2656,6 +4397,40 @@
    }
   },
   "esp-2324": {
+   "X": {
+    "partidos": 329,
+    "aciertos": 53.8,
+    "brier": 0.5927,
+    "logloss": 0.9958,
+    "brier_mas25": 0.2387,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 9,
+      "n": 32
+     },
+     {
+      "predicho": 35,
+      "real": 25,
+      "n": 83
+     },
+     {
+      "predicho": 45,
+      "real": 42,
+      "n": 106
+     },
+     {
+      "predicho": 54,
+      "real": 75,
+      "n": 72
+     },
+     {
+      "predicho": 64,
+      "real": 65,
+      "n": 20
+     }
+    ]
+   },
    "A": {
     "partidos": 329,
     "aciertos": 53.5,
@@ -2827,6 +4602,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 329,
+    "aciertos": 54.4,
+    "brier": 0.5807,
+    "logloss": 0.9773,
+    "brier_mas25": 0.2387,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 6,
+      "n": 16
+     },
+     {
+      "predicho": 26,
+      "real": 13,
+      "n": 45
+     },
+     {
+      "predicho": 35,
+      "real": 25,
+      "n": 59
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 92
+     },
+     {
+      "predicho": 55,
+      "real": 65,
+      "n": 49
+     },
+     {
+      "predicho": 64,
+      "real": 74,
+      "n": 46
+     },
+     {
+      "predicho": 74,
+      "real": 65,
+      "n": 17
+     }
+    ]
+   },
+   "E": {
+    "partidos": 329,
+    "aciertos": 54.4,
+    "brier": 0.5807,
+    "logloss": 0.9771,
+    "brier_mas25": 0.2387,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 6,
+      "n": 17
+     },
+     {
+      "predicho": 25,
+      "real": 13,
+      "n": 45
+     },
+     {
+      "predicho": 34,
+      "real": 28,
+      "n": 54
+     },
+     {
+      "predicho": 45,
+      "real": 41,
+      "n": 79
+     },
+     {
+      "predicho": 55,
+      "real": 57,
+      "n": 61
+     },
+     {
+      "predicho": 65,
+      "real": 74,
+      "n": 47
+     },
+     {
+      "predicho": 75,
+      "real": 74,
+      "n": 19
+     }
+    ]
+   },
    "base": {
     "partidos": 329,
     "aciertos": 43.5,
@@ -2843,6 +4706,45 @@
    }
   },
   "esp-2425": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 52.1,
+    "brier": 0.5851,
+    "logloss": 0.9848,
+    "brier_mas25": 0.2426,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 21,
+      "n": 43
+     },
+     {
+      "predicho": 36,
+      "real": 32,
+      "n": 72
+     },
+     {
+      "predicho": 45,
+      "real": 35,
+      "n": 97
+     },
+     {
+      "predicho": 54,
+      "real": 61,
+      "n": 56
+     },
+     {
+      "predicho": 64,
+      "real": 79,
+      "n": 38
+     },
+     {
+      "predicho": 74,
+      "real": 81,
+      "n": 16
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 52.7,
@@ -3014,6 +4916,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 52.7,
+    "brier": 0.5799,
+    "logloss": 0.9774,
+    "brier_mas25": 0.2426,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 27,
+      "n": 15
+     },
+     {
+      "predicho": 25,
+      "real": 20,
+      "n": 44
+     },
+     {
+      "predicho": 35,
+      "real": 32,
+      "n": 68
+     },
+     {
+      "predicho": 45,
+      "real": 37,
+      "n": 75
+     },
+     {
+      "predicho": 54,
+      "real": 49,
+      "n": 59
+     },
+     {
+      "predicho": 66,
+      "real": 79,
+      "n": 34
+     },
+     {
+      "predicho": 75,
+      "real": 88,
+      "n": 26
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 52.7,
+    "brier": 0.5803,
+    "logloss": 0.9779,
+    "brier_mas25": 0.2426,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 22,
+      "n": 18
+     },
+     {
+      "predicho": 25,
+      "real": 20,
+      "n": 44
+     },
+     {
+      "predicho": 36,
+      "real": 34,
+      "n": 65
+     },
+     {
+      "predicho": 45,
+      "real": 40,
+      "n": 65
+     },
+     {
+      "predicho": 54,
+      "real": 46,
+      "n": 63
+     },
+     {
+      "predicho": 65,
+      "real": 71,
+      "n": 35
+     },
+     {
+      "predicho": 75,
+      "real": 87,
+      "n": 30
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 44.2,
@@ -3030,6 +5020,45 @@
    }
   },
   "esp-2526": {
+   "X": {
+    "partidos": 329,
+    "aciertos": 53.2,
+    "brier": 0.5897,
+    "logloss": 0.9913,
+    "brier_mas25": 0.2446,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 26,
+      "n": 35
+     },
+     {
+      "predicho": 36,
+      "real": 39,
+      "n": 79
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 95
+     },
+     {
+      "predicho": 55,
+      "real": 61,
+      "n": 66
+     },
+     {
+      "predicho": 65,
+      "real": 73,
+      "n": 30
+     },
+     {
+      "predicho": 75,
+      "real": 88,
+      "n": 16
+     }
+    ]
+   },
    "A": {
     "partidos": 329,
     "aciertos": 51.1,
@@ -3196,6 +5225,99 @@
      }
     ]
    },
+   "D": {
+    "partidos": 329,
+    "aciertos": 52.9,
+    "brier": 0.5866,
+    "logloss": 0.9875,
+    "brier_mas25": 0.2446,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 35,
+      "n": 20
+     },
+     {
+      "predicho": 25,
+      "real": 22,
+      "n": 36
+     },
+     {
+      "predicho": 36,
+      "real": 39,
+      "n": 66
+     },
+     {
+      "predicho": 44,
+      "real": 42,
+      "n": 90
+     },
+     {
+      "predicho": 55,
+      "real": 65,
+      "n": 52
+     },
+     {
+      "predicho": 65,
+      "real": 62,
+      "n": 34
+     },
+     {
+      "predicho": 76,
+      "real": 83,
+      "n": 24
+     }
+    ]
+   },
+   "E": {
+    "partidos": 329,
+    "aciertos": 52.9,
+    "brier": 0.5865,
+    "logloss": 0.9875,
+    "brier_mas25": 0.2446,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 35,
+      "n": 20
+     },
+     {
+      "predicho": 25,
+      "real": 22,
+      "n": 36
+     },
+     {
+      "predicho": 35,
+      "real": 39,
+      "n": 64
+     },
+     {
+      "predicho": 45,
+      "real": 41,
+      "n": 88
+     },
+     {
+      "predicho": 55,
+      "real": 64,
+      "n": 50
+     },
+     {
+      "predicho": 64,
+      "real": 68,
+      "n": 34
+     },
+     {
+      "predicho": 74,
+      "real": 73,
+      "n": 22
+     },
+     {
+      "predicho": 83,
+      "real": 93,
+      "n": 15
+     }
+    ]
+   },
    "base": {
     "partidos": 329,
     "aciertos": 48.9,
@@ -3212,6 +5334,14 @@
    }
   },
   "esp-2627": {
+   "X": {
+    "partidos": 27,
+    "aciertos": 51.9,
+    "brier": 0.5772,
+    "logloss": 0.9823,
+    "brier_mas25": 0.2141,
+    "calibracion_local": []
+   },
    "A": {
     "partidos": 27,
     "aciertos": 51.9,
@@ -3244,6 +5374,22 @@
     "brier_mas25": 0.2011,
     "calibracion_local": []
    },
+   "D": {
+    "partidos": 27,
+    "aciertos": 55.6,
+    "brier": 0.5437,
+    "logloss": 0.9317,
+    "brier_mas25": 0.2141,
+    "calibracion_local": []
+   },
+   "E": {
+    "partidos": 27,
+    "aciertos": 55.6,
+    "brier": 0.5413,
+    "logloss": 0.9283,
+    "brier_mas25": 0.2141,
+    "calibracion_local": []
+   },
    "base": {
     "partidos": 27,
     "aciertos": 44.4,
@@ -3260,6 +5406,40 @@
    }
   },
   "ita-2223": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 51.5,
+    "brier": 0.6026,
+    "logloss": 1.0058,
+    "brier_mas25": 0.2488,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 18,
+      "n": 51
+     },
+     {
+      "predicho": 35,
+      "real": 35,
+      "n": 78
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 74
+     },
+     {
+      "predicho": 55,
+      "real": 53,
+      "n": 74
+     },
+     {
+      "predicho": 64,
+      "real": 68,
+      "n": 34
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 51.8,
@@ -3431,6 +5611,89 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 52.1,
+    "brier": 0.6036,
+    "logloss": 1.0073,
+    "brier_mas25": 0.2488,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 24,
+      "n": 49
+     },
+     {
+      "predicho": 35,
+      "real": 31,
+      "n": 70
+     },
+     {
+      "predicho": 45,
+      "real": 42,
+      "n": 69
+     },
+     {
+      "predicho": 55,
+      "real": 57,
+      "n": 65
+     },
+     {
+      "predicho": 64,
+      "real": 51,
+      "n": 45
+     },
+     {
+      "predicho": 73,
+      "real": 81,
+      "n": 16
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 52.1,
+    "brier": 0.6052,
+    "logloss": 1.0097,
+    "brier_mas25": 0.2488,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 25,
+      "n": 16
+     },
+     {
+      "predicho": 26,
+      "real": 21,
+      "n": 47
+     },
+     {
+      "predicho": 35,
+      "real": 32,
+      "n": 69
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 70
+     },
+     {
+      "predicho": 55,
+      "real": 56,
+      "n": 61
+     },
+     {
+      "predicho": 64,
+      "real": 50,
+      "n": 46
+     },
+     {
+      "predicho": 74,
+      "real": 88,
+      "n": 17
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 42.4,
@@ -3447,6 +5710,40 @@
    }
   },
   "ita-2324": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 51.2,
+    "brier": 0.5984,
+    "logloss": 1.0011,
+    "brier_mas25": 0.2481,
+    "calibracion_local": [
+     {
+      "predicho": 26,
+      "real": 22,
+      "n": 46
+     },
+     {
+      "predicho": 34,
+      "real": 24,
+      "n": 74
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 96
+     },
+     {
+      "predicho": 55,
+      "real": 63,
+      "n": 64
+     },
+     {
+      "predicho": 64,
+      "real": 76,
+      "n": 29
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 53.3,
@@ -3623,6 +5920,89 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 53.6,
+    "brier": 0.5899,
+    "logloss": 0.9887,
+    "brier_mas25": 0.2481,
+    "calibracion_local": [
+     {
+      "predicho": 15,
+      "real": 0,
+      "n": 15
+     },
+     {
+      "predicho": 25,
+      "real": 23,
+      "n": 60
+     },
+     {
+      "predicho": 35,
+      "real": 22,
+      "n": 55
+     },
+     {
+      "predicho": 44,
+      "real": 37,
+      "n": 68
+     },
+     {
+      "predicho": 55,
+      "real": 62,
+      "n": 61
+     },
+     {
+      "predicho": 64,
+      "real": 71,
+      "n": 38
+     },
+     {
+      "predicho": 73,
+      "real": 63,
+      "n": 27
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 53.6,
+    "brier": 0.5918,
+    "logloss": 0.991,
+    "brier_mas25": 0.2481,
+    "calibracion_local": [
+     {
+      "predicho": 25,
+      "real": 22,
+      "n": 58
+     },
+     {
+      "predicho": 35,
+      "real": 22,
+      "n": 54
+     },
+     {
+      "predicho": 44,
+      "real": 35,
+      "n": 68
+     },
+     {
+      "predicho": 55,
+      "real": 67,
+      "n": 60
+     },
+     {
+      "predicho": 65,
+      "real": 68,
+      "n": 37
+     },
+     {
+      "predicho": 74,
+      "real": 59,
+      "n": 27
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 41.5,
@@ -3639,6 +6019,45 @@
    }
   },
   "ita-2425": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 54.5,
+    "brier": 0.5809,
+    "logloss": 0.9772,
+    "brier_mas25": 0.2563,
+    "calibracion_local": [
+     {
+      "predicho": 18,
+      "real": 0,
+      "n": 24
+     },
+     {
+      "predicho": 25,
+      "real": 16,
+      "n": 55
+     },
+     {
+      "predicho": 35,
+      "real": 34,
+      "n": 87
+     },
+     {
+      "predicho": 45,
+      "real": 50,
+      "n": 76
+     },
+     {
+      "predicho": 55,
+      "real": 58,
+      "n": 57
+     },
+     {
+      "predicho": 64,
+      "real": 78,
+      "n": 27
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 54.5,
@@ -3810,6 +6229,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 54.8,
+    "brier": 0.5732,
+    "logloss": 0.9653,
+    "brier_mas25": 0.2563,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 3,
+      "n": 30
+     },
+     {
+      "predicho": 25,
+      "real": 21,
+      "n": 57
+     },
+     {
+      "predicho": 35,
+      "real": 24,
+      "n": 50
+     },
+     {
+      "predicho": 45,
+      "real": 47,
+      "n": 73
+     },
+     {
+      "predicho": 55,
+      "real": 56,
+      "n": 50
+     },
+     {
+      "predicho": 65,
+      "real": 65,
+      "n": 40
+     },
+     {
+      "predicho": 74,
+      "real": 69,
+      "n": 26
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 54.8,
+    "brier": 0.5727,
+    "logloss": 0.9644,
+    "brier_mas25": 0.2563,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 3,
+      "n": 30
+     },
+     {
+      "predicho": 24,
+      "real": 21,
+      "n": 56
+     },
+     {
+      "predicho": 35,
+      "real": 24,
+      "n": 49
+     },
+     {
+      "predicho": 45,
+      "real": 43,
+      "n": 69
+     },
+     {
+      "predicho": 55,
+      "real": 64,
+      "n": 50
+     },
+     {
+      "predicho": 65,
+      "real": 54,
+      "n": 39
+     },
+     {
+      "predicho": 74,
+      "real": 74,
+      "n": 31
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 39.7,
@@ -3831,6 +6338,45 @@
    }
   },
   "ita-2526": {
+   "X": {
+    "partidos": 330,
+    "aciertos": 53,
+    "brier": 0.6003,
+    "logloss": 1.003,
+    "brier_mas25": 0.2536,
+    "calibracion_local": [
+     {
+      "predicho": 17,
+      "real": 5,
+      "n": 19
+     },
+     {
+      "predicho": 25,
+      "real": 21,
+      "n": 62
+     },
+     {
+      "predicho": 35,
+      "real": 35,
+      "n": 84
+     },
+     {
+      "predicho": 44,
+      "real": 45,
+      "n": 91
+     },
+     {
+      "predicho": 55,
+      "real": 55,
+      "n": 53
+     },
+     {
+      "predicho": 64,
+      "real": 71,
+      "n": 17
+     }
+    ]
+   },
    "A": {
     "partidos": 330,
     "aciertos": 51.5,
@@ -3997,6 +6543,94 @@
      }
     ]
    },
+   "D": {
+    "partidos": 330,
+    "aciertos": 52.1,
+    "brier": 0.5966,
+    "logloss": 0.9982,
+    "brier_mas25": 0.2536,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 9,
+      "n": 33
+     },
+     {
+      "predicho": 25,
+      "real": 22,
+      "n": 54
+     },
+     {
+      "predicho": 36,
+      "real": 41,
+      "n": 56
+     },
+     {
+      "predicho": 45,
+      "real": 31,
+      "n": 72
+     },
+     {
+      "predicho": 55,
+      "real": 55,
+      "n": 49
+     },
+     {
+      "predicho": 65,
+      "real": 56,
+      "n": 48
+     },
+     {
+      "predicho": 75,
+      "real": 87,
+      "n": 15
+     }
+    ]
+   },
+   "E": {
+    "partidos": 330,
+    "aciertos": 52.1,
+    "brier": 0.597,
+    "logloss": 0.9986,
+    "brier_mas25": 0.2536,
+    "calibracion_local": [
+     {
+      "predicho": 16,
+      "real": 11,
+      "n": 38
+     },
+     {
+      "predicho": 25,
+      "real": 22,
+      "n": 50
+     },
+     {
+      "predicho": 36,
+      "real": 40,
+      "n": 52
+     },
+     {
+      "predicho": 45,
+      "real": 32,
+      "n": 71
+     },
+     {
+      "predicho": 55,
+      "real": 51,
+      "n": 47
+     },
+     {
+      "predicho": 65,
+      "real": 58,
+      "n": 48
+     },
+     {
+      "predicho": 73,
+      "real": 76,
+      "n": 17
+     }
+    ]
+   },
    "base": {
     "partidos": 330,
     "aciertos": 38.8,
@@ -4018,6 +6652,14 @@
    }
   },
   "ita-2627": {
+   "X": {
+    "partidos": 10,
+    "aciertos": 50,
+    "brier": 0.5971,
+    "logloss": 1.0068,
+    "brier_mas25": 0.2296,
+    "calibracion_local": []
+   },
    "A": {
     "partidos": 10,
     "aciertos": 60,
@@ -4048,6 +6690,22 @@
     "brier": 0.5196,
     "logloss": 0.8817,
     "brier_mas25": 0.2451,
+    "calibracion_local": []
+   },
+   "D": {
+    "partidos": 10,
+    "aciertos": 60,
+    "brier": 0.5227,
+    "logloss": 0.9023,
+    "brier_mas25": 0.2296,
+    "calibracion_local": []
+   },
+   "E": {
+    "partidos": 10,
+    "aciertos": 60,
+    "brier": 0.5188,
+    "logloss": 0.8966,
+    "brier_mas25": 0.2296,
     "calibracion_local": []
    },
    "base": {
