@@ -7,14 +7,17 @@ concurrency: { group: actualizar-datos, cancel-in-progress: false }   # nunca do
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
+      - name: Historial de resultados (se baja como mucho una vez por día)
+        run: node scripts/history.mjs
+        continue-on-error: true
       - run: node scripts/update.mjs
         env: { FOOTBALL_DATA_KEY: '${{ secrets.FOOTBALL_DATA_KEY }}', API_FOOTBALL_KEY: '${{ secrets.API_FOOTBALL_KEY }}' }
       - run: |
           git config user.name "datos-bot"; git config user.email "bot@users.noreply.github.com"
-          git add data.js
+          git add data.js history.json
           git diff --cached --quiet || (git commit -m "Actualizar datos" && git pull --rebase && git push)
