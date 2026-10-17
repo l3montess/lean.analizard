@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { loadModel } from './model.mjs';
 
 const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1', ucl:'CL' }; // Europa League no está en el plan gratuito
 const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'America/Argentina/Buenos_Aires'});
@@ -31,7 +32,7 @@ export function lastFive(done, names, n=5){
   return by;
 }
 
-export async function build(api, previous, crests={}, recent={}){
+export async function build(api, previous, crests={}, recent={}, model=null){
   const out = [];
   const done = new Map(), allNames = new Set();
   for(const prev of previous){
@@ -53,12 +54,16 @@ export async function build(api, previous, crests={}, recent={}){
     const sched = (await api(`/competitions/${code}/matches?status=SCHEDULED`)).matches;
     const md = Math.min(...sched.map(m=>m.matchday));
     const byName = Object.fromEntries(rows.map(r=>[r[0],r]));
+    const misses = new Set();
     const fixtures = sched.filter(m=>m.matchday===md).map(m=>{
       const h=m.homeTeam.shortName||m.homeTeam.name, a=m.awayTeam.shortName||m.awayTeam.name;
-      return [m.utcDate.replace(/\.\d+Z$/,'Z').replace(/:00Z$/,':00Z'), h, a, ...probs(byName[h],byName[a])];
+      const pm = model && prev.id!=='ucl' ? model.predict(prev.id,h,a) : null;           // modelo D; la Champions mezcla ligas y usa el modelo simple
+      if(model && prev.id!=='ucl' && !pm) misses.add(h+' / '+a);
+      return [m.utcDate.replace(/\.\d+Z$/,'Z').replace(/:00Z$/,':00Z'), h, a, ...(pm||probs(byName[h],byName[a]))];
     }).filter(f=>names.has(f[1])&&names.has(f[2]));
+    if(model && prev.id!=='ucl'){ const bad=model.unmatched(prev.id,[...names]); if(bad.length) console.warn(`[modelo] ${prev.id}: sin emparejar con el historial -> ${bad.join(', ')}`); if(misses.size) console.warn(`[modelo] ${prev.id}: ${misses.size} partido(s) con el modelo simple`); }
     out.push({ ...prev, groups:{ [Object.keys(prev.groups)[0]]: rows }, cal:[], scorers:sc, fixtures, asof:fmtDate(new Date()),
-      probSrc:'un modelo de Poisson propio basado en los goles de la temporada',
+      probSrc: model && model.leagues[prev.id] && prev.id!=='ucl' ? 'un modelo propio (Elo + goles y remates de la temporada), probado contra unos 6.000 partidos pasados' : 'un modelo de Poisson propio basado en los goles de la temporada',
       scNote:'Actualizado automáticamente.',
       src:[['football-data.org','https://www.football-data.org']] });
     if(!rows.every(r=>r[1]>0)) console.warn(prev.id,'hay equipos sin partidos jugados');
@@ -157,7 +162,9 @@ async function main(){
   };
   const crests = ctx.window.CRESTS || {};
   const recent = {};
-  const data = await build(api, ctx.window.DATA, crests, recent);
+  const model = loadModel(fileURLToPath(new URL('../history.json', import.meta.url)));
+  console.log(model ? '[modelo] usando el modelo D (history.json)' : '[modelo] sin history.json: se usa el modelo simple');
+  const data = await build(api, ctx.window.DATA, crests, recent, model);
   const st = { photos: ctx.window.PHOTOS || {}, miss: ctx.window.PHOTO_MISS || {}, teams: ctx.window.TEAM_IDS || {}, teamMiss: ctx.window.TEAM_MISS || {} };
   const afKey = process.env.API_FOOTBALL_KEY;
   if(afKey){
