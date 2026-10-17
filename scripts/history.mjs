@@ -63,6 +63,12 @@ export function parseSeason(league, season, text){
 }
 
 async function main(){
+  const file=new URL('../history.json',import.meta.url);
+  if(!process.argv.includes('--force') && fs.existsSync(file)){            // el sitio es gratuito: no lo molestamos más de una vez por día
+    let gen=0; try{ gen=Date.parse(JSON.parse(fs.readFileSync(file,'utf8')).generado)||0; }catch{}     // en GitHub el archivo se re-crea en cada corrida, así que se mira la fecha guardada adentro
+    const age=(Date.now()-gen)/36e5;
+    if(age<20){ console.log(`history.json tiene ${age.toFixed(1)} h: no se vuelve a bajar (usá --force para forzarlo)`); return; }
+  }
   const seasons=seasonCodes(); const all=[]; let ok=0, fail=0;
   for(const [league,code] of Object.entries(LEAGUES)) for(const s of seasons){
     const url=`${BASE}/${s}/${code}.csv`;
