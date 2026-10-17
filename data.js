@@ -234,77 +234,92 @@ window.DATA = [
    [
     "Erling Haaland",
     "Man City",
-    6
+    6,
+    "Manchester City FC"
    ],
    [
     "João Pedro",
     "Chelsea",
-    5
+    5,
+    "Chelsea FC"
    ],
    [
     "Morgan Rogers",
     "Chelsea",
-    4
+    4,
+    "Chelsea FC"
    ],
    [
     "Rayan Cherki",
     "Man City",
-    4
+    4,
+    "Manchester City FC"
    ],
    [
     "Alexander Isak",
     "Liverpool",
-    4
+    4,
+    "Liverpool FC"
    ],
    [
     "Bukayo Saka",
     "Arsenal",
-    3
+    3,
+    "Arsenal FC"
    ],
    [
     "Thierno Barry",
     "Everton",
-    3
+    3,
+    "Everton FC"
    ],
    [
     "Marcus Tavernier",
     "Bournemouth",
-    3
+    3,
+    "AFC Bournemouth"
    ],
    [
     "Pascal Groß",
     "Brighton Hove",
-    3
+    3,
+    "Brighton & Hove Albion FC"
    ],
    [
     "Kevin Schade",
     "Brentford",
-    3
+    3,
+    "Brentford FC"
    ],
    [
     "Bruno Fernandes",
     "Man United",
-    3
+    3,
+    "Manchester United FC"
    ],
    [
     "Bryan Mbeumo",
     "Man United",
-    3
+    3,
+    "Manchester United FC"
    ],
    [
     "Mohamed Belloumi",
     "Hull City",
-    3
+    3,
+    "Hull City AFC"
    ],
    [
     "Brian Brobbey",
     "Sunderland",
-    3
+    3,
+    "Sunderland AFC"
    ],
    [
     "Kai Havertz",
     "Arsenal",
-    2
+    2,
+    "Arsenal FC"
    ]
   ],
   "scNote": "Actualizado automáticamente.",
@@ -486,13 +501,13 @@ window.DATA = [
     ],
     [
      "Deportivo",
-     8,
+     9,
      2,
-     4,
+     5,
      2,
+     13,
      12,
      11,
-     10,
      ""
     ],
     [
@@ -585,13 +600,13 @@ window.DATA = [
     ],
     [
      "Levante",
-     7,
+     8,
      1,
+     4,
      3,
-     3,
-     11,
-     15,
-     6,
+     12,
+     16,
+     7,
      ""
     ],
     [
@@ -633,77 +648,92 @@ window.DATA = [
    [
     "Raphinha",
     "Barça",
-    12
+    12,
+    "FC Barcelona"
    ],
    [
     "Sergio Camello",
     "Rayo Vallecano",
-    7
+    7,
+    "Rayo Vallecano de Madrid"
    ],
    [
     "Kylian Mbappé",
     "Real Madrid",
-    7
+    7,
+    "Real Madrid CF"
    ],
    [
     "Yassir Zabiri",
     "Santander",
-    7
+    7,
+    "Real Racing Club de Santander"
    ],
    [
     "Lamine Yamal",
     "Barça",
-    7
+    7,
+    "FC Barcelona"
    ],
    [
     "Roberto Fernández",
     "Espanyol",
-    6
+    6,
+    "RCD Espanyol de Barcelona"
    ],
    [
     "Ante Budimir",
     "Osasuna",
-    6
+    6,
+    "CA Osasuna"
    ],
    [
     "Pierre-Emerick Aubameyang",
     "Deportivo",
-    5
+    5,
+    "RC Deportivo La Coruña"
    ],
    [
     "Fer Niño",
     "Elche",
-    5
+    5,
+    "Elche CF"
    ],
    [
     "Lucas Boyé",
     "Alavés",
-    5
+    5,
+    "Deportivo Alavés"
    ],
    [
     "Álex Baena",
     "Atleti",
-    4
+    4,
+    "Club Atlético de Madrid"
    ],
    [
     "Fermín López",
     "Barça",
-    4
+    4,
+    "FC Barcelona"
    ],
    [
     "Mariano Díaz",
     "Alavés",
-    3
+    3,
+    "Deportivo Alavés"
    ],
    [
     "Pape Gueye",
     "Villarreal",
-    3
+    3,
+    "Villarreal CF"
    ],
    [
     "Jude Bellingham",
     "Real Madrid",
-    3
+    3,
+    "Real Madrid CF"
    ]
   ],
   "scNote": "Actualizado automáticamente.",
@@ -712,9 +742,9 @@ window.DATA = [
     "2026-10-21T18:00:00Z",
     "Levante",
     "Athletic",
-    32.9,
-    23.8,
-    43.3
+    33.2,
+    24.4,
+    42.4
    ]
   ],
   "src": [
@@ -801,6 +831,17 @@ window.DATA = [
      ""
     ],
     [
+     "Toulouse",
+     7,
+     2,
+     3,
+     2,
+     12,
+     11,
+     9,
+     ""
+    ],
+    [
      "Brest",
      6,
      2,
@@ -879,23 +920,12 @@ window.DATA = [
     ],
     [
      "Le Mans",
-     6,
+     7,
      1,
      3,
-     2,
+     3,
      10,
-     12,
-     6,
-     ""
-    ],
-    [
-     "Toulouse",
-     6,
-     1,
-     3,
-     2,
-     9,
-     11,
+     15,
      6,
      ""
     ],
@@ -936,154 +966,121 @@ window.DATA = [
   },
   "scorers": [
    [
+    "Casper Tengstedt",
+    "Toulouse",
+    5,
+    "Toulouse FC"
+   ],
+   [
     "Amine Gouiri",
     "Marseille",
-    4
+    4,
+    "Olympique de Marseille"
    ],
    [
     "Louis Mafouta",
     "Le Mans",
-    4
+    4,
+    "Le Mans FC"
    ],
    [
     "Kamory Doumbia",
     "Brest",
-    4
+    4,
+    "Stade Brestois 29"
    ],
    [
     "Esteban Lepaul",
     "Stade Rennais",
-    4
+    4,
+    "Stade Rennais FC 1901"
    ],
    [
     "Ferrán Torres",
     "PSG",
-    4
+    4,
+    "Paris Saint-Germain FC"
    ],
    [
     "Lassine Sinayoko",
     "Paris FC",
-    4
+    4,
+    "Paris FC"
    ],
    [
     "Paris Brunner",
     "Monaco",
-    4
+    4,
+    "AS Monaco FC"
    ],
    [
     "Cameron Archer",
     "Auxerre",
-    4
-   ],
-   [
-    "Casper Tengstedt",
-    "Toulouse",
-    4
+    4,
+    "AJ Auxerre"
    ],
    [
     "Florian Thauvin",
     "RC Lens",
-    3
+    3,
+    "Racing Club de Lens"
    ],
    [
     "Marquinhos",
     "PSG",
-    3
+    3,
+    "Paris Saint-Germain FC"
    ],
    [
     "Ernest Nuamah",
     "Olympique Lyon",
-    3
+    3,
+    "Olympique Lyonnais"
    ],
    [
     "Adil Bourabaa",
     "Le Mans",
-    3
+    3,
+    "Le Mans FC"
    ],
    [
     "Franjo Ivanovic",
     "RC Lens",
-    2
+    2,
+    "Racing Club de Lens"
    ],
    [
     "Tiago Santos",
     "Lille",
-    2
+    2,
+    "Lille OSC"
    ]
   ],
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
-    "2026-10-16T18:45:00Z",
-    "Le Mans",
-    "Toulouse",
-    42.7,
-    21.6,
-    35.7
-   ],
-   [
-    "2026-10-17T15:15:00Z",
-    "Strasbourg",
-    "PSG",
-    35.7,
-    21.7,
-    42.7
-   ],
-   [
-    "2026-10-17T18:45:00Z",
-    "Troyes",
-    "RC Lens",
-    24.3,
-    21.6,
-    54
-   ],
-   [
-    "2026-10-17T18:45:00Z",
-    "Lille",
-    "Brest",
-    44.9,
-    24,
-    31
-   ],
-   [
-    "2026-10-18T13:00:00Z",
-    "Angers SCO",
-    "Marseille",
-    33.2,
-    24.4,
-    42.4
-   ],
-   [
-    "2026-10-18T15:15:00Z",
-    "Lorient",
-    "Monaco",
-    28.3,
-    27.6,
-    44.1
-   ],
-   [
-    "2026-10-18T15:15:00Z",
-    "Paris FC",
-    "Stade Rennais",
-    44.9,
-    24,
-    31
-   ],
-   [
-    "2026-10-18T15:15:00Z",
-    "Le Havre",
-    "Auxerre",
-    49.2,
-    22.8,
-    28
-   ],
-   [
-    "2026-10-18T18:45:00Z",
-    "Olympique Lyon",
+    "2026-10-11T13:00:00Z",
     "Nice",
-    58.9,
-    24.3,
-    16.8
+    "Strasbourg",
+    39.3,
+    24,
+    36.7
+   ],
+   [
+    "2026-10-11T15:15:00Z",
+    "Stade Rennais",
+    "Auxerre",
+    60.6,
+    18.2,
+    21.3
+   ],
+   [
+    "2026-10-11T18:45:00Z",
+    "Troyes",
+    "Marseille",
+    22.6,
+    22.8,
+    54.5
    ]
   ],
   "src": [
@@ -1181,6 +1178,17 @@ window.DATA = [
      ""
     ],
     [
+     "Frankfurt",
+     6,
+     2,
+     2,
+     2,
+     10,
+     16,
+     8,
+     ""
+    ],
+    [
      "Mainz",
      5,
      2,
@@ -1204,12 +1212,12 @@ window.DATA = [
     ],
     [
      "1. FC Köln",
-     5,
+     6,
      2,
      1,
-     2,
+     3,
      8,
-     10,
+     11,
      7,
      ""
     ],
@@ -1243,17 +1251,6 @@ window.DATA = [
      2,
      4,
      6,
-     5,
-     ""
-    ],
-    [
-     "Frankfurt",
-     5,
-     1,
-     2,
-     2,
-     9,
-     16,
      5,
      ""
     ],
@@ -1305,154 +1302,113 @@ window.DATA = [
   },
   "scorers": [
    [
+    "Younes Ebnoutalib",
+    "Frankfurt",
+    5,
+    "Eintracht Frankfurt"
+   ],
+   [
     "Patrik Schick",
     "Leverkusen",
-    5
+    5,
+    "Bayer 04 Leverkusen"
    ],
    [
     "Michael Olise",
     "Bayern",
-    4
-   ],
-   [
-    "Younes Ebnoutalib",
-    "Frankfurt",
-    4
+    4,
+    "FC Bayern München"
    ],
    [
     "Yuito Suzuki",
     "Freiburg",
-    4
+    4,
+    "SC Freiburg"
    ],
    [
     "Niclas Füllkrug",
     "Bremen",
-    4
+    4,
+    "SV Werder Bremen"
    ],
    [
     "Phillip Tietz",
     "Mainz",
-    4
+    4,
+    "1. FSV Mainz 05"
    ],
    [
     "Christopher Nkunku",
     "RB Leipzig",
-    4
+    4,
+    "RB Leipzig"
    ],
    [
     "Antonio Nusa",
     "RB Leipzig",
-    3
+    3,
+    "RB Leipzig"
    ],
    [
     "Igor Matanovic",
     "Freiburg",
-    3
+    3,
+    "SC Freiburg"
    ],
    [
     "Michael Gregoritsch",
     "Augsburg",
-    3
+    3,
+    "FC Augsburg"
    ],
    [
     "Maurice Krattenmacher",
     "Elversberg",
-    3
+    3,
+    "SV 07 Elversberg"
    ],
    [
     "Maximilian Eggestein",
     "Freiburg",
-    3
+    3,
+    "SC Freiburg"
    ],
    [
     "Jonathan Burkardt",
     "Frankfurt",
-    3
+    3,
+    "Eintracht Frankfurt"
    ],
    [
     "Robin Fellhauer",
     "Augsburg",
-    3
+    3,
+    "FC Augsburg"
    ],
    [
     "Harry Kane",
     "Bayern",
-    3
+    3,
+    "FC Bayern München"
    ]
   ],
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
    [
-    "2026-10-16T18:30:00Z",
-    "Frankfurt",
+    "2026-10-11T13:30:00Z",
     "1. FC Köln",
-    34.7,
-    19.3,
-    46
-   ],
-   [
-    "2026-10-17T13:30:00Z",
-    "Union Berlin",
-    "Dortmund",
-    10.6,
-    14.5,
-    74.9
-   ],
-   [
-    "2026-10-17T13:30:00Z",
-    "HSV",
-    "Stuttgart",
-    25.4,
-    19.8,
-    54.7
-   ],
-   [
-    "2026-10-17T13:30:00Z",
-    "Bremen",
-    "SC Paderborn",
-    50.8,
-    22.6,
-    26.6
-   ],
-   [
-    "2026-10-17T13:30:00Z",
-    "Elversberg",
-    "Augsburg",
-    32.9,
-    20.8,
-    46.2
-   ],
-   [
-    "2026-10-17T13:30:00Z",
-    "Schalke",
-    "Mainz",
-    31.5,
-    22.1,
-    46.3
-   ],
-   [
-    "2026-10-17T16:30:00Z",
-    "Bayern",
-    "RB Leipzig",
-    47.8,
-    19.8,
-    32.4
-   ],
-   [
-    "2026-10-18T13:30:00Z",
-    "Leverkusen",
-    "Freiburg",
-    35.8,
-    20.1,
-    44.1
-   ],
-   [
-    "2026-10-18T15:30:00Z",
     "M'gladbach",
-    "Hoffenheim",
-    32.3,
-    18.2,
-    49.6
+    60.8,
+    17.6,
+    21.6
+   ],
+   [
+    "2026-10-11T15:30:00Z",
+    "Freiburg",
+    "Schalke",
+    69.3,
+    18.4,
+    12.2
    ]
   ],
   "src": [
@@ -1503,6 +1459,17 @@ window.DATA = [
      14,
      3,
      14,
+     ""
+    ],
+    [
+     "Frosinone",
+     7,
+     4,
+     1,
+     2,
+     13,
+     9,
+     13,
      ""
     ],
     [
@@ -1561,17 +1528,6 @@ window.DATA = [
      ""
     ],
     [
-     "Frosinone",
-     6,
-     3,
-     1,
-     2,
-     9,
-     7,
-     10,
-     ""
-    ],
-    [
      "Atalanta",
      6,
      3,
@@ -1584,12 +1540,12 @@ window.DATA = [
     ],
     [
      "Sassuolo",
-     6,
+     7,
      2,
      2,
-     2,
-     10,
-     10,
+     3,
+     12,
+     14,
      8,
      ""
     ],
@@ -1696,91 +1652,98 @@ window.DATA = [
   },
   "scorers": [
    [
+    "Antonio Raimondo",
+    "Frosinone",
+    7,
+    "Frosinone Calcio"
+   ],
+   [
     "Donyell Malen",
     "Roma",
-    6
+    6,
+    "AS Roma"
    ],
    [
     "Gustavo Varela",
     "Monza",
-    4
-   ],
-   [
-    "Antonio Raimondo",
-    "Frosinone",
-    4
+    4,
+    "AC Monza"
    ],
    [
     "Lautaro Martínez",
     "Inter",
-    4
+    4,
+    "FC Internazionale Milano"
    ],
    [
     "Daniel Maldini",
     "Cagliari",
-    4
+    4,
+    "Cagliari Calcio"
    ],
    [
     "Hakan Çalhanoğlu",
     "Inter",
-    3
+    3,
+    "FC Internazionale Milano"
    ],
    [
     "Kevin De Bruyne",
     "Napoli",
-    3
+    3,
+    "SSC Napoli"
    ],
    [
     "Nikola Krstović",
     "Atalanta",
-    3
+    3,
+    "Atalanta BC"
    ],
    [
     "Adrien Rabiot",
     "Milan",
-    3
+    3,
+    "AC Milan"
    ],
    [
     "Davide Frattesi",
     "Lazio",
-    3
+    3,
+    "SS Lazio"
    ],
    [
     "Jurgen Ekkelenkamp",
     "Udinese",
-    3
+    3,
+    "Udinese Calcio"
    ],
    [
     "Milutin Osmajić",
     "Genoa",
-    3
+    3,
+    "Genoa CFC"
    ],
    [
     "Marcus Thuram-Ulien",
     "Inter",
-    3
+    3,
+    "FC Internazionale Milano"
    ],
    [
     "Giorgi Kvernadze",
     "Frosinone",
-    3
+    3,
+    "Frosinone Calcio"
    ],
    [
     "Vasilije Adzic",
     "Sassuolo",
-    3
+    3,
+    "US Sassuolo Calcio"
    ]
   ],
   "scNote": "Actualizado automáticamente.",
   "fixtures": [
-   [
-    "2026-10-16T18:45:00Z",
-    "Frosinone",
-    "Sassuolo",
-    45.3,
-    23.3,
-    31.4
-   ],
    [
     "2026-10-17T13:00:00Z",
     "Venezia FC",
@@ -2274,77 +2237,92 @@ window.DATA = [
    [
     "Nicolo Tresoldi",
     "Club Brugge",
-    4
+    4,
+    "Club Brugge KV"
    ],
    [
     "Erling Haaland",
     "Man City",
-    4
+    4,
+    "Manchester City FC"
    ],
    [
     "Ermedin Demirovic",
     "Stuttgart",
-    4
+    4,
+    "VfB Stuttgart"
    ],
    [
     "Nicolas Jackson",
     "Aston Villa",
-    3
+    3,
+    "Aston Villa FC"
    ],
    [
     "Ousmane Dembélé",
     "PSG",
-    3
+    3,
+    "Paris Saint-Germain FC"
    ],
    [
     "Ferrán Torres",
     "PSG",
-    3
+    3,
+    "Paris Saint-Germain FC"
    ],
    [
     "Harry Kane",
     "Bayern",
-    3
+    3,
+    "FC Bayern München"
    ],
    [
     "Bradley Barcola",
     "Liverpool",
-    3
+    3,
+    "Liverpool FC"
    ],
    [
     "Kylian Mbappé",
     "Real Madrid",
-    2
+    2,
+    "Real Madrid CF"
    ],
    [
     "Santiago Mouriño",
     "Villarreal",
-    2
+    2,
+    "Villarreal CF"
    ],
    [
     "Sehrou Guirassy",
     "Dortmund",
-    2
+    2,
+    "Borussia Dortmund"
    ],
    [
     "Bartra",
     "Real Betis",
-    2
+    2,
+    "Real Betis Balompié"
    ],
    [
     "Raphinha",
     "Barça",
-    2
+    2,
+    "FC Barcelona"
    ],
    [
     "Karim Adeyemi",
     "Barça",
-    2
+    2,
+    "FC Barcelona"
    ],
    [
     "Luis Suárez",
     "Sporting CP",
-    2
+    2,
+    "Sporting Clube de Portugal"
    ]
   ],
   "scNote": "Actualizado automáticamente.",
@@ -2507,3 +2485,5 @@ window.DATA = [
 window.CRESTS = {"Man City":"https://crests.football-data.org/65.png","Arsenal":"https://crests.football-data.org/57.png","Brighton Hove":"https://crests.football-data.org/397.png","Brentford":"https://crests.football-data.org/402.png","Everton":"https://crests.football-data.org/62.png","Chelsea":"https://crests.football-data.org/61.png","Leeds United":"https://crests.football-data.org/341.png","Hull City":"https://crests.football-data.org/322.png","Liverpool":"https://crests.football-data.org/64.png","Ipswich Town":"https://crests.football-data.org/349.png","Newcastle":"https://crests.football-data.org/67.png","Crystal Palace":"https://crests.football-data.org/354.png","Man United":"https://crests.football-data.org/66.png","Coventry City":"https://crests.football-data.org/1076.png","Nottingham":"https://crests.football-data.org/351.png","Aston Villa":"https://crests.football-data.org/58.png","Sunderland":"https://crests.football-data.org/71.png","Bournemouth":"https://crests.football-data.org/bournemouth.png","Tottenham":"https://crests.football-data.org/73.png","Fulham":"https://crests.football-data.org/63.png","Barça":"https://crests.football-data.org/81.png","Atleti":"https://crests.football-data.org/78.png","Real Betis":"https://crests.football-data.org/90.png","Real Madrid":"https://crests.football-data.org/86.png","Sevilla FC":"https://crests.football-data.org/559.png","Real Sociedad":"https://crests.football-data.org/92.png","Alavés":"https://crests.football-data.org/263.png","Deportivo":"https://crests.football-data.org/560.png","Celta":"https://crests.football-data.org/558.png","Athletic":"https://crests.football-data.org/77.png","Villarreal":"https://crests.football-data.org/94.png","Espanyol":"https://crests.football-data.org/80.png","Rayo Vallecano":"https://crests.football-data.org/87.png","Getafe":"https://crests.football-data.org/82.png","Santander":"https://crests.football-data.org/5335.png","Osasuna":"https://crests.football-data.org/79.png","Levante":"https://crests.football-data.org/88.png","Elche":"https://crests.football-data.org/285.png","Valencia":"https://crests.football-data.org/95.png","Málaga":"https://crests.football-data.org/84.png","Monaco":"https://crests.football-data.org/548.png","Lille":"https://crests.football-data.org/521.png","Stade Rennais":"https://crests.football-data.org/529.png","Olympique Lyon":"https://crests.football-data.org/523.png","Paris FC":"https://crests.football-data.org/1045.png","PSG":"https://crests.football-data.org/524.png","Brest":"https://crests.football-data.org/512.png","Lorient":"https://crests.football-data.org/525.png","Nice":"https://crests.football-data.org/522.png","RC Lens":"https://crests.football-data.org/546.png","Strasbourg":"https://crests.football-data.org/576.png","Angers SCO":"https://crests.football-data.org/532.png","Marseille":"https://crests.football-data.org/516.png","Le Mans":"https://crests.football-data.org/535.png","Toulouse":"https://crests.football-data.org/511.png","Auxerre":"https://crests.football-data.org/519.png","Troyes":"https://crests.football-data.org/531.png","Le Havre":"https://crests.football-data.org/533.png","Freiburg":"https://crests.football-data.org/17.png","Dortmund":"https://crests.football-data.org/4.png","Bayern":"https://crests.football-data.org/5.png","Leverkusen":"https://crests.football-data.org/3.png","RB Leipzig":"https://crests.football-data.org/721.png","Augsburg":"https://crests.football-data.org/16.png","Bremen":"https://crests.football-data.org/12.png","Mainz":"https://crests.football-data.org/15.png","Elversberg":"https://crests.football-data.org/719.png","1. FC Köln":"https://crests.football-data.org/1.png","Stuttgart":"https://crests.football-data.org/10.png","HSV":"https://crests.football-data.org/7.png","Schalke":"https://crests.football-data.org/6.png","Frankfurt":"https://crests.football-data.org/19.png","SC Paderborn":"https://crests.football-data.org/29.png","Union Berlin":"https://crests.football-data.org/28.png","Hoffenheim":"https://crests.football-data.org/2.png","M'gladbach":"https://crests.football-data.org/18.png","Inter":"https://crests.football-data.org/108.png","Lazio":"https://crests.football-data.org/110.png","Roma":"https://crests.football-data.org/100.png","Cagliari":"https://crests.football-data.org/104.png","Milan":"https://crests.football-data.org/98.png","Juventus":"https://crests.football-data.org/109.png","Como 1907":"https://crests.football-data.org/7397.png","Napoli":"https://crests.football-data.org/113.png","Frosinone":"https://crests.football-data.org/470.png","Atalanta":"https://crests.football-data.org/102.png","Sassuolo":"https://crests.football-data.org/471.png","Torino":"https://crests.football-data.org/586.png","Lecce":"https://crests.football-data.org/5890.png","Bologna":"https://crests.football-data.org/103.png","Udinese":"https://crests.football-data.org/115.png","Monza":"https://crests.football-data.org/5911.png","Genoa":"https://crests.football-data.org/107.png","Parma":"https://crests.football-data.org/112.png","Fiorentina":"https://crests.football-data.org/99.png","Venezia FC":"https://crests.football-data.org/454.png","Sporting CP":"https://crests.football-data.org/498.png","PAE AEK":"https://crests.football-data.org/1899.png","Club Brugge":"https://crests.football-data.org/851.png","Sabah FK":"https://crests.football-data.org/10233.png","Shaktar":"https://crests.football-data.org/1887.png","Fenerbahçe":"https://crests.football-data.org/613.png","PSV":"https://crests.football-data.org/674.png","Viking":"https://crests.football-data.org/5720.png","LASK":"https://crests.football-data.org/2016.png","Porto":"https://crests.football-data.org/503.png","Slavia Praha":"https://crests.football-data.org/930.png","Feyenoord":"https://crests.football-data.org/675.png","Galatasaray":"https://crests.football-data.org/610.png","Sl. Bratislava":"https://crests.football-data.org/7509.png","Bodø/Glimt":"https://crests.football-data.org/5721.png"};
 window.PHOTOS = {"Sergio Camello":"https://media.api-sports.io/football/players/52.png","Kylian Mbappé":"https://media.api-sports.io/football/players/278.png","Yassir Zabiri":"https://media.api-sports.io/football/players/457101.png","Lamine Yamal":"https://media.api-sports.io/football/players/386828.png","Erling Haaland":"https://media.api-sports.io/football/players/1100.png","Roberto Fernández":"https://media.api-sports.io/football/players/2399.png","Ante Budimir":"https://media.api-sports.io/football/players/46746.png","João Pedro":"https://media.api-sports.io/football/players/374.png","Pierre-Emerick Aubameyang":"https://media.api-sports.io/football/players/1465.png","Fer Niño":"https://media.api-sports.io/football/players/184277.png","Patrik Schick":"https://media.api-sports.io/football/players/794.png","Morgan Rogers":"https://media.api-sports.io/football/players/19170.png","Rayan Cherki":"https://media.api-sports.io/football/players/156477.png","Álex Baena":"https://media.api-sports.io/football/players/182219.png","Fermín López":"https://media.api-sports.io/football/players/340626.png","Amine Gouiri":"https://media.api-sports.io/football/players/85041.png","Louis Mafouta":"https://media.api-sports.io/football/players/85558.png","Kamory Doumbia":"https://media.api-sports.io/football/players/326068.png","Ferrán Torres":"https://media.api-sports.io/football/players/931.png","Lassine Sinayoko":"https://media.api-sports.io/football/players/90617.png","Paris Brunner":"https://media.api-sports.io/football/players/386276.png","Casper Tengstedt":"https://media.api-sports.io/football/players/162703.png","Younes Ebnoutalib":"https://media.api-sports.io/football/players/409190.png","Yuito Suzuki":"https://media.api-sports.io/football/players/199143.png","Niclas Füllkrug":"https://media.api-sports.io/football/players/25391.png","Antonio Raimondo":"https://media.api-sports.io/football/players/314254.png","Lautaro Martínez":"https://media.api-sports.io/football/players/217.png","Daniel Maldini":"https://media.api-sports.io/football/players/134926.png","Nicolo Tresoldi":"https://media.api-sports.io/football/players/287923.png","Ermedin Demirovic":"https://media.api-sports.io/football/players/46930.png","Marcus Tavernier":"https://media.api-sports.io/football/players/19245.png","Kevin Schade":"https://media.api-sports.io/football/players/178077.png","Bruno Fernandes":"https://media.api-sports.io/football/players/1485.png","Bryan Mbeumo":"https://media.api-sports.io/football/players/20589.png","Mohamed Belloumi":"https://media.api-sports.io/football/players/299923.png","Brian Brobbey":"https://media.api-sports.io/football/players/38750.png","Pape Gueye":"https://media.api-sports.io/football/players/20696.png","Jude Bellingham":"https://media.api-sports.io/football/players/129718.png","Florian Thauvin":"https://media.api-sports.io/football/players/1922.png","Ernest Nuamah":"https://media.api-sports.io/football/players/350856.png","Adil Bourabaa":"https://media.api-sports.io/football/players/435501.png","Igor Matanovic":"https://media.api-sports.io/football/players/202696.png","Michael Gregoritsch":"https://media.api-sports.io/football/players/25297.png","Maurice Krattenmacher":"https://media.api-sports.io/football/players/342170.png","Jonathan Burkardt":"https://media.api-sports.io/football/players/25926.png","Robin Fellhauer":"https://media.api-sports.io/football/players/143831.png","Hakan Çalhanoğlu":"https://media.api-sports.io/football/players/1640.png","Kevin De Bruyne":"https://media.api-sports.io/football/players/629.png","Nikola Krstović":"https://media.api-sports.io/football/players/66817.png","Adrien Rabiot":"https://media.api-sports.io/football/players/272.png","Davide Frattesi":"https://media.api-sports.io/football/players/31173.png","Jurgen Ekkelenkamp":"https://media.api-sports.io/football/players/541.png","Milutin Osmajić":"https://media.api-sports.io/football/players/66761.png","Marcus Thuram-Ulien":"https://media.api-sports.io/football/players/21509.png","Giorgi Kvernadze":"https://media.api-sports.io/football/players/311251.png","Vasilije Adzic":"https://media.api-sports.io/football/players/339872.png","Nicolas Jackson":"https://media.api-sports.io/football/players/283058.png","Ousmane Dembélé":"https://media.api-sports.io/football/players/153.png","Bradley Barcola":"https://media.api-sports.io/football/players/161904.png","Kai Havertz":"https://media.api-sports.io/football/players/978.png","Franjo Ivanovic":"https://media.api-sports.io/football/players/202951.png","Tiago Santos":"https://media.api-sports.io/football/players/9191.png","Bartra":"https://media.api-sports.io/football/players/1561.png","Karim Adeyemi":"https://media.api-sports.io/football/players/7334.png","Luis Suárez":"https://media.api-sports.io/football/players/157.png"};
 window.PHOTO_MISS = {"Raphinha":"2026-10-14","Donyell Malen":"2026-10-14","Lucas Boyé":"2026-10-14","Alexander Isak":"2026-10-14","Esteban Lepaul":"2026-10-14","Cameron Archer":"2026-10-14","Michael Olise":"2026-10-14","Phillip Tietz":"2026-10-14","Christopher Nkunku":"2026-10-14","Gustavo Varela":"2026-10-14","Bukayo Saka":"2026-10-14","Thierno Barry":"2026-10-14","Pascal Groß":"2026-10-14","Mariano Díaz":"2026-10-14","Marquinhos":"2026-10-14","Antonio Nusa":"2026-10-14","Maximilian Eggestein":"2026-10-15","Harry Kane":"2026-10-15","Santiago Mouriño":"2026-10-15","Sehrou Guirassy":"2026-10-15"};
+window.TEAM_IDS = {};
+window.TEAM_MISS = {};
