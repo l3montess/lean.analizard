@@ -2,6 +2,7 @@
 // Se alimenta de history.json (football-data.co.uk). Si algo falta, devuelve null y el sitio usa el modelo simple de siempre.
 import fs from 'node:fs';
 import { newState, learn, modelD } from './backtest.mjs';
+const eloNow=(st,t)=>(st.elo&&st.elo[t])??1500;
 
 const STOP = new Set(['fc','cf','afc','ac','as','ssc','sc','rc','ud','cd','us','sv','vfb','vfl','tsg','fsv','bv','sd','ca','club','de','la','the','1','sk','ogc','losc','rcd','real','deportivo','olympique','stade','borussia','hotspur','hove','albion','wanderers','city','united','town']);
 export const plain = t => String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
@@ -69,6 +70,15 @@ export function buildModel(hist){
     predict(lg,h,a){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null;
       const { p }=modelD(L.st,ch,ca); if(!p.every(Number.isFinite)) return null;
       const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10; return r; },
+    // Números de cada equipo para que el navegador repita el mismo cálculo (comparador y goles esperados).
+    // { liga: { l:[partidos, golesLocal, golesVisita, golesTotales, xGTotal], t:{ equipo:[PJ, GF, GC, xGF, xGC, Elo] } } }
+    snapshot(data){ const out={}, r2=x=>Math.round(x*100)/100;
+      for(const lg of data){ const L=leagues[lg.id]; if(!L||lg.id==='ucl') continue;
+        const names=Object.values(lg.groups).flat().map(r=>r[0]), t={};
+        for(const n of names){ const c=resolve(L,n); const T=c&&L.st.t[c]; if(!T) continue; t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c))]; }
+        if(Object.keys(t).length<2) continue;
+        const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den)], t }; }
+      return out; },
     // para el log: equipos de la API que no se pudieron emparejar
     unmatched(lg,names){ const L=leagues[lg]; return L?names.filter(n=>!resolve(L,n)):names; },
   };
