@@ -9,6 +9,23 @@ import { loadModel } from './model.mjs';
 const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1', ucl:'CL' }; // Europa League no está en el plan gratuito
 const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'America/Argentina/Buenos_Aires'});
 
+// Historial de predicciones: cada partido se guarda ANTES de empezar y no se toca después; al terminar se le agrega el resultado.
+// Fila: [liga, fecha de inicio, local, visita, %local, %empate, %visita, golesLocal|null, golesVisita|null]
+export function trackPredictions(log, data, finished, now=Date.now()){
+  for(const L of data) for(const f of (L.fixtures||[])){
+    const [iso,h,a,ph,px,pa]=f, ko=Date.parse(iso); if(!Number.isFinite(ko)) continue;
+    const row=log.find(r=>r[0]===L.id&&r[2]===h&&r[3]===a&&Math.abs(Date.parse(r[1])-ko)<3*864e5);
+    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null]); }
+    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; }        // se actualiza hasta que empieza
+  }
+  for(const r of log){ if(r[7]!=null) continue;
+    const m=finished.find(x=>x.h===r[2]&&x.a===r[3]&&Math.abs(Date.parse(x.iso)-Date.parse(r[1]))<3*864e5);
+    if(m){ r[7]=m.gh; r[8]=m.ga; } }
+  log.sort((x,y)=>x[1]<y[1]?1:x[1]>y[1]?-1:0);
+  if(log.length>1500) log.length=1500;
+  return log;
+}
+
 // Probabilidades 1X2 con un modelo de Poisson simple (ventaja de local 10 %). No es un modelo profesional.
 function poisson(k,l){ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; }
 function probs(h,a){
@@ -32,7 +49,7 @@ export function lastFive(done, names, n=5){
   return by;
 }
 
-export async function build(api, previous, crests={}, recent={}, model=null){
+export async function build(api, previous, crests={}, recent={}, model=null, predLog=[]){
   const out = [];
   const done = new Map(), allNames = new Set();
   for(const prev of previous){
@@ -68,6 +85,7 @@ export async function build(api, previous, crests={}, recent={}, model=null){
       src:[['football-data.org','https://www.football-data.org']] });
     if(!rows.every(r=>r[1]>0)) console.warn(prev.id,'hay equipos sin partidos jugados');
   }
+  trackPredictions(predLog, out, [...done.values()]);
   Object.keys(recent).forEach(k=>delete recent[k]);
   Object.assign(recent, lastFive([...done.values()], allNames));
   return out;
@@ -164,7 +182,9 @@ async function main(){
   const recent = {};
   const model = loadModel(fileURLToPath(new URL('../history.json', import.meta.url)));
   console.log(model ? '[modelo] usando el modelo D (history.json)' : '[modelo] sin history.json: se usa el modelo simple');
-  const data = await build(api, ctx.window.DATA, crests, recent, model);
+  const predLog = Array.isArray(ctx.window.PRED_LOG) ? ctx.window.PRED_LOG : [];
+  const data = await build(api, ctx.window.DATA, crests, recent, model, predLog);
+  const retro = model ? model.retro(21) : (Array.isArray(ctx.window.PRED_RETRO)?ctx.window.PRED_RETRO:[]);
   const st = { photos: ctx.window.PHOTOS || {}, miss: ctx.window.PHOTO_MISS || {}, teams: ctx.window.TEAM_IDS || {}, teamMiss: ctx.window.TEAM_MISS || {} };
   const afKey = process.env.API_FOOTBALL_KEY;
   if(afKey){
@@ -173,7 +193,7 @@ async function main(){
       await addPhotos(data, st, fetchAf);
     }catch(e){ console.warn('[fotos] se omitieron por un error:', e.message); }
   } else console.log('[fotos] sin API_FOOTBALL_KEY: se omiten');
-  fs.writeFileSync(file, '/* Generado por scripts/update.mjs (Argentina se edita a mano). */\nwindow.DATA = '+JSON.stringify(data,null,1)+';\nwindow.CRESTS = '+JSON.stringify(crests)+';\nwindow.PHOTOS = '+JSON.stringify(st.photos)+';\nwindow.PHOTO_MISS = '+JSON.stringify(st.miss)+';\nwindow.TEAM_IDS = '+JSON.stringify(st.teams)+';\nwindow.TEAM_MISS = '+JSON.stringify(st.teamMiss)+';\nwindow.RECENT = '+JSON.stringify(recent)+';\nwindow.MODEL = '+JSON.stringify(model?model.snapshot(data):{})+';\n');
+  fs.writeFileSync(file, '/* Generado por scripts/update.mjs (Argentina se edita a mano). */\nwindow.DATA = '+JSON.stringify(data,null,1)+';\nwindow.CRESTS = '+JSON.stringify(crests)+';\nwindow.PHOTOS = '+JSON.stringify(st.photos)+';\nwindow.PHOTO_MISS = '+JSON.stringify(st.miss)+';\nwindow.TEAM_IDS = '+JSON.stringify(st.teams)+';\nwindow.TEAM_MISS = '+JSON.stringify(st.teamMiss)+';\nwindow.RECENT = '+JSON.stringify(recent)+';\nwindow.PRED_LOG = '+JSON.stringify(predLog)+';\nwindow.PRED_RETRO = '+JSON.stringify(retro)+';\nwindow.MODEL = '+JSON.stringify(model?model.snapshot(data):{})+';\n');
   console.log('data.js actualizado');
 }
 if (process.argv[1]===fileURLToPath(import.meta.url)) main();
