@@ -77,15 +77,16 @@ export function fitT(hist){
   return best;
 }
 // Estado de una liga-temporada: lo que el modelo "sabe" hasta ahora. learn() lo actualiza con un partido ya jugado.
-export const newState=elo=>({ n:0,hg:0,ag:0,t:{},elo:elo||{} });
-export const teamOf=(st,id)=>st.t[id]||(st.t[id]={n:0,gf:0,ga:0,xf:0,xa:0});
+export const newState=elo=>({ n:0,hg:0,ag:0,ns:0,hsot:0,asot:0,t:{},elo:elo||{} });
+export const teamOf=(st,id)=>st.t[id]||(st.t[id]={n:0,gf:0,ga:0,xf:0,xa:0,ns:0,sf:0,sa:0});
 export function learn(st,m){
   const H=teamOf(st,m.h), A=teamOf(st,m.a);
   eloUpdate(st,m);
   const hasS=m.hs!=null&&m.hst!=null&&m.as!=null&&m.ast!=null, sc=st.xg&&st.xg.den>0?st.xg.goals/st.xg.den:1;
   const xh=hasS?xgp(m.hs,m.hst):m.hg/sc, xa=hasS?xgp(m.as,m.ast):m.ag/sc;
   H.xf+=xh; H.xa+=xa; A.xf+=xa; A.xa+=xh;
-  if(hasS){ const g=st.xg||(st.xg={goals:0,den:0}); g.goals+=m.hg+m.ag; g.den+=xh+xa; }
+  if(hasS){ const g=st.xg||(st.xg={goals:0,den:0}); g.goals+=m.hg+m.ag; g.den+=xh+xa;
+    H.ns++; A.ns++; H.sf+=m.hst; H.sa+=m.ast; A.sf+=m.ast; A.sa+=m.hst; st.ns++; st.hsot+=m.hst; st.asot+=m.ast; }   // remates al arco a favor y en contra
   H.n++; H.gf+=m.hg; H.ga+=m.ag; A.n++; A.gf+=m.ag; A.ga+=m.hg; st.n++; st.hg+=m.hg; st.ag+=m.ag;
 }
 // Modelo D listo para usar: probabilidades [local, empate, visita] en 0..1.
