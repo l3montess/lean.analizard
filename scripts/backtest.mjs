@@ -179,3 +179,15 @@ async function main(){
       const acc=evaluate(ms); parts.push(acc); detail[`${id}-${yr}`]=summarize(acc);
       console.log(`${id} ${yr}: ${ms.length} partidos, evaluados ${acc.A.n}`);
     }catch(e){ console.warn(`${id} ${yr}: omitido (${e.message})`); }
+  }
+  return report(parts, detail, 'api.football-data.org');
+}
+function report(parts, detail, fuente){
+  if(!parts.length){ console.error('Sin datos para evaluar'); process.exit(1); }
+  const total=summarize(merge(parts));
+  console.log('\nRESULTADO TOTAL (menos Brier y logloss = mejor; más aciertos = mejor)');
+  console.table(Object.fromEntries(Object.entries(total).map(([k,v])=>[k,{partidos:v.partidos,aciertos_pct:v.aciertos,brier:v.brier,logloss:v.logloss,brier_mas25:v.brier_mas25}])));
+  console.log('Calibración de "gana el local" (predicho % vs real %):'); for(const k of Object.keys(total)) console.log(k, total[k].calibracion_local.map(b=>`${b.predicho}→${b.real}(n=${b.n})`).join('  '));
+  fs.writeFileSync(new URL('../backtest.json',import.meta.url), JSON.stringify({generado:new Date().toISOString(),fuente,total,detalle:detail},null,1));
+}
+if (process.argv[1]===fileURLToPath(import.meta.url)) main();
