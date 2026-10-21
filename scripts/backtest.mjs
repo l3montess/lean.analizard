@@ -90,7 +90,9 @@ export function learn(st,m){
   H.n++; H.gf+=m.hg; H.ga+=m.ag; A.n++; A.gf+=m.ag; A.ga+=m.hg; st.n++; st.hg+=m.hg; st.ag+=m.ag;
 }
 // Modelo D listo para usar: probabilidades [local, empate, visita] en 0..1.
-export const modelD=(st,h,a)=>{ teamOf(st,h); teamOf(st,a); return blend(modelX(st,h,a),modelElo(st,h,a)); };
+// Para decir quién es favorito pesa más el Elo (que ya mide la calidad de los rivales enfrentados): 70 % Elo y 30 % goles + remates.
+export const W_X=0.3;
+export const modelD=(st,h,a)=>{ teamOf(st,h); teamOf(st,a); return blend(modelX(st,h,a),modelElo(st,h,a),W_X); };
 const MODELS = { X:(st,h,a)=>modelX(st,h,a), A:(st,h,a)=>modelA(st,h,a), B:(st,h,a)=>modelB(st,h,a), C:(st,h,a)=>modelElo(st,h,a), mercado:modelMarket };
 
 function outcome(m){ return m.hg>m.ag?0:m.hg===m.ag?1:2; }
@@ -98,7 +100,7 @@ function outcome(m){ return m.hg>m.ag?0:m.hg===m.ag?1:2; }
 export function evaluate(matches, ctx={}){
   matches=[...matches].filter(m=>m.hg!=null).sort((x,y)=>x.date<y.date?-1:1);
   const st=newState(ctx.elo), tt=id=>teamOf(st,id);
-  const acc={}; const names=[...Object.keys(MODELS),'D','E','base'];
+  const acc={}; const names=[...Object.keys(MODELS),'D','E','F','base'];
   const cal=ctx.cal||(ctx.cal={ hist:[], T:1 });
   names.forEach(k=>acc[k]={n:0,hit:0,brier:0,ll:0,o25:0,bins:Array.from({length:10},()=>({n:0,pred:0,real:0}))});
   let base=[1/3,1/3,1/3];
@@ -108,7 +110,7 @@ export function evaluate(matches, ctx={}){
       const y=outcome(m), over=(m.hg+m.ag)>=3?1:0;
       const preds={ base:{p:base,o25:0.5}};
       for(const [k,f] of Object.entries(MODELS)) preds[k]=f(st,m.h,m.a,m);
-      preds.D=blend(preds.X,preds.C); preds.E=temper(preds.D,cal.T);
+      preds.D=blend(preds.X,preds.C); preds.F=blend(preds.X,preds.C,W_X); preds.E=temper(preds.D,cal.T);
       cal.hist.push([preds.D.p,y]); if(cal.hist.length>=200 && cal.hist.length%100===0) cal.T=fitT(cal.hist);
       const comparable = !ctx.needOdds || m.odds;                  // con historial: todos se miden en los mismos partidos (los que tienen cuotas)
       for(const k of (comparable?names:[])){
@@ -177,15 +179,3 @@ async function main(){
       const acc=evaluate(ms); parts.push(acc); detail[`${id}-${yr}`]=summarize(acc);
       console.log(`${id} ${yr}: ${ms.length} partidos, evaluados ${acc.A.n}`);
     }catch(e){ console.warn(`${id} ${yr}: omitido (${e.message})`); }
-  }
-  return report(parts, detail, 'api.football-data.org');
-}
-function report(parts, detail, fuente){
-  if(!parts.length){ console.error('Sin datos para evaluar'); process.exit(1); }
-  const total=summarize(merge(parts));
-  console.log('\nRESULTADO TOTAL (menos Brier y logloss = mejor; más aciertos = mejor)');
-  console.table(Object.fromEntries(Object.entries(total).map(([k,v])=>[k,{partidos:v.partidos,aciertos_pct:v.aciertos,brier:v.brier,logloss:v.logloss,brier_mas25:v.brier_mas25}])));
-  console.log('Calibración de "gana el local" (predicho % vs real %):'); for(const k of Object.keys(total)) console.log(k, total[k].calibracion_local.map(b=>`${b.predicho}→${b.real}(n=${b.n})`).join('  '));
-  fs.writeFileSync(new URL('../backtest.json',import.meta.url), JSON.stringify({generado:new Date().toISOString(),fuente,total,detalle:detail},null,1));
-}
-if (process.argv[1]===fileURLToPath(import.meta.url)) main();
