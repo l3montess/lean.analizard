@@ -1,20 +1,36 @@
 name: Probar modelo
+
 on:
   workflow_dispatch:
-permissions: { contents: write }
+
+permissions:
+  contents: write
+
 jobs:
-  prueba:
+  backtest:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - name: Bajar historial (football-data.co.uk, sin clave)
-        run: node scripts/history.mjs --force
-      - name: Probar modelos contra partidos ya jugados
+        with:
+          node-version: 20
+
+      - name: Bajar historial
+        run: node scripts/history.mjs
+
+      - name: Probar el modelo
         run: node scripts/backtest.mjs
-      - run: |
-          git config user.name "datos-bot"; git config user.email "bot@users.noreply.github.com"
-          git add history.json backtest.json
-          git diff --cached --quiet || (git commit -m "Historial y resultados de la prueba" && git pull --rebase && git push)
+
+      - name: Guardar resultados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Resultados de la prueba del modelo"
+            git pull --rebase
+            git push
+          fi
