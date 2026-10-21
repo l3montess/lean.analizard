@@ -1,23 +1,46 @@
 name: Actualizar datos
+
 on:
-  schedule: [{ cron: '0 */3 * * *' }]   # cada 3 horas (hora UTC; en Argentina: 21, 0, 3, 6, 9, 12, 15, 18)
+  schedule:
+    - cron: '0 */3 * * *'
   workflow_dispatch:
-permissions: { contents: write }
-concurrency: { group: actualizar-datos, cancel-in-progress: false }   # nunca dos corridas a la vez
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-datos
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - name: Historial de resultados (se baja como mucho una vez por día)
-        run: node scripts/history.mjs
+        with:
+          node-version: 20
+
+      - name: Bajar historial (football-data.co.uk)
         continue-on-error: true
-      - run: node scripts/update.mjs
-        env: { FOOTBALL_DATA_KEY: '${{ secrets.FOOTBALL_DATA_KEY }}', API_FOOTBALL_KEY: '${{ secrets.API_FOOTBALL_KEY }}' }
-      - run: |
-          git config user.name "datos-bot"; git config user.email "bot@users.noreply.github.com"
-          git add data.js history.json
-          git diff --cached --quiet || (git commit -m "Actualizar datos" && git pull --rebase && git push)
+        run: node scripts/history.mjs
+
+      - name: Actualizar datos
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: node scripts/update.mjs
+
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Actualizar datos automáticamente"
+            git pull --rebase
+            git push
+          fi
