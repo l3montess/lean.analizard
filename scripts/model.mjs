@@ -2,6 +2,7 @@
 // Se alimenta de history.json (football-data.co.uk). Si algo falta, devuelve null y el sitio usa el modelo simple de siempre.
 import fs from 'node:fs';
 import { newState, learn, modelD } from './backtest.mjs';
+const MIN_GAMES=5;
 const eloNow=(st,t)=>(st.elo&&st.elo[t])??1500;
 
 const STOP = new Set(['fc','cf','afc','ac','as','ssc','sc','rc','ud','cd','us','sv','vfb','vfl','tsg','fsv','bv','sd','ca','club','de','la','the','1','sk','ogc','losc','rcd','real','deportivo','olympique','stade','borussia','hotspur','hove','albion','wanderers','city','united','town']);
@@ -53,6 +54,10 @@ export function buildModel(hist){
   const byL={};
   for(const r of hist.partidos){ const [lg,se,date,h,a,hg,ag,o1,o2,o3,u1,u2,hs,as_,hst,ast]=r;
     ((byL[lg]=byL[lg]||{})[se]=byL[lg][se]||[]).push({h,a,date,hg,ag,hs,as:as_,hst,ast}); }
+  // Cuántos remates al arco hacen falta, en promedio, para un gol: todas las ligas y temporadas del historial.
+  let cg=0, cs=0, cn=0;
+  for(const r of hist.partidos){ const hst=r[14], ast=r[15]; if(hst==null||ast==null) continue; cg+=r[5]+r[6]; cs+=hst+ast; cn++; }
+  const conv = cs>0 ? cg/cs : 0.31;                       // goles por remate al arco
   const leagues={};
   for(const [lg,seasons] of Object.entries(byL)){
     const elo={}; let st=null, last=null;
@@ -75,10 +80,35 @@ export function buildModel(hist){
     snapshot(data){ const out={}, r2=x=>Math.round(x*100)/100;
       for(const lg of data){ const L=leagues[lg.id]; if(!L||lg.id==='ucl') continue;
         const names=Object.values(lg.groups).flat().map(r=>r[0]), t={};
-        for(const n of names){ const c=resolve(L,n); const T=c&&L.st.t[c]; if(!T) continue; t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c))]; }
+        for(const n of names){ const c=resolve(L,n); const T=c&&L.st.t[c]; if(!T) continue; t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c)),T.ns||0,r2(T.sf||0),r2(T.sa||0)]; }
         if(Object.keys(t).length<2) continue;
-        const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den)], t }; }
+        const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den),L.st.ns||0,L.st.hsot||0,L.st.asot||0], t }; }
+      out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
       return out; },
+    // Partidos de las últimas `days` semanas, predichos SIN ver su resultado (el modelo solo sabe lo que pasó antes de cada uno).
+    // Cada fila: [liga, fecha, local, visita, %local, %empate, %visita, golesLocal, golesVisita]
+    retro(days=21){
+      let max=''; for(const r of hist.partidos) if(r[2]>max) max=r[2];
+      const cut=new Date(Date.parse(max.slice(0,10))-days*864e5).toISOString().slice(0,10), out=[];
+      for(const [lg,seasons] of Object.entries(byL)){
+        const elo={}; let st=null; const keys=Object.keys(seasons).sort();
+        for(const se of keys){
+          for(const t of Object.keys(elo)) elo[t]=1500+0.75*(elo[t]-1500);
+          st=newState(elo);
+          for(const m of [...seasons[se]].sort((x,y)=>x.date<y.date?-1:1)){
+            if(se===keys[keys.length-1] && m.date.slice(0,10)>=cut){
+              const H=st.t[m.h], A=st.t[m.a];
+              if(H&&A&&H.n>=MIN_GAMES&&A.n>=MIN_GAMES){
+                const { p }=modelD(st,m.h,m.a);
+                if(p.every(Number.isFinite)){ const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10; out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag]); }
+              }
+            }
+            learn(st,m);
+          }
+        }
+      }
+      return out.sort((x,y)=>x[1]<y[1]?1:x[1]>y[1]?-1:0);
+    },
     // para el log: equipos de la API que no se pudieron emparejar
     unmatched(lg,names){ const L=leagues[lg]; return L?names.filter(n=>!resolve(L,n)):names; },
   };
