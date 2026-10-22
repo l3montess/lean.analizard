@@ -4,19 +4,21 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { loadModel } from './model.mjs';
+import { loadModel, goalsExp } from './model.mjs';
 
 const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1', ucl:'CL' }; // Europa League no está en el plan gratuito
 const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'America/Argentina/Buenos_Aires'});
 
 // Historial de predicciones: cada partido se guarda ANTES de empezar y no se toca después; al terminar se le agrega el resultado.
-// Fila: [liga, fecha de inicio, local, visita, %local, %empate, %visita, golesLocal|null, golesVisita|null]
-export function trackPredictions(log, data, finished, now=Date.now()){
+// Fila: [liga, fecha de inicio, local, visita, %local, %empate, %visita, golesLocal|null, golesVisita|null, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV]
+export function trackPredictions(log, data, finished, now=Date.now(), recent={}){
+  const pairs=t=>(recent[t]||[]).slice(0,10).map(x=>[x[4],x[5]]);       // últimos 10 partidos de cada equipo: [a favor, en contra]
+  const extras=(h,a)=>goalsExp(pairs(h),pairs(a))||[null,null,null,null];
   for(const L of data) for(const f of (L.fixtures||[])){
     const [iso,h,a,ph,px,pa]=f, ko=Date.parse(iso); if(!Number.isFinite(ko)) continue;
     const row=log.find(r=>r[0]===L.id&&r[2]===h&&r[3]===a&&Math.abs(Date.parse(r[1])-ko)<3*864e5);
-    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null]); }
-    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; }        // se actualiza hasta que empieza
+    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null,...extras(h,a)]); }
+    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; row.splice(9,4,...extras(h,a)); }        // se actualiza hasta que empieza
   }
   for(const r of log){ if(r[7]!=null) continue;
     const m=finished.find(x=>x.h===r[2]&&x.a===r[3]&&Math.abs(Date.parse(x.iso)-Date.parse(r[1]))<3*864e5);
@@ -85,9 +87,9 @@ export async function build(api, previous, crests={}, recent={}, model=null, pre
       src:[['football-data.org','https://www.football-data.org']] });
     if(!rows.every(r=>r[1]>0)) console.warn(prev.id,'hay equipos sin partidos jugados');
   }
-  trackPredictions(predLog, out, [...done.values()]);
   Object.keys(recent).forEach(k=>delete recent[k]);
   Object.assign(recent, lastFive([...done.values()], allNames));
+  trackPredictions(predLog, out, [...done.values()], Date.now(), recent);
   return out;
 }
 
