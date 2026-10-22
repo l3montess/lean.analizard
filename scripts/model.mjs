@@ -4,6 +4,16 @@ import fs from 'node:fs';
 import { newState, learn, modelD } from './backtest.mjs';
 const MIN_GAMES=5;
 const eloNow=(st,t)=>(st.elo&&st.elo[t])??1500;
+const pz=(k,l)=>{ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; };
+// Goles esperados con los últimos 10 partidos de cada equipo (cualquier competición): fa y fb = listas de [golesAFavor, golesEnContra].
+// Devuelve null si a alguno le faltan partidos (hacen falta 5). o25 y bt en %, lA y lB en goles.
+export function goalsExp(fa,fb){
+  if(!fa||!fb||fa.length<5||fb.length<5) return null;
+  const av=(L,i)=>L.reduce((s,x)=>s+x[i],0)/L.length;
+  const lA=(av(fa,0)+av(fb,1))/2, lB=(av(fb,0)+av(fa,1))/2, lt=lA+lB;
+  const o25=1-(pz(0,lt)+pz(1,lt)+pz(2,lt)), bt=(1-Math.exp(-lA))*(1-Math.exp(-lB));
+  return [Math.round(o25*1000)/10, Math.round(bt*1000)/10, Math.round(lA*100)/100, Math.round(lB*100)/100];
+}
 
 const STOP = new Set(['fc','cf','afc','ac','as','ssc','sc','rc','ud','cd','us','sv','vfb','vfl','tsg','fsv','bv','sd','ca','club','de','la','the','1','sk','ogc','losc','rcd','real','deportivo','olympique','stade','borussia','hotspur','hove','albion','wanderers','city','united','town']);
 export const plain = t => String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
@@ -89,9 +99,9 @@ export function buildModel(hist){
     // Cada fila: [liga, fecha, local, visita, %local, %empate, %visita, golesLocal, golesVisita]
     retro(days=21){
       let max=''; for(const r of hist.partidos) if(r[2]>max) max=r[2];
-      const cut=new Date(Date.parse(max.slice(0,10))-days*864e5).toISOString().slice(0,10), out=[];
+      const cut=new Date(Date.parse(max.slice(0,10))-days*864e5).toISOString().slice(0,10), out=[];   // fila: [liga, fecha, local, visita, %1, %X, %2, golesL, golesV, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV]
       for(const [lg,seasons] of Object.entries(byL)){
-        const elo={}; let st=null; const keys=Object.keys(seasons).sort();
+        const elo={}, rec={}; let st=null; const keys=Object.keys(seasons).sort();
         for(const se of keys){
           for(const t of Object.keys(elo)) elo[t]=1500+0.75*(elo[t]-1500);
           st=newState(elo);
@@ -100,10 +110,13 @@ export function buildModel(hist){
               const H=st.t[m.h], A=st.t[m.a];
               if(H&&A&&H.n>=MIN_GAMES&&A.n>=MIN_GAMES){
                 const { p }=modelD(st,m.h,m.a);
-                if(p.every(Number.isFinite)){ const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10; out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag]); }
+                if(p.every(Number.isFinite)){ const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10;
+                  const ge=goalsExp((rec[m.h]||[]).slice(-10),(rec[m.a]||[]).slice(-10))||[null,null,null,null];
+                  out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge]); }
               }
             }
             learn(st,m);
+            (rec[m.h]=rec[m.h]||[]).push([m.hg,m.ag]); (rec[m.a]=rec[m.a]||[]).push([m.ag,m.hg]);
           }
         }
       }
