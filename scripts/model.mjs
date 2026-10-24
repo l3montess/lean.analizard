@@ -66,6 +66,10 @@ export function matchName(apiName, csvNames){
   return best.length===1 ? best[0] : null;
 }
 
+// Remates al arco esperados de cada equipo en un partido: lo que genera el ataque propio cruzado con lo que concede la defensa rival (temporada en curso). null si faltan datos.
+export function sotExpOf(st,h,a){ const H=st.t[h], A=st.t[a]; if(!H||!A||H.ns<5||A.ns<5) return null;
+  const r=x=>Math.round(x*100)/100; return [r((H.sf/H.ns+A.sa/A.ns)/2), r((A.sf/A.ns+H.sa/H.ns)/2)]; }
+
 // Ratings al día de hoy: Elo acumulado de todas las temporadas y estadísticas de la temporada en curso.
 export function buildModel(hist){
   const byL={};
@@ -119,7 +123,7 @@ export function buildModel(hist){
                 const { p }=modelD(st,m.h,m.a);
                 if(p.every(Number.isFinite)){ const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10;
                   const ge=goalsExp((rec[m.h]||[]).slice(-10),(rec[m.a]||[]).slice(-10))||[null,null,null,null];
-                  out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge]); }
+                  out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge,m.hst??null,m.ast??null,...(sotExpOf(st,m.h,m.a)||[null,null])]); }
               }
             }
             learn(st,m);
@@ -134,6 +138,16 @@ export function buildModel(hist){
       for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){
         if(m.h===ch&&m.a===ca) out.push([m.date.slice(0,10),1,m.hg,m.ag]); else if(m.h===ca&&m.a===ch) out.push([m.date.slice(0,10),0,m.ag,m.hg]); }
       return out.sort((x,y)=>x[0]<y[0]?1:x[0]>y[0]?-1:0).slice(0,n); },
+    // Remates al arco esperados de un partido futuro: [local, visita] o null.
+    sotExp(lg,h,a){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null; return sotExpOf(L.st,ch,ca); },
+    // Resultado de un partido ya jugado según el historial (llega uno o dos días tarde): [golesLocal, golesVisita] o null.
+    matchResult(lg,h,a,iso){ const L=leagues[lg]; if(!L||!byL[lg]) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca) return null; const t=Date.parse(String(iso).slice(0,10));
+      for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){ if(m.h===ch&&m.a===ca&&Math.abs(Date.parse(m.date.slice(0,10))-t)<=3*864e5) return [m.hg,m.ag]; }
+      return null; },
+    // Remates al arco que hubo en un partido ya jugado (si el historial ya lo trae): [local, visita] o null. `iso` es la fecha del partido.
+    matchSoT(lg,h,a,iso){ const L=leagues[lg]; if(!L||!byL[lg]) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca) return null; const t=Date.parse(String(iso).slice(0,10));
+      for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){ if(m.h===ch&&m.a===ca&&Math.abs(Date.parse(m.date.slice(0,10))-t)<=3*864e5) return m.hst!=null&&m.ast!=null?[m.hst,m.ast]:null; }
+      return null; },
     // para el log: equipos de la API que no se pudieron emparejar
     unmatched(lg,names){ const L=leagues[lg]; return L?names.filter(n=>!resolve(L,n)):names; },
   };
