@@ -33,6 +33,13 @@ const ALIAS = {
   'fc st pauli':'st pauli','st pauli':'st pauli','union berlin':'union berlin','1 fc union berlin':'union berlin','1 fc heidenheim 1846':'heidenheim','heidenheim':'heidenheim',
   'paris saint germain':'paris sg','psg':'paris sg','paris sg':'paris sg','olympique marseille':'marseille','olympique de marseille':'marseille','olympique lyonnais':'lyon',
   'saint etienne':'st etienne','as saint etienne':'st etienne','stade rennais':'rennes','stade brestois 29':'brest',
+  'sporting cp':'sp lisbon','sporting clube de portugal':'sp lisbon','sporting':'sp lisbon','sporting lisbon':'sp lisbon','sc braga':'sp braga','braga':'sp braga','sporting braga':'sp braga',
+  'vitoria sc':'guimaraes','vitoria guimaraes':'guimaraes','vitoria de guimaraes':'guimaraes','fc porto':'porto','sl benfica':'benfica','fc famalicao':'famalicao','estrela da amadora':'estrela','cf estrela da amadora':'estrela',
+  'gd estoril praia':'estoril','estoril praia':'estoril','avs futebol sad':'avs','casa pia ac':'casa pia',
+  'afc ajax':'ajax','psv':'psv eindhoven','az':'az alkmaar','fc twente':'twente','fc utrecht':'utrecht','sc heerenveen':'heerenveen','fc groningen':'groningen','nec':'nijmegen','nec nijmegen':'nijmegen',
+  'fortuna sittard':'for sittard','heracles almelo':'heracles','pec zwolle':'zwolle','rkc waalwijk':'waalwijk','fc volendam':'volendam','excelsior rotterdam':'excelsior','sbv excelsior':'excelsior','almere city fc':'almere city',
+  'flamengo':'flamengo rj','botafogo':'botafogo rj','vasco da gama':'vasco','atletico mineiro':'atletico mg','clube atletico mineiro':'atletico mg','athletico paranaense':'athletico pr','club athletico paranaense':'athletico pr',
+  'red bull bragantino':'bragantino','rb bragantino':'bragantino','sao paulo':'sao paulo','ec vitoria':'vitoria','ec bahia':'bahia','coritiba fc':'coritiba',
   'ac milan':'milan','fc internazionale milano':'inter','inter milan':'inter','internazionale':'inter','hellas verona':'verona',
 };
 
@@ -122,6 +129,11 @@ export function buildModel(hist){
       }
       return out.sort((x,y)=>x[1]<y[1]?1:x[1]>y[1]?-1:0);
     },
+    // Últimos `n` partidos de liga entre los dos equipos (de las temporadas del historial): [fecha, 1 si el local de hoy jugó de local, golesLocalDeHoy, golesVisitaDeHoy], el más nuevo primero.
+    h2h(lg,h,a,n=5){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null; const out=[];
+      for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){
+        if(m.h===ch&&m.a===ca) out.push([m.date.slice(0,10),1,m.hg,m.ag]); else if(m.h===ca&&m.a===ch) out.push([m.date.slice(0,10),0,m.ag,m.hg]); }
+      return out.sort((x,y)=>x[0]<y[0]?1:x[0]>y[0]?-1:0).slice(0,n); },
     // para el log: equipos de la API que no se pudieron emparejar
     unmatched(lg,names){ const L=leagues[lg]; return L?names.filter(n=>!resolve(L,n)):names; },
   };
