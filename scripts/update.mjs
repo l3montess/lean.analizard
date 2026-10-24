@@ -6,7 +6,7 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { loadModel, goalsExp } from './model.mjs';
 
-const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1', ucl:'CL' }; // Europa League no está en el plan gratuito
+const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1', ned:'DED', ppl:'PPL', bra:'BSA', ucl:'CL' }; // Europa League no está en el plan gratuito
 const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'America/Argentina/Buenos_Aires'});
 
 // Historial de predicciones: cada partido se guarda ANTES de empezar y no se toca después; al terminar se le agrega el resultado.
@@ -37,7 +37,7 @@ function probs(h,a){
   const t=ph+px+pa; return [ph,px,pa].map(x=>Math.round(1000*x/t)/10);
 }
 
-const LABEL = { PL:'Premier', PD:'LaLiga', SA:'Serie A', BL1:'Bundesliga', FL1:'Ligue 1', CL:'Champions' };
+const LABEL = { PL:'Premier', PD:'LaLiga', SA:'Serie A', BL1:'Bundesliga', FL1:'Ligue 1', DED:'Eredivisie', PPL:'Liga Portugal', BSA:'Brasileirão', CL:'Champions' };
 
 // Últimos 5 partidos de cada equipo en CUALQUIERA de las competiciones del plan gratis (liga + Champions).
 // Cada fila: [fecha ISO, competición, 'L' local / 'V' visitante, rival, goles a favor, goles en contra]
@@ -49,6 +49,17 @@ export function lastFive(done, names, n=10){      // últimos n partidos de cada
   }
   for(const t of Object.keys(by)) by[t]=by[t].sort((x,y)=>y[0].localeCompare(x[0])).slice(0,n);
   return by;
+}
+
+// Ligas nuevas: si no están en data.js se crean vacías y build() las llena con la API (van antes de las copas).
+export const NEW_LEAGUES = [
+  { id:'ned', name:'Eredivisie', pill:'Países Bajos', desc:'Temporada en curso.', groups:{ Liga:[] }, scorers:[], fixtures:[], src:[['football-data.org','https://www.football-data.org']] },
+  { id:'ppl', name:'Liga Portugal', pill:'Portugal', desc:'Temporada en curso.', groups:{ Liga:[] }, scorers:[], fixtures:[], src:[['football-data.org','https://www.football-data.org']] },
+  { id:'bra', name:'Brasileirão', pill:'Brasil', desc:'Temporada en curso.', groups:{ Liga:[] }, scorers:[], fixtures:[], src:[['football-data.org','https://www.football-data.org']] },
+];
+export function withNewLeagues(previous){
+  const have=new Set(previous.map(l=>l.id)), add=NEW_LEAGUES.filter(l=>!have.has(l.id)); if(!add.length) return previous;
+  const i=previous.findIndex(l=>l.cup); return i<0?[...previous,...add]:[...previous.slice(0,i),...add,...previous.slice(i)];
 }
 
 export async function build(api, previous, crests={}, recent={}, model=null, predLog=[]){
@@ -98,7 +109,7 @@ export async function build(api, previous, crests={}, recent={}, model=null, pre
 // Se busca el EQUIPO (una vez, y se guarda su id) y se baja su plantel actual: así cada foto se elige por equipo + nombre.
 // Cada corrida hace como máximo MAX_FOTOS pedidos; lo que ya tiene foto no se vuelve a pedir.
 const MAX_FOTOS = 60;
-const COUNTRY = { epl:'England', esp:'Spain', ita:'Italy', ger:'Germany', fra:'France' };
+const COUNTRY = { epl:'England', esp:'Spain', ita:'Italy', ger:'Germany', fra:'France', ned:'Netherlands', ppl:'Portugal', bra:'Brazil' };
 const STOP = new Set(['fc','cf','afc','sc','ac','as','ssc','rc','ud','cd','us','sv','vfb','vfl','tsg','fsv','bv','rb','sd','ca','cfc','club','de','la','the','real']);
 const plain = t => String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();
 const toks = t => plain(t).split(' ').filter(Boolean);
@@ -185,7 +196,10 @@ async function main(){
   const model = loadModel(fileURLToPath(new URL('../history.json', import.meta.url)));
   console.log(model ? '[modelo] usando el modelo D (history.json)' : '[modelo] sin history.json: se usa el modelo simple');
   const predLog = Array.isArray(ctx.window.PRED_LOG) ? ctx.window.PRED_LOG : [];
-  const data = await build(api, ctx.window.DATA, crests, recent, model, predLog);
+  const data = await build(api, withNewLeagues(ctx.window.DATA), crests, recent, model, predLog);
+  // Cara a cara: últimos 5 partidos de liga entre los equipos de los próximos partidos, en forma de { 'liga|local|visita': [[fecha, local?, golesLocal, golesVisita], ...] }
+  const h2h = {};
+  if(model) for(const L of data) if(!L.cup) for(const f of (L.fixtures||[])){ const r=model.h2h(L.id,f[1],f[2],5); if(r&&r.length) h2h[L.id+'|'+f[1]+'|'+f[2]]=r; }
   const retro = model ? model.retro(21) : (Array.isArray(ctx.window.PRED_RETRO)?ctx.window.PRED_RETRO:[]);
   const st = { photos: ctx.window.PHOTOS || {}, miss: ctx.window.PHOTO_MISS || {}, teams: ctx.window.TEAM_IDS || {}, teamMiss: ctx.window.TEAM_MISS || {} };
   const afKey = process.env.API_FOOTBALL_KEY;
@@ -195,7 +209,7 @@ async function main(){
       await addPhotos(data, st, fetchAf);
     }catch(e){ console.warn('[fotos] se omitieron por un error:', e.message); }
   } else console.log('[fotos] sin API_FOOTBALL_KEY: se omiten');
-  fs.writeFileSync(file, '/* Generado por scripts/update.mjs (Argentina se edita a mano). */\nwindow.DATA = '+JSON.stringify(data,null,1)+';\nwindow.CRESTS = '+JSON.stringify(crests)+';\nwindow.PHOTOS = '+JSON.stringify(st.photos)+';\nwindow.PHOTO_MISS = '+JSON.stringify(st.miss)+';\nwindow.TEAM_IDS = '+JSON.stringify(st.teams)+';\nwindow.TEAM_MISS = '+JSON.stringify(st.teamMiss)+';\nwindow.RECENT = '+JSON.stringify(recent)+';\nwindow.PRED_LOG = '+JSON.stringify(predLog)+';\nwindow.PRED_RETRO = '+JSON.stringify(retro)+';\nwindow.MODEL = '+JSON.stringify(model?model.snapshot(data):{})+';\n');
+  fs.writeFileSync(file, '/* Generado por scripts/update.mjs (Argentina se edita a mano). */\nwindow.DATA = '+JSON.stringify(data,null,1)+';\nwindow.CRESTS = '+JSON.stringify(crests)+';\nwindow.PHOTOS = '+JSON.stringify(st.photos)+';\nwindow.PHOTO_MISS = '+JSON.stringify(st.miss)+';\nwindow.TEAM_IDS = '+JSON.stringify(st.teams)+';\nwindow.TEAM_MISS = '+JSON.stringify(st.teamMiss)+';\nwindow.RECENT = '+JSON.stringify(recent)+';\nwindow.PRED_LOG = '+JSON.stringify(predLog)+';\nwindow.PRED_RETRO = '+JSON.stringify(retro)+';\nwindow.H2H = '+JSON.stringify(h2h)+';\nwindow.MODEL = '+JSON.stringify(model?model.snapshot(data):{})+';\n');
   console.log('data.js actualizado');
 }
 if (process.argv[1]===fileURLToPath(import.meta.url)) main();
