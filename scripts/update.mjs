@@ -26,6 +26,8 @@ export function trackPredictions(log, data, finished, now=Date.now(), recent={},
   for(const r of log){ if(r[7]!=null) continue;
     const m=finished.find(x=>x.h===r[2]&&x.a===r[3]&&Math.abs(Date.parse(x.iso)-Date.parse(r[1]))<3*864e5);
     if(m){ r[7]=m.gh; r[8]=m.ga; } }
+  if(model&&model.matchResult) for(const r of log){ if(r[7]!=null||now-Date.parse(r[1])<3*36e5) continue;      // la API gratuita informa los resultados con retraso: si el historial ya lo trae, se usa
+    const g=model.matchResult(r[0],r[2],r[3],r[1]); if(g){ r[7]=g[0]; r[8]=g[1]; } }
   if(model&&model.matchSoT) for(const r of log){ if(r[7]==null||r[13]!=null||now-Date.parse(r[1])>21*864e5) continue;      // los remates reales llegan al historial uno o dos días después
     const sh=model.matchSoT(r[0],r[2],r[3],r[1]); if(sh){ r[13]=sh[0]; r[14]=sh[1]; } }
   log.sort((x,y)=>x[1]<y[1]?1:x[1]>y[1]?-1:0);
