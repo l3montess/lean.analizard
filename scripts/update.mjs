@@ -1,154 +1,225 @@
-// Modelo D para el sitio: promedio de "goles + remates" (X) y Elo, probado en backtest.mjs contra ~6.000 partidos.
-// Se alimenta de history.json (football-data.co.uk). Si algo falta, devuelve null y el sitio usa el modelo simple de siempre.
+// Actualiza data.js con tablas, goleadores, forma y próximos partidos de 5 ligas
+// usando la API gratuita de football-data.org. Argentina no está en esa API: se conserva tal cual.
+// Uso: FOOTBALL_DATA_KEY=tu_clave node scripts/update.mjs
 import fs from 'node:fs';
-import { newState, learn, modelD } from './backtest.mjs';
-const MIN_GAMES=5;
-const eloNow=(st,t)=>(st.elo&&st.elo[t])??1500;
-const pz=(k,l)=>{ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; };
-// Goles esperados con los últimos 10 partidos de cada equipo (cualquier competición): fa y fb = listas de [golesAFavor, golesEnContra].
-// Devuelve null si a alguno le faltan partidos (hacen falta 5). o25 y bt en %, lA y lB en goles.
-export function goalsExp(fa,fb){
-  if(!fa||!fb||fa.length<5||fb.length<5) return null;
-  const av=(L,i)=>L.reduce((s,x)=>s+x[i],0)/L.length;
-  const lA=(av(fa,0)+av(fb,1))/2, lB=(av(fb,0)+av(fa,1))/2, lt=lA+lB;
-  const o25=1-(pz(0,lt)+pz(1,lt)+pz(2,lt)), bt=(1-Math.exp(-lA))*(1-Math.exp(-lB));
-  return [Math.round(o25*1000)/10, Math.round(bt*1000)/10, Math.round(lA*100)/100, Math.round(lB*100)/100];
+import vm from 'node:vm';
+import { fileURLToPath } from 'node:url';
+import { loadModel, goalsExp } from './model.mjs';
+
+const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1', ned:'DED', ppl:'PPL', bra:'BSA', ucl:'CL' }; // Europa League no está en el plan gratuito
+const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'America/Argentina/Buenos_Aires'});
+
+// Historial de predicciones: cada partido se guarda ANTES de empezar y no se toca después; al terminar se le agrega el resultado.
+// Fila: [liga, fecha de inicio, local, visita, %local, %empate, %visita, golesLocal|null, golesVisita|null, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV,
+//        remates al arco reales L|null, V|null (se completan cuando el historial los trae), remates al arco esperados L|null, V|null (se congelan antes del partido)]
+export function trackPredictions(log, data, finished, now=Date.now(), recent={}, model=null){
+  const pairs=t=>(recent[t]||[]).slice(0,10).map(x=>[x[4],x[5]]);       // últimos 10 partidos de cada equipo: [a favor, en contra]
+  const extras=(h,a)=>goalsExp(pairs(h),pairs(a))||[null,null,null,null];
+  const sotE=(lg,h,a)=>(model&&model.sotExp&&model.sotExp(lg,h,a))||[null,null];
+  for(const r of log) while(r.length<17) r.push(null);              // filas viejas: se completan con vacíos
+  for(const L of data) for(const f of (L.fixtures||[])){
+    const [iso,h,a,ph,px,pa]=f, ko=Date.parse(iso); if(!Number.isFinite(ko)) continue;
+    const row=log.find(r=>r[0]===L.id&&r[2]===h&&r[3]===a&&Math.abs(Date.parse(r[1])-ko)<3*864e5);
+    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null,...extras(h,a),null,null,...sotE(L.id,h,a)]); }
+    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; row.splice(9,4,...extras(h,a)); [row[15],row[16]]=sotE(L.id,h,a); }        // se actualiza hasta que empieza
+  }
+  for(const r of log){ if(r[7]!=null) continue;
+    const m=finished.find(x=>x.h===r[2]&&x.a===r[3]&&Math.abs(Date.parse(x.iso)-Date.parse(r[1]))<3*864e5);
+    if(m){ r[7]=m.gh; r[8]=m.ga; } }
+  if(model&&model.matchSoT) for(const r of log){ if(r[7]==null||r[13]!=null||now-Date.parse(r[1])>21*864e5) continue;      // los remates reales llegan al historial uno o dos días después
+    const sh=model.matchSoT(r[0],r[2],r[3],r[1]); if(sh){ r[13]=sh[0]; r[14]=sh[1]; } }
+  log.sort((x,y)=>x[1]<y[1]?1:x[1]>y[1]?-1:0);
+  if(log.length>1500) log.length=1500;
+  return log;
 }
 
-const STOP = new Set(['fc','cf','afc','ac','as','ssc','sc','rc','ud','cd','us','sv','vfb','vfl','tsg','fsv','bv','sd','ca','club','de','la','the','1','sk','ogc','losc','rcd','real','deportivo','olympique','stade','borussia','hotspur','hove','albion','wanderers','city','united','town']);
-export const plain = t => String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
-const toks = t => plain(t).split(' ').filter(w=>w&&!STOP.has(w));
-
-// Nombres que no se parecen lo suficiente (clave: nombre de la API ya normalizado; valor: nombre del CSV normalizado)
-const ALIAS = {
-  'manchester city':'man city','man city':'man city','manchester united':'man united','man united':'man united',
-  'nottingham forest':'nott m forest','nottingham':'nott m forest','nott m forest':'nott m forest',
-  'wolverhampton wanderers':'wolves','wolverhampton':'wolves','tottenham hotspur':'tottenham','spurs':'tottenham',
-  'leeds united':'leeds','brighton hove albion':'brighton','brighton hove':'brighton','west ham united':'west ham','newcastle united':'newcastle',
-  'atletico madrid':'ath madrid','club atletico de madrid':'ath madrid','atletico de madrid':'ath madrid','athletic bilbao':'ath bilbao','athletic club':'ath bilbao',
-  'real betis':'betis','real sociedad':'sociedad','rayo vallecano':'vallecano','espanyol':'espanol','rcd espanyol de barcelona':'espanol','celta vigo':'celta','rc celta':'celta','alaves':'alaves','deportivo alaves':'alaves',
-  'bayern munchen':'bayern munich','bayern munich':'bayern munich','bayern munich':'bayern munich','fc bayern munchen':'bayern munich',
-  'borussia monchengladbach':'m gladbach','monchengladbach':'m gladbach','gladbach':'m gladbach','eintracht frankfurt':'ein frankfurt','frankfurt':'ein frankfurt',
-  'koln':'fc koln','1 fc koln':'fc koln','fc koln':'fc koln','hamburger sv':'hamburg','hamburg':'hamburg','mainz 05':'mainz','1 fsv mainz 05':'mainz',
-  'fc st pauli':'st pauli','st pauli':'st pauli','union berlin':'union berlin','1 fc union berlin':'union berlin','1 fc heidenheim 1846':'heidenheim','heidenheim':'heidenheim',
-  'paris saint germain':'paris sg','psg':'paris sg','paris sg':'paris sg','olympique marseille':'marseille','olympique de marseille':'marseille','olympique lyonnais':'lyon',
-  'saint etienne':'st etienne','as saint etienne':'st etienne','stade rennais':'rennes','stade brestois 29':'brest',
-  'sporting cp':'sp lisbon','sporting clube de portugal':'sp lisbon','sporting':'sp lisbon','sporting lisbon':'sp lisbon','sc braga':'sp braga','braga':'sp braga','sporting braga':'sp braga',
-  'vitoria sc':'guimaraes','vitoria guimaraes':'guimaraes','vitoria de guimaraes':'guimaraes','fc porto':'porto','sl benfica':'benfica','fc famalicao':'famalicao','estrela da amadora':'estrela','cf estrela da amadora':'estrela',
-  'gd estoril praia':'estoril','estoril praia':'estoril','avs futebol sad':'avs','casa pia ac':'casa pia',
-  'afc ajax':'ajax','psv':'psv eindhoven','az':'az alkmaar','fc twente':'twente','fc utrecht':'utrecht','sc heerenveen':'heerenveen','fc groningen':'groningen','nec':'nijmegen','nec nijmegen':'nijmegen',
-  'fortuna sittard':'for sittard','heracles almelo':'heracles','pec zwolle':'zwolle','rkc waalwijk':'waalwijk','fc volendam':'volendam','excelsior rotterdam':'excelsior','sbv excelsior':'excelsior','almere city fc':'almere city',
-  'flamengo':'flamengo rj','botafogo':'botafogo rj','vasco da gama':'vasco','atletico mineiro':'atletico mg','clube atletico mineiro':'atletico mg','athletico paranaense':'athletico pr','club athletico paranaense':'athletico pr',
-  'red bull bragantino':'bragantino','rb bragantino':'bragantino','sao paulo':'sao paulo','ec vitoria':'vitoria','ec bahia':'bahia','coritiba fc':'coritiba',
-  'ac milan':'milan','fc internazionale milano':'inter','inter milan':'inter','internazionale':'inter','hellas verona':'verona',
-};
-
-// Palabras que no ayudan a reconocer un club ("FC", "Calcio", años...). Se quitan antes de comparar.
-const NOISE = new Set(['fc','cf','afc','sc','osc','sco','bc','cfc','calcio','balompie','futbol','de','ssc','ss','us','acf','cd','ud','rcd','rc','ogc','losc','aj','as','ca','sv','vfb','vfl','tsg','fsv','bv','sd','sk','club','the','la']);
-export const clean = t => plain(t).split(' ').filter(w=>w&&!NOISE.has(w)&&!/^\d+$/.test(w)).join(' ');
-const ALIAS_C = Object.fromEntries(Object.entries(ALIAS).map(([k,v])=>[clean(k),clean(v)]));
-ALIAS_C[clean('rayo vallecano de madrid')]=clean('vallecano');
-
-// ¿A qué equipo del CSV corresponde este nombre de la API? (null si no hay una coincidencia clara)
-export function matchName(apiName, csvNames){
-  const key=clean(apiName), byC=new Map(csvNames.map(n=>[clean(n),n]));
-  if(ALIAS_C[key] && byC.has(ALIAS_C[key])) return byC.get(ALIAS_C[key]);
-  if(byC.has(key)) return byC.get(key);
-  const want=toks(apiName); if(!want.length) return null;
-  let best=[], bs=0;
-  for(const n of csvNames){
-    const have=toks(n); if(!have.length) continue;
-    const common=have.filter(w=>want.includes(w)).length;
-    if(common<Math.min(have.length,want.length)) continue;           // el nombre más corto tiene que estar completo dentro del otro
-    const sc=common/Math.max(have.length,want.length);
-    if(sc>bs){ bs=sc; best=[n]; } else if(sc===bs) best.push(n);
-  }
-  return best.length===1 ? best[0] : null;
+// Probabilidades 1X2 con un modelo de Poisson simple (ventaja de local 10 %). No es un modelo profesional.
+function poisson(k,l){ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; }
+function probs(h,a){
+  const lh=1.1*((h[5]/h[1])+(a[6]/a[1]))/2, la=((a[5]/a[1])+(h[6]/h[1]))/2/1.0;
+  let ph=0,px=0,pa=0;
+  for(let i=0;i<=8;i++) for(let j=0;j<=8;j++){ const p=poisson(i,lh)*poisson(j,la); if(i>j) ph+=p; else if(i===j) px+=p; else pa+=p; }
+  const t=ph+px+pa; return [ph,px,pa].map(x=>Math.round(1000*x/t)/10);
 }
 
-// Remates al arco esperados de cada equipo en un partido: lo que genera el ataque propio cruzado con lo que concede la defensa rival (temporada en curso). null si faltan datos.
-export function sotExpOf(st,h,a){ const H=st.t[h], A=st.t[a]; if(!H||!A||H.ns<5||A.ns<5) return null;
-  const r=x=>Math.round(x*100)/100; return [r((H.sf/H.ns+A.sa/A.ns)/2), r((A.sf/A.ns+H.sa/H.ns)/2)]; }
+const LABEL = { PL:'Premier', PD:'LaLiga', SA:'Serie A', BL1:'Bundesliga', FL1:'Ligue 1', DED:'Eredivisie', PPL:'Liga Portugal', BSA:'Brasileirão', CL:'Champions' };
 
-// Ratings al día de hoy: Elo acumulado de todas las temporadas y estadísticas de la temporada en curso.
-export function buildModel(hist){
-  const byL={};
-  for(const r of hist.partidos){ const [lg,se,date,h,a,hg,ag,o1,o2,o3,u1,u2,hs,as_,hst,ast]=r;
-    ((byL[lg]=byL[lg]||{})[se]=byL[lg][se]||[]).push({h,a,date,hg,ag,hs,as:as_,hst,ast}); }
-  // Cuántos remates al arco hacen falta, en promedio, para un gol: todas las ligas y temporadas del historial.
-  let cg=0, cs=0, cn=0;
-  for(const r of hist.partidos){ const hst=r[14], ast=r[15]; if(hst==null||ast==null) continue; cg+=r[5]+r[6]; cs+=hst+ast; cn++; }
-  const conv = cs>0 ? cg/cs : 0.31;                       // goles por remate al arco
-  const leagues={};
-  for(const [lg,seasons] of Object.entries(byL)){
-    const elo={}; let st=null, last=null;
-    for(const se of Object.keys(seasons).sort()){
-      for(const t of Object.keys(elo)) elo[t]=1500+0.75*(elo[t]-1500);        // igual que en el backtest
-      st=newState(elo); last=se;
-      for(const m of [...seasons[se]].sort((x,y)=>x.date<y.date?-1:1)) learn(st,m);
-    }
-    if(st) leagues[lg]={ st, season:last, names:Object.keys(st.t), cache:{} };
+// Últimos 5 partidos de cada equipo en CUALQUIERA de las competiciones del plan gratis (liga + Champions).
+// Cada fila: [fecha ISO, competición, 'L' local / 'V' visitante, rival, goles a favor, goles en contra]
+export function lastFive(done, names, n=10){      // últimos n partidos de cada equipo, en cualquier competición de las que bajamos
+  const by = {};
+  for(const m of done){
+    const push=(t,side,rival,gf,ga)=>{ if(names.has(t)) (by[t]=by[t]||[]).push([m.iso,m.comp,side,rival,gf,ga]); };
+    push(m.h,'L',m.a,m.gh,m.ga); push(m.a,'V',m.h,m.ga,m.gh);
   }
-  const resolve=(L,name)=>{ if(!(name in L.cache)) L.cache[name]=matchName(name,L.names); return L.cache[name]; };
-  return {
-    leagues, resolve: (lg,name)=>leagues[lg]?resolve(leagues[lg],name):null,
-    // probabilidades en % [local, empate, visita] con un decimal, o null si no se puede
-    predict(lg,h,a){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null;
-      const { p }=modelD(L.st,ch,ca); if(!p.every(Number.isFinite)) return null;
-      const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10; return r; },
-    // Números de cada equipo para que el navegador repita el mismo cálculo (comparador y goles esperados).
-    // { liga: { l:[partidos, golesLocal, golesVisita, golesTotales, xGTotal], t:{ equipo:[PJ, GF, GC, xGF, xGC, Elo] } } }
-    snapshot(data){ const out={}, r2=x=>Math.round(x*100)/100;
-      for(const lg of data){ const L=leagues[lg.id]; if(!L||lg.id==='ucl') continue;
-        const names=Object.values(lg.groups).flat().map(r=>r[0]), t={};
-        for(const n of names){ const c=resolve(L,n); const T=c&&L.st.t[c]; if(!T) continue; t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c)),T.ns||0,r2(T.sf||0),r2(T.sa||0)]; }
-        if(Object.keys(t).length<2) continue;
-        const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den),L.st.ns||0,L.st.hsot||0,L.st.asot||0], t }; }
-      out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
-      return out; },
-    // Partidos de las últimas `days` semanas, predichos SIN ver su resultado (el modelo solo sabe lo que pasó antes de cada uno).
-    // Cada fila: [liga, fecha, local, visita, %local, %empate, %visita, golesLocal, golesVisita]
-    retro(days=21){
-      let max=''; for(const r of hist.partidos) if(r[2]>max) max=r[2];
-      const cut=new Date(Date.parse(max.slice(0,10))-days*864e5).toISOString().slice(0,10), out=[];   // fila: [liga, fecha, local, visita, %1, %X, %2, golesL, golesV, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV]
-      for(const [lg,seasons] of Object.entries(byL)){
-        const elo={}, rec={}; let st=null; const keys=Object.keys(seasons).sort();
-        for(const se of keys){
-          for(const t of Object.keys(elo)) elo[t]=1500+0.75*(elo[t]-1500);
-          st=newState(elo);
-          for(const m of [...seasons[se]].sort((x,y)=>x.date<y.date?-1:1)){
-            if(se===keys[keys.length-1] && m.date.slice(0,10)>=cut){
-              const H=st.t[m.h], A=st.t[m.a];
-              if(H&&A&&H.n>=MIN_GAMES&&A.n>=MIN_GAMES){
-                const { p }=modelD(st,m.h,m.a);
-                if(p.every(Number.isFinite)){ const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10;
-                  const ge=goalsExp((rec[m.h]||[]).slice(-10),(rec[m.a]||[]).slice(-10))||[null,null,null,null];
-                  out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge,m.hst??null,m.ast??null,...(sotExpOf(st,m.h,m.a)||[null,null])]); }
-              }
-            }
-            learn(st,m);
-            (rec[m.h]=rec[m.h]||[]).push([m.hg,m.ag]); (rec[m.a]=rec[m.a]||[]).push([m.ag,m.hg]);
-          }
-        }
+  for(const t of Object.keys(by)) by[t]=by[t].sort((x,y)=>y[0].localeCompare(x[0])).slice(0,n);
+  return by;
+}
+
+// Ligas nuevas: si no están en data.js se crean vacías y build() las llena con la API (van antes de las copas).
+export const NEW_LEAGUES = [
+  { id:'ned', name:'Eredivisie', pill:'Países Bajos', desc:'Temporada en curso.', groups:{ Liga:[] }, scorers:[], fixtures:[], src:[['football-data.org','https://www.football-data.org']] },
+  { id:'ppl', name:'Liga Portugal', pill:'Portugal', desc:'Temporada en curso.', groups:{ Liga:[] }, scorers:[], fixtures:[], src:[['football-data.org','https://www.football-data.org']] },
+  { id:'bra', name:'Brasileirão', pill:'Brasil', desc:'Temporada en curso.', groups:{ Liga:[] }, scorers:[], fixtures:[], src:[['football-data.org','https://www.football-data.org']] },
+];
+export function withNewLeagues(previous){
+  const have=new Set(previous.map(l=>l.id)), add=NEW_LEAGUES.filter(l=>!have.has(l.id)); if(!add.length) return previous;
+  const i=previous.findIndex(l=>l.cup); return i<0?[...previous,...add]:[...previous.slice(0,i),...add,...previous.slice(i)];
+}
+
+export async function build(api, previous, crests={}, recent={}, model=null, predLog=[]){
+  const out = [];
+  const done = new Map(), allNames = new Set();
+  for(const prev of previous){
+    try{
+    const code = COMPS[prev.id];
+    if(!code) continue;                                   // Argentina y Europa League: quitadas por ahora
+    const st = (await api(`/competitions/${code}/standings`)).standings.find(s=>s.type==='TOTAL');
+    const rows = st.table.map(r=>[r.team.shortName||r.team.name, r.playedGames, r.won, r.draw, r.lost, r.goalsFor, r.goalsAgainst, r.points,
+      (r.form||'').split(',').filter(Boolean).slice(-5).join('')]);
+    st.table.forEach(r=>{ if(r.team.crest) crests[r.team.shortName||r.team.name]=r.team.crest; });
+    const names = new Set(rows.map(r=>r[0])); names.forEach(n=>allNames.add(n));
+    try{
+      const fin = (await api(`/competitions/${code}/matches?status=FINISHED`)).matches || [];
+      for(const m of fin){
+        const gh=m.score?.fullTime?.home, ga=m.score?.fullTime?.away; if(gh==null||ga==null) continue;
+        done.set(m.id,{ iso:m.utcDate.replace(/\.\d+Z$/,'Z'), comp:LABEL[code]||code, h:m.homeTeam.shortName||m.homeTeam.name, a:m.awayTeam.shortName||m.awayTeam.name, gh, ga });
       }
-      return out.sort((x,y)=>x[1]<y[1]?1:x[1]>y[1]?-1:0);
-    },
-    // Últimos `n` partidos de liga entre los dos equipos (de las temporadas del historial): [fecha, 1 si el local de hoy jugó de local, golesLocalDeHoy, golesVisitaDeHoy], el más nuevo primero.
-    h2h(lg,h,a,n=5){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null; const out=[];
-      for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){
-        if(m.h===ch&&m.a===ca) out.push([m.date.slice(0,10),1,m.hg,m.ag]); else if(m.h===ca&&m.a===ch) out.push([m.date.slice(0,10),0,m.ag,m.hg]); }
-      return out.sort((x,y)=>x[0]<y[0]?1:x[0]>y[0]?-1:0).slice(0,n); },
-    // Remates al arco esperados de un partido futuro: [local, visita] o null.
-    sotExp(lg,h,a){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null; return sotExpOf(L.st,ch,ca); },
-    // Remates al arco que hubo en un partido ya jugado (si el historial ya lo trae): [local, visita] o null. `iso` es la fecha del partido.
-    matchSoT(lg,h,a,iso){ const L=leagues[lg]; if(!L||!byL[lg]) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca) return null; const t=Date.parse(String(iso).slice(0,10));
-      for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){ if(m.h===ch&&m.a===ca&&Math.abs(Date.parse(m.date.slice(0,10))-t)<=3*864e5) return m.hst!=null&&m.ast!=null?[m.hst,m.ast]:null; }
-      return null; },
-    // para el log: equipos de la API que no se pudieron emparejar
-    unmatched(lg,names){ const L=leagues[lg]; return L?names.filter(n=>!resolve(L,n)):names; },
+    }catch(e){ console.warn(prev.id,'no se pudieron bajar los partidos jugados:',e.message); }
+    const sc = (await api(`/competitions/${code}/scorers?limit=15`)).scorers.map(s=>[s.player.name, s.team.shortName||s.team.name, s.goals, s.team.name]);
+    const sched = (await api(`/competitions/${code}/matches?status=SCHEDULED`)).matches;
+    const md = Math.min(...sched.map(m=>m.matchday));
+    const byName = Object.fromEntries(rows.map(r=>[r[0],r]));
+    const misses = new Set();
+    const fixtures = sched.filter(m=>m.matchday===md).map(m=>{
+      const h=m.homeTeam.shortName||m.homeTeam.name, a=m.awayTeam.shortName||m.awayTeam.name;
+      const pm = model && prev.id!=='ucl' ? model.predict(prev.id,h,a) : null;           // modelo D; la Champions mezcla ligas y usa el modelo simple
+      if(model && prev.id!=='ucl' && !pm) misses.add(h+' / '+a);
+      return [m.utcDate.replace(/\.\d+Z$/,'Z').replace(/:00Z$/,':00Z'), h, a, ...(pm||probs(byName[h],byName[a]))];
+    }).filter(f=>names.has(f[1])&&names.has(f[2]));
+    if(model && prev.id!=='ucl'){ const bad=model.unmatched(prev.id,[...names]); if(bad.length) console.warn(`[modelo] ${prev.id}: sin emparejar con el historial -> ${bad.join(', ')}`); if(misses.size) console.warn(`[modelo] ${prev.id}: ${misses.size} partido(s) con el modelo simple`); }
+    out.push({ ...prev, groups:{ [Object.keys(prev.groups)[0]]: rows }, cal:[], scorers:sc, fixtures, asof:fmtDate(new Date()),
+      probSrc: model && model.leagues[prev.id] && prev.id!=='ucl' ? 'un modelo propio (Elo + goles y remates de la temporada), probado contra unos 6.000 partidos pasados' : 'un modelo de Poisson propio basado en los goles de la temporada',
+      scNote:'Actualizado automáticamente.',
+      src:[['football-data.org','https://www.football-data.org']] });
+    if(!rows.every(r=>r[1]>0)) console.warn(prev.id,'hay equipos sin partidos jugados');
+    }catch(e){      // si una liga falla (por ejemplo, no está en el plan gratis) no se cae todo: se conserva lo que había y se sigue con las demás
+      console.warn(`[${prev.id}] no se pudo actualizar: ${e.message}`);
+      if(Object.values(prev.groups||{}).flat().length) out.push(prev);
+    }
+  }
+  Object.keys(recent).forEach(k=>delete recent[k]);
+  Object.assign(recent, lastFive([...done.values()], allNames));
+  trackPredictions(predLog, out, [...done.values()], Date.now(), recent, model);
+  return out;
+}
+
+
+// ---- Fotos de jugadores (API-Football, plan gratis: 100 pedidos por día; sin acceso a la temporada actual) ----
+// Se busca el EQUIPO (una vez, y se guarda su id) y se baja su plantel actual: así cada foto se elige por equipo + nombre.
+// Cada corrida hace como máximo MAX_FOTOS pedidos; lo que ya tiene foto no se vuelve a pedir.
+const MAX_FOTOS = 60;
+const COUNTRY = { epl:'England', esp:'Spain', ita:'Italy', ger:'Germany', fra:'France', ned:'Netherlands', ppl:'Portugal', bra:'Brazil' };
+const STOP = new Set(['fc','cf','afc','sc','ac','as','ssc','rc','ud','cd','us','sv','vfb','vfl','tsg','fsv','bv','rb','sd','ca','cfc','club','de','la','the','real']);
+const plain = t => String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();
+const toks = t => plain(t).split(' ').filter(Boolean);
+const day = () => new Date().toISOString().slice(0,10);
+const stale = d => (Date.parse(day())-Date.parse(d))/864e5 > 14;
+const errOf = r => (r.errors && (Array.isArray(r.errors) ? r.errors.length : Object.keys(r.errors).length)) ? JSON.stringify(r.errors) : '';
+
+// Elige, entre los equipos que devuelve la búsqueda, el que más se parece al nombre de football-data (y del país de la liga).
+export function pickTeam(fullName, list, country){
+  const want = toks(fullName).filter(w=>!STOP.has(w));
+  let best=null, bs=0;
+  for(const it of list||[]){
+    const t = it.team||{}; if(!t.id || t.national) continue;
+    if(country && it.team.country && plain(it.team.country)!==plain(country)) continue;
+    const have = toks(t.name).filter(w=>!STOP.has(w)); if(!have.length||!want.length) continue;
+    const common = have.filter(w=>want.includes(w)).length;
+    const score = common/Math.max(have.length,want.length);
+    if(score>bs){ bs=score; best=t; }
+  }
+  return bs>=0.5 ? best.id : null;
+}
+// Dentro de un plantel, elige al jugador: "E. Haaland" (inicial + apellido) o nombre completo contra "Erling Haaland".
+export function matchSquad(name, players){
+  const want = toks(name); const cands=[];
+  for(const p of players||[]){
+    if(!p.photo) continue; const have = toks(p.name); if(!have.length) continue;
+    const abbr = have[0].length===1; const rest = abbr ? have.slice(1) : have; let sc=0;
+    if(abbr){ if(want[0] && want[0][0]===have[0] && rest.length && rest.every(r=>want.includes(r))) sc=3; }
+    else if(have.every(h=>want.includes(h))) sc=4;
+    else if(want.every(w=>have.includes(w))) sc=3;
+    if(sc) cands.push([sc,p.photo]);
+  }
+  if(!cands.length) return null;
+  cands.sort((x,y)=>y[0]-x[0]);
+  if(cands.length>1 && cands[1][0]===cands[0][0] && cands[1][1]!==cands[0][1]) return null;   // dos jugadores igual de parecidos: mejor no arriesgar
+  return cands[0][1];
+}
+export async function addPhotos(data, st, fetchAf, log=console, max=MAX_FOTOS){
+  const { photos, miss, teams, teamMiss } = st;
+  const byTeam = new Map();                       // equipo -> {full, league, goles máx, jugadores[]}
+  for(const L of data) for(const [n,t,g,full] of (L.scorers||[])){
+    if(photos[n] || (miss[n] && !stale(miss[n]))) continue;
+    const e = byTeam.get(t) || { full: full||t, league: L.id, g:0, players:[] };
+    e.g = Math.max(e.g, g||0); if(!e.players.includes(n)) e.players.push(n); byTeam.set(t,e);
+  }
+  const order = [...byTeam].sort((x,y)=>y[1].g-x[1].g);
+  let used=0, found=0, none=0, stopped=false;
+  const call = async p => { used++; const r = await fetchAf(p); const e = errOf(r); if(e){ log.warn(`[fotos] la API devolvió un error y se detiene: ${e}`); stopped=true; } return r; };
+  for(const [t,e] of order){
+    if(stopped || used>=max) break;
+    if(teamMiss[t] && !stale(teamMiss[t])) { e.players.forEach(n=>{ miss[n]=day(); none++; }); continue; }
+    let id = teams[t];
+    if(!id){
+      if(used+2>max) break;
+      const word = toks(e.full).filter(w=>!STOP.has(w)).reduce((a,b)=>b.length>=a.length?b:a,'');
+      if(word.length<3){ teamMiss[t]=day(); continue; }
+      const r = await call(`/teams?search=${encodeURIComponent(word)}`); if(stopped) break;
+      id = pickTeam(e.full, r.response, COUNTRY[e.league]);
+      if(!id){ teamMiss[t]=day(); log.log(`[fotos] equipo sin coincidencia: ${t}`); continue; }
+      teams[t]=id; delete teamMiss[t];
+    }
+    const r = await call(`/players/squads?team=${id}`); if(stopped) break;
+    const squad = r.response?.[0]?.players || [];
+    for(const n of e.players){ const url = matchSquad(n, squad); if(url){ photos[n]=url; delete miss[n]; found++; } else { miss[n]=day(); none++; } }
+  }
+  const pend = order.filter(([,e])=>e.players.some(n=>!photos[n] && !(miss[n]===day()))).length;
+  log.log(`[fotos] ${used} pedidos: ${found} jugadores con foto, ${none} sin coincidencia, ${pend} equipos pendientes. En total hay ${Object.keys(photos).length} fotos.`);
+  return photos;
+}
+
+async function main(){
+  const key = process.env.FOOTBALL_DATA_KEY;
+  if(!key){ console.error('Falta FOOTBALL_DATA_KEY'); process.exit(1); }
+  const file = new URL('../data.js', import.meta.url);
+  const ctx = { window:{} }; vm.runInNewContext(fs.readFileSync(file,'utf8'), ctx);
+  const api = async p => {                                     // el plan gratis permite 10 pedidos por minuto
+    await new Promise(r=>setTimeout(r,7000));
+    const res = await fetch('https://api.football-data.org/v4'+p,{headers:{'X-Auth-Token':key}});
+    if(!res.ok) throw new Error(p+' -> '+res.status);
+    return res.json();
   };
+  const crests = ctx.window.CRESTS || {};
+  const recent = {};
+  const model = loadModel(fileURLToPath(new URL('../history.json', import.meta.url)));
+  console.log(model ? '[modelo] usando el modelo D (history.json)' : '[modelo] sin history.json: se usa el modelo simple');
+  const predLog = Array.isArray(ctx.window.PRED_LOG) ? ctx.window.PRED_LOG : [];
+  const data = await build(api, withNewLeagues(ctx.window.DATA), crests, recent, model, predLog);
+  // Cara a cara: últimos 5 partidos de liga entre los equipos de los próximos partidos, en forma de { 'liga|local|visita': [[fecha, local?, golesLocal, golesVisita], ...] }
+  const h2h = {};
+  if(model) for(const L of data) if(!L.cup) for(const f of (L.fixtures||[])){ const r=model.h2h(L.id,f[1],f[2],5); if(r&&r.length) h2h[L.id+'|'+f[1]+'|'+f[2]]=r; }
+  const retro = model ? model.retro(21) : (Array.isArray(ctx.window.PRED_RETRO)?ctx.window.PRED_RETRO:[]);
+  const st = { photos: ctx.window.PHOTOS || {}, miss: ctx.window.PHOTO_MISS || {}, teams: ctx.window.TEAM_IDS || {}, teamMiss: ctx.window.TEAM_MISS || {} };
+  const afKey = process.env.API_FOOTBALL_KEY;
+  if(afKey){
+    try{
+      const fetchAf = async p => { await new Promise(r=>setTimeout(r,7000)); const res = await fetch('https://v3.football.api-sports.io'+p,{headers:{'x-apisports-key':afKey}}); if(!res.ok) throw new Error(p+' -> '+res.status); return res.json(); };
+      await addPhotos(data, st, fetchAf);
+    }catch(e){ console.warn('[fotos] se omitieron por un error:', e.message); }
+  } else console.log('[fotos] sin API_FOOTBALL_KEY: se omiten');
+  fs.writeFileSync(file, '/* Generado por scripts/update.mjs (Argentina se edita a mano). */\nwindow.DATA = '+JSON.stringify(data,null,1)+';\nwindow.CRESTS = '+JSON.stringify(crests)+';\nwindow.PHOTOS = '+JSON.stringify(st.photos)+';\nwindow.PHOTO_MISS = '+JSON.stringify(st.miss)+';\nwindow.TEAM_IDS = '+JSON.stringify(st.teams)+';\nwindow.TEAM_MISS = '+JSON.stringify(st.teamMiss)+';\nwindow.RECENT = '+JSON.stringify(recent)+';\nwindow.PRED_LOG = '+JSON.stringify(predLog)+';\nwindow.PRED_RETRO = '+JSON.stringify(retro)+';\nwindow.H2H = '+JSON.stringify(h2h)+';\nwindow.MODEL = '+JSON.stringify(model?model.snapshot(data):{})+';\n');
+  console.log('data.js actualizado');
 }
-export function loadModel(file){
-  try{ if(!fs.existsSync(file)) return null; const h=JSON.parse(fs.readFileSync(file,'utf8')); return h.partidos&&h.partidos.length?buildModel(h):null; }
-  catch(e){ console.warn('[modelo] no se pudo leer history.json:',e.message); return null; }
-}
+if (process.argv[1]===fileURLToPath(import.meta.url)) main();
