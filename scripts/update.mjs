@@ -10,19 +10,24 @@ const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1', ned:'DED', p
 const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'America/Argentina/Buenos_Aires'});
 
 // Historial de predicciones: cada partido se guarda ANTES de empezar y no se toca después; al terminar se le agrega el resultado.
-// Fila: [liga, fecha de inicio, local, visita, %local, %empate, %visita, golesLocal|null, golesVisita|null, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV]
-export function trackPredictions(log, data, finished, now=Date.now(), recent={}){
+// Fila: [liga, fecha de inicio, local, visita, %local, %empate, %visita, golesLocal|null, golesVisita|null, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV,
+//        remates al arco reales L|null, V|null (se completan cuando el historial los trae), remates al arco esperados L|null, V|null (se congelan antes del partido)]
+export function trackPredictions(log, data, finished, now=Date.now(), recent={}, model=null){
   const pairs=t=>(recent[t]||[]).slice(0,10).map(x=>[x[4],x[5]]);       // últimos 10 partidos de cada equipo: [a favor, en contra]
   const extras=(h,a)=>goalsExp(pairs(h),pairs(a))||[null,null,null,null];
+  const sotE=(lg,h,a)=>(model&&model.sotExp&&model.sotExp(lg,h,a))||[null,null];
+  for(const r of log) while(r.length<17) r.push(null);              // filas viejas: se completan con vacíos
   for(const L of data) for(const f of (L.fixtures||[])){
     const [iso,h,a,ph,px,pa]=f, ko=Date.parse(iso); if(!Number.isFinite(ko)) continue;
     const row=log.find(r=>r[0]===L.id&&r[2]===h&&r[3]===a&&Math.abs(Date.parse(r[1])-ko)<3*864e5);
-    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null,...extras(h,a)]); }
-    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; row.splice(9,4,...extras(h,a)); }        // se actualiza hasta que empieza
+    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null,...extras(h,a),null,null,...sotE(L.id,h,a)]); }
+    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; row.splice(9,4,...extras(h,a)); [row[15],row[16]]=sotE(L.id,h,a); }        // se actualiza hasta que empieza
   }
   for(const r of log){ if(r[7]!=null) continue;
     const m=finished.find(x=>x.h===r[2]&&x.a===r[3]&&Math.abs(Date.parse(x.iso)-Date.parse(r[1]))<3*864e5);
     if(m){ r[7]=m.gh; r[8]=m.ga; } }
+  if(model&&model.matchSoT) for(const r of log){ if(r[7]==null||r[13]!=null||now-Date.parse(r[1])>21*864e5) continue;      // los remates reales llegan al historial uno o dos días después
+    const sh=model.matchSoT(r[0],r[2],r[3],r[1]); if(sh){ r[13]=sh[0]; r[14]=sh[1]; } }
   log.sort((x,y)=>x[1]<y[1]?1:x[1]>y[1]?-1:0);
   if(log.length>1500) log.length=1500;
   return log;
@@ -100,7 +105,7 @@ export async function build(api, previous, crests={}, recent={}, model=null, pre
   }
   Object.keys(recent).forEach(k=>delete recent[k]);
   Object.assign(recent, lastFive([...done.values()], allNames));
-  trackPredictions(predLog, out, [...done.values()], Date.now(), recent);
+  trackPredictions(predLog, out, [...done.values()], Date.now(), recent, model);
   return out;
 }
 
