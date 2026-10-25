@@ -212,7 +212,7 @@ async function main(){
   // Cara a cara: últimos 5 partidos de liga entre los equipos de los próximos partidos, en forma de { 'liga|local|visita': [[fecha, local?, golesLocal, golesVisita], ...] }
   const h2h = {};
   if(model) for(const L of data) if(!L.cup) for(const f of (L.fixtures||[])){ const r=model.h2h(L.id,f[1],f[2],5); if(r&&r.length) h2h[L.id+'|'+f[1]+'|'+f[2]]=r; }
-  const retro = model ? model.retro(21) : (Array.isArray(ctx.window.PRED_RETRO)?ctx.window.PRED_RETRO:[]);
+  const retro = model ? model.retro(30) : (Array.isArray(ctx.window.PRED_RETRO)?ctx.window.PRED_RETRO:[]);
   const st = { photos: ctx.window.PHOTOS || {}, miss: ctx.window.PHOTO_MISS || {}, teams: ctx.window.TEAM_IDS || {}, teamMiss: ctx.window.TEAM_MISS || {} };
   const afKey = process.env.API_FOOTBALL_KEY;
   if(afKey){
