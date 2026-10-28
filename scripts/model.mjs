@@ -1,7 +1,7 @@
 // Modelo D para el sitio: promedio de "goles + remates" (X) y Elo, probado en backtest.mjs contra ~6.000 partidos.
 // Se alimenta de history.json (football-data.co.uk). Si algo falta, devuelve null y el sitio usa el modelo simple de siempre.
 import fs from 'node:fs';
-import { newState, learn, modelD } from './backtest.mjs';
+import { newState, learn, modelD, winPct, FORM_K } from './backtest.mjs';
 const MIN_GAMES=5;
 const eloNow=(st,t)=>(st.elo&&st.elo[t])??1500;
 const pz=(k,l)=>{ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; };
@@ -101,10 +101,11 @@ export function buildModel(hist){
     snapshot(data){ const out={}, r2=x=>Math.round(x*100)/100;
       for(const lg of data){ const L=leagues[lg.id]; if(!L||lg.id==='ucl') continue;
         const names=Object.values(lg.groups).flat().map(r=>r[0]), t={};
-        for(const n of names){ const c=resolve(L,n); const T=c&&L.st.t[c]; if(!T) continue; t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c)),T.ns||0,r2(T.sf||0),r2(T.sa||0)]; }
+        for(const n of names){ const c=resolve(L,n); const T=c&&L.st.t[c]; if(!T) continue; const sq=l=>l&&l.length?l.slice(-5).map(x=>x===1?'G':x===.5?'E':'P').join(''):'', F=L.st.fm&&L.st.fm[c], wh=winPct(F&&F.h), wa=winPct(F&&F.a);
+          t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c)),T.ns||0,r2(T.sf||0),r2(T.sa||0),wh==null?null:Math.round(wh*100),wa==null?null:Math.round(wa*100),sq(F&&F.h),sq(F&&F.a)];; /* [9]=% victorias de local (últimos 5), [10]=% de visitante (últimos 5), [11]/[12]=secuencia G/E/P de local y de visitante (más viejo primero) */ }
         if(Object.keys(t).length<2) continue;
         const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den),L.st.ns||0,L.st.hsot||0,L.st.asot||0], t }; }
-      out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
+      out._fk=FORM_K; out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
       return out; },
     // Partidos de las últimas `days` semanas, predichos SIN ver su resultado (el modelo solo sabe lo que pasó antes de cada uno).
     // Cada fila: [liga, fecha, local, visita, %local, %empate, %visita, golesLocal, golesVisita]
