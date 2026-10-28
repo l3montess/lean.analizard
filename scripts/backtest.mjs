@@ -1,4 +1,65 @@
- if(!m||!m.odds) return null;
+// Prueba del modelo de predicción contra partidos ya jugados (walk-forward):
+// para cada partido, el modelo solo usa lo que había pasado ANTES de ese partido.
+// Compara el modelo actual (A) con uno mejorado (B) y con una línea base.
+// Uso: FOOTBALL_DATA_KEY=tu_clave node scripts/backtest.mjs
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const COMPS = { epl:'PL', esp:'PD', ita:'SA', ger:'BL1', fra:'FL1' };
+const MIN_GAMES = 5;   // no se evalúa un partido hasta que cada equipo jugó al menos 5
+
+function pois(k,l){ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; }
+export function grid(lh,la){
+  let ph=0,px=0,pa=0,o25=0;
+  for(let i=0;i<=10;i++) for(let j=0;j<=10;j++){ const p=pois(i,lh)*pois(j,la); if(i>j) ph+=p; else if(i===j) px+=p; else pa+=p; if(i+j>=3) o25+=p; }
+  const t=ph+px+pa; return { p:[ph/t,px/t,pa/t], o25 };
+}
+
+// Modelo A: el que usa hoy el sitio (goles por partido crudos, ventaja local 10 %).
+export function modelA(st, h, a){
+  const H=st.t[h], A=st.t[a];
+  const lh=1.1*((H.gf/H.n)+(A.ga/A.n))/2, la=((A.gf/A.n)+(H.ga/H.n))/2;
+  return grid(lh,la);
+}
+// Modelo B: fuerza de ataque/defensa relativa al promedio de la liga, con "encogimiento"
+// hacia el promedio cuando hay pocos partidos, y ventaja local medida en la propia liga.
+export function modelB(st, h, a, k=6){
+  const mh = st.n>=20 ? st.hg/st.n : 1.5, ma = st.n>=20 ? st.ag/st.n : 1.2;   // goles locales y visitantes promedio
+  const avg=(mh+ma)/2;
+  const str=t=>{ const T=st.t[t]; return { att:((T.gf+k*avg)/(T.n+k))/avg, def:((T.ga+k*avg)/(T.n+k))/avg }; };
+  const H=str(h), A=str(a);
+  return grid(mh*H.att*A.def, ma*A.att*H.def);
+}
+
+// Modelo C (Elo): cada equipo tiene un puntaje que sube y baja con cada resultado (cuenta la diferencia de gol).
+// Con eso se estima quién gana y cuánto empate. Necesita varias temporadas para arrancar bien.
+const ELO_START=1500, ELO_K=20, ELO_HOME=60;
+const eloOf=(st,t)=>(st.elo&&st.elo[t])??ELO_START;
+// Forma de local/visitante: % de victorias de el local en sus últimos 5 partidos de local y de el visitante en sus últimos 5 de visitante.
+// El que tenga mejor porcentaje recibe tantos puntos de Elo como su porcentaje (60 % = +60). Si empatan o falta historial (menos de 5), no suma nada. FORM_K=0 lo apaga.
+export const FORM_N=5, FORM_K=process.env.FORM_K!==undefined?+process.env.FORM_K:0;   // 0 = apagado (el Elo queda como estaba); FORM_K=1 aplica la regla completa, para comparar en el backtest
+export const winPct=(L)=>L&&L.length>=FORM_N?L.slice(-FORM_N).reduce((s,x)=>s+(x===1?1:0),0)/FORM_N:null;
+export function formBonus(st,h,a){
+  const F=st.fm||{}, hw=winPct(F[h]&&F[h].h), aw=winPct(F[a]&&F[a].a);
+  if(hw==null||aw==null||hw===aw||!FORM_K) return [0,0];
+  return hw>aw?[100*hw*FORM_K,0]:[0,100*aw*FORM_K];
+}
+export function modelElo(st,h,a,noForm){
+  const [bh,ba]=noForm?[0,0]:formBonus(st,h,a);
+  const E=1/(1+10**(-(eloOf(st,h)+bh+ELO_HOME-eloOf(st,a)-ba)/400));
+  const pd=0.28*Math.exp(-1.5*(2*E-1)**2);
+  const ph=Math.max(.01,E-pd/2), pa=Math.max(.01,1-E-pd/2), t=ph+pd+pa;
+  return { p:[ph/t,pd/t,pa/t], o25:0.5 };
+}
+export function eloUpdate(st,m){
+  if(!st.elo) return;
+  const rh=eloOf(st,m.h), ra=eloOf(st,m.a), E=1/(1+10**(-(rh+ELO_HOME-ra)/400));
+  const S=m.hg>m.ag?1:m.hg===m.ag?.5:0, gd=Math.abs(m.hg-m.ag), mult=gd<=1?1:Math.log(gd)+1.6;
+  const d=ELO_K*mult*(S-E); st.elo[m.h]=rh+d; st.elo[m.a]=ra-d;
+}
+// Mercado: las cuotas de las casas de apuestas, sin el margen. Es la vara más difícil de superar.
+export function modelMarket(st,h,a,m){
+  if(!m||!m.odds) return null;
   const inv=m.odds.map(o=>1/o), t=inv.reduce((x,y)=>x+y,0);
   let o25=0.5; if(m.ou){ const ov=1/m.ou[0], un=1/m.ou[1]; o25=ov/(ov+un); }
   return { p:inv.map(x=>x/t), o25 };
