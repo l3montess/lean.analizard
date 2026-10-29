@@ -5,15 +5,21 @@ import { newState, learn, modelD, winPct, FORM_K } from './backtest.mjs';
 const MIN_GAMES=5;
 const eloNow=(st,t)=>(st.elo&&st.elo[t])??1500;
 const pz=(k,l)=>{ let p=Math.exp(-l); for(let i=1;i<=k;i++) p*=l/i; return p; };
-// Goles esperados con los últimos 10 partidos de cada equipo (cualquier competición): fa y fb = listas de [golesAFavor, golesEnContra].
+// Goles esperados: promedio de los ÚLTIMOS 5 partidos de cada equipo (cualquier competición), mezclado con el promedio de la temporada (60 % reciente, 40 % temporada).
+// fa y fb = listas de [golesAFavor, golesEnContra] de los últimos 5; sa y sb = [golesAFavorPorPartido, golesEnContraPorPartido] de la temporada (o null).
 // Devuelve null si a alguno le faltan partidos (hacen falta 5). o25 y bt en %, lA y lB en goles.
-export function goalsExp(fa,fb){
+export const W_RECENT=process.env.W_RECENT!==undefined?+process.env.W_RECENT:0.6;
+export function goalsExp(fa,fb,sa,sb){
   if(!fa||!fb||fa.length<5||fb.length<5) return null;
+  fa=fa.slice(0,5); fb=fb.slice(0,5);
   const av=(L,i)=>L.reduce((s,x)=>s+x[i],0)/L.length;
-  const lA=(av(fa,0)+av(fb,1))/2, lB=(av(fb,0)+av(fa,1))/2, lt=lA+lB;
-  const o25=1-(pz(0,lt)+pz(1,lt)+pz(2,lt)), bt=(1-Math.exp(-lA))*(1-Math.exp(-lB));
+  let lA=(av(fa,0)+av(fb,1))/2, lB=(av(fb,0)+av(fa,1))/2;
+  if(sa&&sb&&sa.every(Number.isFinite)&&sb.every(Number.isFinite)){ lA=W_RECENT*lA+(1-W_RECENT)*(sa[0]+sb[1])/2; lB=W_RECENT*lB+(1-W_RECENT)*(sb[0]+sa[1])/2; }
+  const lt=lA+lB, o25=1-(pz(0,lt)+pz(1,lt)+pz(2,lt)), bt=(1-Math.exp(-lA))*(1-Math.exp(-lB));
   return [Math.round(o25*1000)/10, Math.round(bt*1000)/10, Math.round(lA*100)/100, Math.round(lB*100)/100];
 }
+// Promedios de la temporada de un equipo del historial: [golesAFavorPorPartido, golesEnContraPorPartido] o null.
+const seasonOf=T=>T&&T.n>=3?[T.gf/T.n,T.ga/T.n]:null;
 
 const STOP = new Set(['fc','cf','afc','ac','as','ssc','sc','rc','ud','cd','us','sv','vfb','vfl','tsg','fsv','bv','sd','ca','club','de','la','the','1','sk','ogc','losc','rcd','real','deportivo','olympique','stade','borussia','hotspur','hove','albion','wanderers','city','united','town']);
 export const plain = t => String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
@@ -105,7 +111,7 @@ export function buildModel(hist){
           t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c)),T.ns||0,r2(T.sf||0),r2(T.sa||0),wh==null?null:Math.round(wh*100),wa==null?null:Math.round(wa*100),sq(F&&F.h),sq(F&&F.a)];; /* [9]=% victorias de local (últimos 5), [10]=% de visitante (últimos 5), [11]/[12]=secuencia G/E/P de local y de visitante (más viejo primero) */ }
         if(Object.keys(t).length<2) continue;
         const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den),L.st.ns||0,L.st.hsot||0,L.st.asot||0], t }; }
-      out._fk=FORM_K; out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
+      out._fk=FORM_K; out._wr=W_RECENT; out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
       return out; },
     // Partidos de las últimas `days` semanas, predichos SIN ver su resultado (el modelo solo sabe lo que pasó antes de cada uno).
     // Cada fila: [liga, fecha, local, visita, %local, %empate, %visita, golesLocal, golesVisita]
@@ -123,7 +129,7 @@ export function buildModel(hist){
               if(H&&A&&H.n>=MIN_GAMES&&A.n>=MIN_GAMES){
                 const { p }=modelD(st,m.h,m.a);
                 if(p.every(Number.isFinite)){ const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10;
-                  const ge=goalsExp((rec[m.h]||[]).slice(-10),(rec[m.a]||[]).slice(-10))||[null,null,null,null];
+                  const ge=goalsExp((rec[m.h]||[]).slice(-5),(rec[m.a]||[]).slice(-5),seasonOf(H),seasonOf(A))||[null,null,null,null];
                   out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge,m.hst??null,m.ast??null,...(sotExpOf(st,m.h,m.a)||[null,null]),Math.max(cnt[m.h]||0,cnt[m.a]||0)+1]); }
               }
             }
@@ -139,6 +145,8 @@ export function buildModel(hist){
       for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){
         if(m.h===ch&&m.a===ca) out.push([m.date.slice(0,10),1,m.hg,m.ag]); else if(m.h===ca&&m.a===ch) out.push([m.date.slice(0,10),0,m.ag,m.hg]); }
       return out.sort((x,y)=>x[0]<y[0]?1:x[0]>y[0]?-1:0).slice(0,n); },
+    // Promedios de la temporada de un equipo de la API: [golesAFavorPorPartido, golesEnContraPorPartido] o null.
+    seasonGoals(lg,name){ const L=leagues[lg]; if(!L) return null; const c=resolve(L,name); return c?seasonOf(L.st.t[c]):null; },
     // Remates al arco esperados de un partido futuro: [local, visita] o null.
     sotExp(lg,h,a){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null; return sotExpOf(L.st,ch,ca); },
     // Resultado de un partido ya jugado según el historial (llega uno o dos días tarde): [golesLocal, golesVisita] o null.
