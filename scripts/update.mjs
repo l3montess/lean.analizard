@@ -13,15 +13,15 @@ const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'
 // Fila: [liga, fecha de inicio, local, visita, %local, %empate, %visita, golesLocal|null, golesVisita|null, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV,
 //        remates al arco reales L|null, V|null (se completan cuando el historial los trae), remates al arco esperados L|null, V|null (se congelan antes del partido)]
 export function trackPredictions(log, data, finished, now=Date.now(), recent={}, model=null){
-  const pairs=t=>(recent[t]||[]).slice(0,10).map(x=>[x[4],x[5]]);       // últimos 10 partidos de cada equipo: [a favor, en contra]
-  const extras=(h,a)=>goalsExp(pairs(h),pairs(a))||[null,null,null,null];
+  const pairs=t=>(recent[t]||[]).slice(0,5).map(x=>[x[4],x[5]]);        // últimos 5 partidos de cada equipo: [a favor, en contra]
+  const extras=(lg,h,a)=>goalsExp(pairs(h),pairs(a),model&&model.seasonGoals?model.seasonGoals(lg,h):null,model&&model.seasonGoals?model.seasonGoals(lg,a):null)||[null,null,null,null];
   const sotE=(lg,h,a)=>(model&&model.sotExp&&model.sotExp(lg,h,a))||[null,null];
   for(const r of log) while(r.length<18) r.push(null);              // filas viejas: se completan con vacíos
   for(const L of data) for(const f of (L.fixtures||[])){
     const [iso,h,a,ph,px,pa,md]=f, ko=Date.parse(iso); if(!Number.isFinite(ko)) continue;
     const row=log.find(r=>r[0]===L.id&&r[2]===h&&r[3]===a&&Math.abs(Date.parse(r[1])-ko)<3*864e5);
-    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null,...extras(h,a),null,null,...sotE(L.id,h,a),md??null]); }
-    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; row.splice(9,4,...extras(h,a)); [row[15],row[16]]=sotE(L.id,h,a); if(md!=null) row[17]=md; }        // se actualiza hasta que empieza
+    if(!row){ if(ko>now) log.push([L.id,iso,h,a,ph,px,pa,null,null,...extras(L.id,h,a),null,null,...sotE(L.id,h,a),md??null]); }
+    else if(row[7]==null && ko>now){ row[1]=iso; row[4]=ph; row[5]=px; row[6]=pa; row.splice(9,4,...extras(L.id,h,a)); [row[15],row[16]]=sotE(L.id,h,a); if(md!=null) row[17]=md; }        // se actualiza hasta que empieza
   }
   for(const r of log){ if(r[7]!=null) continue;
     const m=finished.find(x=>x.h===r[2]&&x.a===r[3]&&Math.abs(Date.parse(x.iso)-Date.parse(r[1]))<3*864e5);
