@@ -207,6 +207,7 @@ async function main(){
   const recent = {};
   const model = loadModel(fileURLToPath(new URL('../history.json', import.meta.url)));
   console.log(model ? '[modelo] usando el modelo D (history.json)' : '[modelo] sin history.json: se usa el modelo simple');
+  if(model&&model.info) console.log(`[modelo] historial: ${model.info.partidos} partidos, ${model.info.conCorners} con córners y tarjetas, hasta el ${model.info.hasta}${model.info.conCorners?'':'  <-- SIN córners ni tarjetas: corré history.mjs con --force y revisá que history.mjs sea la versión nueva'}`);
   const predLog = Array.isArray(ctx.window.PRED_LOG) ? ctx.window.PRED_LOG : [];
   const data = await build(api, withNewLeagues(ctx.window.DATA), crests, recent, model, predLog);
   // Cara a cara: últimos 5 partidos de liga entre los equipos de los próximos partidos, en forma de { 'liga|local|visita': [[fecha, local?, golesLocal, golesVisita], ...] }
@@ -258,7 +259,9 @@ async function main(){
     }catch(e){ console.warn('[copas-alt] se omitió:',e.message); }
     copas._ts=Date.now();
   }
-  fs.writeFileSync(file, '/* Generado por scripts/update.mjs (Argentina se edita a mano). */\nwindow.DATA = '+JSON.stringify(data,null,1)+';\nwindow.CRESTS = '+JSON.stringify(crests)+';\nwindow.PHOTOS = '+JSON.stringify(st.photos)+';\nwindow.PHOTO_MISS = '+JSON.stringify(st.miss)+';\nwindow.TEAM_IDS = '+JSON.stringify(st.teams)+';\nwindow.TEAM_MISS = '+JSON.stringify(st.teamMiss)+';\nwindow.RECENT = '+JSON.stringify(recent)+';\nwindow.PRED_LOG = '+JSON.stringify(predLog)+';\nwindow.PRED_RETRO = '+JSON.stringify(retro)+';\nwindow.H2H = '+JSON.stringify(h2h)+';\nwindow.MODEL = '+JSON.stringify(model?model.snapshot(data):{})+';\nwindow.COPAS = '+JSON.stringify(copas)+';\n');
+  const snap=model?model.snapshot(data):{};
+  { let tot=0, con=0; for(const [k,v] of Object.entries(snap)) if(v&&v.t) for(const T of Object.values(v.t)){ tot++; if(T[13]||T[14]) con++; } console.log(`[modelo] equipos con córners, remates y tarjetas de los últimos 10: ${con} de ${tot}`); }
+  fs.writeFileSync(file, '/* Generado por scripts/update.mjs (Argentina se edita a mano). */\nwindow.DATA = '+JSON.stringify(data,null,1)+';\nwindow.CRESTS = '+JSON.stringify(crests)+';\nwindow.PHOTOS = '+JSON.stringify(st.photos)+';\nwindow.PHOTO_MISS = '+JSON.stringify(st.miss)+';\nwindow.TEAM_IDS = '+JSON.stringify(st.teams)+';\nwindow.TEAM_MISS = '+JSON.stringify(st.teamMiss)+';\nwindow.RECENT = '+JSON.stringify(recent)+';\nwindow.PRED_LOG = '+JSON.stringify(predLog)+';\nwindow.PRED_RETRO = '+JSON.stringify(retro)+';\nwindow.H2H = '+JSON.stringify(h2h)+';\nwindow.MODEL = '+JSON.stringify(snap)+';\nwindow.COPAS = '+JSON.stringify(copas)+';\n');
   console.log('data.js actualizado');
 }
 if (process.argv[1]===fileURLToPath(import.meta.url)) main();
