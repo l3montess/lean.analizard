@@ -53,7 +53,8 @@ export function toMatch(league, season, head, r){
   let odds=null; for(const s of ODDS_SETS){ const v=s.map(k=>num(g(k))); if(v.every(x=>x>1)){ odds=v; break; } }
   let ou=null;   for(const s of OU_SETS){ const v=s.map(k=>num(g(k))); if(v.every(x=>x>1)){ ou=v; break; } }
   const sh=['HS','AS','HST','AST'].map(k=>num(g(k)));          // remates y remates al arco (local, visita)
-  const o=[league,season,date,h,a,hg,ag, ...(odds||[null,null,null]), ...(ou||[null,null]), ...sh];
+  const cc=['HC','AC','HY','AY','HR','AR'].map(k=>num(g(k)));      // córners (local, visita), amarillas (local, visita), rojas (local, visita)
+  const o=[league,season,date,h,a,hg,ag, ...(odds||[null,null,null]), ...(ou||[null,null]), ...sh, ...cc];
   return o;
 }
 
@@ -101,7 +102,7 @@ async function main(){
   }
   if(!ok){ console.error('No se pudo bajar nada: no se toca history.json'); process.exit(1); }
   all.sort((x,y)=>x[2]<y[2]?-1:x[2]>y[2]?1:0);
-  const out={ generado:new Date().toISOString(), fuente:'football-data.co.uk', columnas:'liga,temporada,fecha,local,visita,golesL,golesV,cuotaL,cuotaX,cuotaV,mas2.5,menos2.5,rematesL,rematesV,alArcoL,alArcoV (null si falta)', partidos:all };
+  const out={ generado:new Date().toISOString(), fuente:'football-data.co.uk', columnas:'liga,temporada,fecha,local,visita,golesL,golesV,cuotaL,cuotaX,cuotaV,mas2.5,menos2.5,rematesL,rematesV,alArcoL,alArcoV,cornersL,cornersV,amarillasL,amarillasV,rojasL,rojasV (null si falta)', partidos:all };
   fs.writeFileSync(new URL('../history.json',import.meta.url), JSON.stringify(out));
   console.log(`history.json: ${all.length} partidos (${ok} archivos, ${fail} omitidos)`);
 }
