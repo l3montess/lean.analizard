@@ -14,7 +14,7 @@ const fmtDate = d => d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'
 //        remates al arco reales L|null, V|null (se completan cuando el historial los trae), remates al arco esperados L|null, V|null (se congelan antes del partido)]
 export function trackPredictions(log, data, finished, now=Date.now(), recent={}, model=null){
   const pairs=t=>(recent[t]||[]).slice(0,5).map(x=>[x[4],x[5]]);        // últimos 5 partidos de cada equipo: [a favor, en contra]
-  const extras=(lg,h,a)=>goalsExp(pairs(h),pairs(a),model&&model.seasonGoals?model.seasonGoals(lg,h):null,model&&model.seasonGoals?model.seasonGoals(lg,a):null)||[null,null,null,null];
+  const extras=(lg,h,a)=>goalsExp(pairs(h),pairs(a),model&&model.seasonGoals?model.seasonGoals(lg,h):null,model&&model.seasonGoals?model.seasonGoals(lg,a):null, model&&model.xInfo?model.xInfo(lg,h,a):null, model?model.conv:0.31)||[null,null,null,null];
   const sotE=(lg,h,a)=>(model&&model.sotExp&&model.sotExp(lg,h,a))||[null,null];
   for(const r of log) while(r.length<18) r.push(null);              // filas viejas: se completan con vacíos
   for(const L of data) for(const f of (L.fixtures||[])){
