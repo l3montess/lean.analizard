@@ -66,6 +66,7 @@ const ALIAS = {
   'fortuna sittard':'for sittard','heracles almelo':'heracles','pec zwolle':'zwolle','rkc waalwijk':'waalwijk','fc volendam':'volendam','excelsior rotterdam':'excelsior','sbv excelsior':'excelsior','almere city fc':'almere city',
   'flamengo':'flamengo rj','botafogo':'botafogo rj','vasco da gama':'vasco','atletico mineiro':'atletico mg','clube atletico mineiro':'atletico mg','athletico paranaense':'athletico pr','club athletico paranaense':'athletico pr',
   'red bull bragantino':'bragantino','rb bragantino':'bragantino','sao paulo':'sao paulo','ec vitoria':'vitoria','ec bahia':'bahia','coritiba fc':'coritiba',
+  'barca':'barcelona','fc barcelona':'barcelona','atleti':'ath madrid','deportivo':'la coruna','deportivo la coruna':'la coruna','rc deportivo':'la coruna','hsv':'hamburg','amadora':'estrela','paranaense':'athletico pr','mineiro':'atletico mg',
   'ac milan':'milan','fc internazionale milano':'inter','inter milan':'inter','internazionale':'inter','hellas verona':'verona',
 };
 
@@ -111,6 +112,9 @@ export function buildModel(hist){
   for(const r of hist.partidos){ const hst=r[14], ast=r[15]; if(hst==null||ast==null) continue; cg+=r[5]+r[6]; cs+=hst+ast; cn++; }
   const conv = cs>0 ? cg/cs : 0.31;                       // goles por remate al arco
   const leagues={};
+  let hdate=''; for(const r of hist.partidos) if(r[2]>hdate) hdate=r[2];
+  hdate=hdate.slice(0,10);
+  const conCorners=hist.partidos.filter(r=>r[16]!=null&&r[18]!=null).length;
   for(const [lg,seasons] of Object.entries(byL)){
     const elo={}; let st=null, last=null;
     for(const se of Object.keys(seasons).sort()){
@@ -122,6 +126,7 @@ export function buildModel(hist){
   }
   const resolve=(L,name)=>{ if(!(name in L.cache)) L.cache[name]=matchName(name,L.names); return L.cache[name]; };
   return {
+    info:{ partidos:hist.partidos.length, conCorners, hasta:hdate },
     leagues, resolve: (lg,name)=>leagues[lg]?resolve(leagues[lg],name):null,
     // probabilidades en % [local, empate, visita] con un decimal, o null si no se puede
     predict(lg,h,a){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null;
@@ -137,7 +142,7 @@ export function buildModel(hist){
           { const VV=ven[lg.id], r1=x=>x==null?null:Math.round(x*10)/10, vh=VV&&venueAvg(VV.h[c]), va=VV&&venueAvg(VV.a[c]); t[n][13]=vh?[vh[0],...vh.slice(1).map(r1)]:null; t[n][14]=va?[va[0],...va.slice(1).map(r1)]:null; }   /* [13]=últimos 10 de local, [14]=últimos 10 de visitante: [partidos, remates al arco a favor, en contra, córners a favor, en contra, tarjetas] */ /* [9]=% victorias de local (últimos 5), [10]=% de visitante (últimos 5), [11]/[12]=secuencia G/E/P de local y de visitante (más viejo primero) */ }
         if(Object.keys(t).length<2) continue;
         const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den),L.st.ns||0,L.st.hsot||0,L.st.asot||0], t }; }
-      out._fk=FORM_K; out._wr=W_RECENT; out._ws=W_SHOTS; out._eg=ELO_G; out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
+      out._fk=FORM_K; out._wr=W_RECENT; out._ws=W_SHOTS; out._eg=ELO_G; out._hd=hdate; out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
       return out; },
     // Partidos de las últimas `days` semanas, predichos SIN ver su resultado (el modelo solo sabe lo que pasó antes de cada uno).
     // Cada fila: [liga, fecha, local, visita, %local, %empate, %visita, golesLocal, golesVisita]
