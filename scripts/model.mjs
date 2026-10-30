@@ -176,7 +176,7 @@ export function buildModel(hist){
     // Últimos `n` partidos de liga entre los dos equipos (de las temporadas del historial): [fecha, 1 si el local de hoy jugó de local, golesLocalDeHoy, golesVisitaDeHoy], el más nuevo primero.
     h2h(lg,h,a,n=5){ const L=leagues[lg]; if(!L) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null; const out=[];
       for(const se of Object.keys(byL[lg])) for(const m of byL[lg][se]){
-        if(m.h===ch&&m.a===ca) out.push([m.date.slice(0,10),1,m.hg,m.ag]); else if(m.h===ca&&m.a===ch) out.push([m.date.slice(0,10),0,m.ag,m.hg]); }
+        if(m.h===ch&&m.a===ca) out.push([m.date.slice(0,10),1,m.hg,m.ag,m.hst??null,m.ast??null]); else if(m.h===ca&&m.a===ch) out.push([m.date.slice(0,10),0,m.ag,m.hg,m.ast??null,m.hst??null]); }   // [4] y [5] = remates al arco del local de hoy y del visitante de hoy en ese partido
       return out.sort((x,y)=>x[0]<y[0]?1:x[0]>y[0]?-1:0).slice(0,n); },
     // Datos extra para el ajuste de goles de un partido futuro: { sot:[local,visita]|null, E } o null; y goles por remate al arco.
     xInfo(lg,h,a){ const L=leagues[lg], VV=ven[lg]; if(!L||!VV) return null; const ch=resolve(L,h), ca=resolve(L,a); if(!ch||!ca||ch===ca) return null;
