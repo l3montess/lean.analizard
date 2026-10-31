@@ -36,6 +36,15 @@ export function venueAvg(list){
   const av=k=>L.reduce((s,g)=>s+g[k],0)/L.length; return [L.length,av('sf'),av('sa'),av('cf'),av('ca'),av('cd')];
 }
 // Remates al arco esperados [local, visita] a partir de los últimos 10 de local del local y de visitante del visitante.
+// Esperados de remates al arco, córners y tarjetas de un partido (misma cuenta que venueX() en index.html):
+// actual = promedio de los últimos 10 de local del local y de visitante del visitante; se promedia con los últimos 5 cruces directos (si hay al menos 3 con dato)
+// y el esperado es 60 % de ese promedio + 40 % del actual. pair: filas del cruce, el más nuevo primero, orientadas al local de hoy:
+// [rematesLocal, rematesVisita, córnersLocal, córnersVisita, tarjetasLocal, tarjetasVisita].
+export const W_MIX=0.6;
+function mixCur(cur,pair,i){ if(!cur) return null; const hr=(pair||[]).filter(x=>x[i]!=null&&x[i+1]!=null).slice(0,5); if(hr.length<3) return cur;
+  const q0=hr.reduce((s,x)=>s+x[i],0)/hr.length, q1=hr.reduce((s,x)=>s+x[i+1],0)/hr.length, mx=(c,z)=>W_MIX*((c+z)/2)+(1-W_MIX)*c; return [mx(cur[0],q0),mx(cur[1],q1)]; }
+export function statExpects(vhList,vaList,pair){ const A=venueAvg(vhList), B=venueAvg(vaList); if(!A||!B) return null;
+  return { sot:mixCur([(A[1]+B[2])/2,(B[1]+A[2])/2],pair,0), cor:mixCur([(A[3]+B[4])/2,(B[3]+A[4])/2],pair,2), car:mixCur([A[5],B[5]],pair,4) }; }
 export function sot10(Hh,Aa){ if(!Hh||!Aa) return null; return [(Hh[1]+Aa[2])/2,(Aa[1]+Hh[2])/2]; }
 export const eloE=(eh,ea)=>1/(1+Math.pow(10,-(eh+60-ea)/400));
 // Promedios de la temporada de un equipo del historial: [golesAFavorPorPartido, golesEnContraPorPartido] o null.
@@ -146,28 +155,33 @@ export function buildModel(hist){
       return out; },
     // Partidos de las últimas `days` semanas, predichos SIN ver su resultado (el modelo solo sabe lo que pasó antes de cada uno).
     // Cada fila: [liga, fecha, local, visita, %local, %empate, %visita, golesLocal, golesVisita]
-    retro(days=21){
+    retro(days=21,all=false){
       let max=''; for(const r of hist.partidos) if(r[2]>max) max=r[2];
       const cut=new Date(Date.parse(max.slice(0,10))-days*864e5).toISOString().slice(0,10), out=[];   // fila: [liga, fecha, local, visita, %1, %X, %2, golesL, golesV, %más2,5, %ambosMarcan, golesEsperadosL, golesEsperadosV]
       for(const [lg,seasons] of Object.entries(byL)){
-        const elo={}, rec={}, vh={}, va={}; let st=null; const keys=Object.keys(seasons).sort();
+        const elo={}, rec={}, vh={}, va={}, pairs={}; let st=null; const keys=Object.keys(seasons).sort();
+        const cdOf=(y,r)=>y==null?null:y+(r||0), pkey=(x,y)=>x<y?x+'|'+y:y+'|'+x;
+        const pairOf=(h,a)=>(pairs[pkey(h,a)]||[]).slice().reverse().map(g=>g.h===h?[g.hst,g.ast,g.hc,g.ac,cdOf(g.hy,g.hr),cdOf(g.ay,g.ar)]:[g.ast,g.hst,g.ac,g.hc,cdOf(g.ay,g.ar),cdOf(g.hy,g.hr)]);
         for(const se of keys){
           for(const t of Object.keys(elo)) elo[t]=1500+0.75*(elo[t]-1500);
           st=newState(elo); const cnt={};   // partidos jugados por equipo en la temporada: la fecha (jornada) de cada partido
           for(const m of [...seasons[se]].sort((x,y)=>x.date<y.date?-1:1)){
-            if(se===keys[keys.length-1] && m.date.slice(0,10)>=cut){
+            if((all||se===keys[keys.length-1]) && m.date.slice(0,10)>=cut){
               const H=st.t[m.h], A=st.t[m.a];
               if(H&&A&&H.n>=MIN_GAMES&&A.n>=MIN_GAMES){
                 const { p }=modelD(st,m.h,m.a);
                 if(p.every(Number.isFinite)){ const r=p.map(x=>Math.round(1000*x)/10); r[1]=Math.round((100-r[0]-r[2])*10)/10;
                   const xx={ sot:sot10(venueAvg(vh[m.h]),venueAvg(va[m.a])), E:eloE(eloNow(st,m.h),eloNow(st,m.a)) };
                   const ge=goalsExp((rec[m.h]||[]).slice(-5),(rec[m.a]||[]).slice(-5),seasonOf(H),seasonOf(A),xx,conv)||[null,null,null,null];
-                  out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge,m.hst??null,m.ast??null,...(sotExpOf(st,m.h,m.a)||[null,null]),Math.max(cnt[m.h]||0,cnt[m.a]||0)+1]); }
+                  out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge,m.hst??null,m.ast??null,...(sotExpOf(st,m.h,m.a)||[null,null]),Math.max(cnt[m.h]||0,cnt[m.a]||0)+1,
+                    ...(()=>{ const q=statExpects(vh[m.h],va[m.a],pairOf(m.h,m.a)), r2=v=>v==null?null:Math.round(v*100)/100; /* [18..21] córners y tarjetas esperados (local, visita); [22..25] córners y tarjetas reales */
+                      return [q?r2(q.cor[0]):null,q?r2(q.cor[1]):null,q?r2(q.car[0]):null,q?r2(q.car[1]):null,m.hc??null,m.ac??null,cdOf(m.hy,m.hr),cdOf(m.ay,m.ar)]; })()]); }
               }
             }
             learn(st,m); cnt[m.h]=(cnt[m.h]||0)+1; cnt[m.a]=(cnt[m.a]||0)+1;
             (rec[m.h]=rec[m.h]||[]).push([m.hg,m.ag]); (rec[m.a]=rec[m.a]||[]).push([m.ag,m.hg]);
             (vh[m.h]=vh[m.h]||[]).push(vg(m,true)); (va[m.a]=va[m.a]||[]).push(vg(m,false));
+            (pairs[pkey(m.h,m.a)]=pairs[pkey(m.h,m.a)]||[]).push(m);
           }
         }
       }
