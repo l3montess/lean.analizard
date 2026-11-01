@@ -43,6 +43,12 @@ export function venuePrem(list){
 // Córners del partido: se suman los córners que promedia cada equipo (el local en sus últimos 10 de local, el visitante en sus últimos 10 de visitante) y se toma el 60 % de esa suma.
 // La predicción es "más de N córners", con N = esa cuenta redondeada hacia abajo.
 export const COR_PCT=0.6;
+// Partido con favorito claro (mismo criterio que anaPick del sitio): remates al arco SOLO del favorito = promedio cruzado (últimos 10 de liga + últimos 5 cruces, ya mezclado en q.sot)
+// ajustado por Elo (+20 % como máximo si es muy superior) y línea = 60 % del esperado, hacia abajo, más 0,5 (ej. +3,5). Devuelve { side:0|1, line, exp } o null si el partido está parejo.
+export const SOT_ELO=0.2;
+export function favSot(p,q,E){ if(!q||!q.sot||!p||!p.every(Number.isFinite)||!Number.isFinite(E)) return null;
+  const s=p[0]>=p[2]?0:1, mx=Math.max(p[0],p[1],p[2]), gap=Math.abs(p[0]-p[2]); if(mx<45||gap<15) return null;
+  const Ef=s===0?E:1-E, exp=q.sot[s]*(1+SOT_ELO*(2*Ef-1)); return { side:s, exp, line:Math.floor(COR_PCT*exp+1e-9)+0.5 }; }
 // Remates al arco esperados [local, visita] a partir de los últimos 10 de local del local y de visitante del visitante.
 // Esperados de remates al arco, córners y tarjetas de un partido (misma cuenta que venueX() en index.html):
 // actual = promedio de los últimos 10 de local del local y de visitante del visitante; se promedia con los últimos 5 cruces directos (si hay al menos 3 con dato)
@@ -182,8 +188,8 @@ export function buildModel(hist){
                   const xx={ sot:sot10(venueAvg(vh[m.h]),venueAvg(va[m.a])), E:eloE(eloNow(st,m.h),eloNow(st,m.a)) };
                   const ge=goalsExp((rec[m.h]||[]).slice(-5),(rec[m.a]||[]).slice(-5),seasonOf(H),seasonOf(A),xx,conv)||[null,null,null,null];
                   out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge,m.hst??null,m.ast??null,...(sotExpOf(st,m.h,m.a)||[null,null]),Math.max(cnt[m.h]||0,cnt[m.a]||0)+1,
-                    ...(()=>{ const q=statExpects(vh[m.h],va[m.a],pairOf(m.h,m.a)), r2=v=>v==null?null:Math.round(v*100)/100; /* [18..19] córners: esperado del partido (60 % de la suma de promedios) y la línea “más de N”; [26..27] remates al arco: esperado del partido (60 % de la suma de promedios) y la línea “más de N”; [20..21] tarjetas esperadas (local, visita); [22..25] córners y tarjetas reales */
-                      return [q?r2(q.corT):null,q?Math.floor(q.corT+1e-9):null,q?r2(q.car[0]):null,q?r2(q.car[1]):null,m.hc??null,m.ac??null,cdOf(m.hy,m.hr),cdOf(m.ay,m.ar),q?r2(q.sotT):null,q?Math.floor(q.sotT+1e-9):null]; })()]); }
+                    ...(()=>{ const q=statExpects(vh[m.h],va[m.a],pairOf(m.h,m.a)), r2=v=>v==null?null:Math.round(v*100)/100; /* [18..19] córners: esperado del partido (60 % de la suma de promedios) y la línea “más de N”; [28..29] remates al arco del favorito claro (lado 0 local / 1 visita, y línea “más de N,5”); [26..27] remates al arco: esperado del partido (60 % de la suma de promedios) y la línea “más de N”; [20..21] tarjetas esperadas (local, visita); [22..25] córners y tarjetas reales */
+                      return [q?r2(q.corT):null,q?Math.floor(q.corT+1e-9):null,q?r2(q.car[0]):null,q?r2(q.car[1]):null,m.hc??null,m.ac??null,cdOf(m.hy,m.hr),cdOf(m.ay,m.ar),q?r2(q.sotT):null,q?Math.floor(q.sotT+1e-9):null,...(()=>{ const f=favSot(r,q,xx.E); return [f?f.side:null,f?f.line:null]; })()]; })()]); }
               }
             }
             learn(st,m); cnt[m.h]=(cnt[m.h]||0)+1; cnt[m.a]=(cnt[m.a]||0)+1;
