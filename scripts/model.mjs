@@ -35,6 +35,14 @@ export function venueAvg(list){
   const L=(list||[]).filter(g=>g.sf!=null&&g.sa!=null&&g.cf!=null&&g.ca!=null&&g.cd!=null).slice(-10); if(L.length<5) return null;
   const av=k=>L.reduce((s,g)=>s+g[k],0)/L.length; return [L.length,av('sf'),av('sa'),av('cf'),av('ca'),av('cd')];
 }
+// Estadísticas premium de un equipo en sus últimos 10 partidos de local (o de visitante): { g:[n,golesAFavor,golesEnContra], c:[n,córnersAFavor,córnersEnContra], k:[n,tarjetas] }; cada una es null si hay menos de 5 partidos con dato.
+export function venuePrem(list){
+  const L=(list||[]).slice(-10), mean=(keys)=>{ const R=L.filter(g=>keys.every(k=>g[k]!=null)); if(R.length<5) return null; return [R.length,...keys.map(k=>Math.round(10*R.reduce((s,g)=>s+g[k],0)/R.length)/10)]; };
+  return { g:mean(['gf','ga']), c:mean(['cf','ca']), k:mean(['cd']) };
+}
+// Córners del partido: se suman los córners que promedia cada equipo (el local en sus últimos 10 de local, el visitante en sus últimos 10 de visitante) y se toma el 60 % de esa suma.
+// La predicción es "más de N córners", con N = esa cuenta redondeada hacia abajo.
+export const COR_PCT=0.6;
 // Remates al arco esperados [local, visita] a partir de los últimos 10 de local del local y de visitante del visitante.
 // Esperados de remates al arco, córners y tarjetas de un partido (misma cuenta que venueX() en index.html):
 // actual = promedio de los últimos 10 de local del local y de visitante del visitante; se promedia con los últimos 5 cruces directos (si hay al menos 3 con dato)
@@ -44,7 +52,7 @@ export const W_MIX=0.6;
 function mixCur(cur,pair,i){ if(!cur) return null; const hr=(pair||[]).filter(x=>x[i]!=null&&x[i+1]!=null).slice(0,5); if(hr.length<3) return cur;
   const q0=hr.reduce((s,x)=>s+x[i],0)/hr.length, q1=hr.reduce((s,x)=>s+x[i+1],0)/hr.length, mx=(c,z)=>W_MIX*((c+z)/2)+(1-W_MIX)*c; return [mx(cur[0],q0),mx(cur[1],q1)]; }
 export function statExpects(vhList,vaList,pair){ const A=venueAvg(vhList), B=venueAvg(vaList); if(!A||!B) return null;
-  return { sot:mixCur([(A[1]+B[2])/2,(B[1]+A[2])/2],pair,0), cor:mixCur([(A[3]+B[4])/2,(B[3]+A[4])/2],pair,2), car:mixCur([A[5],B[5]],pair,4) }; }
+  return { corT:COR_PCT*(A[3]+B[3]), sotT:COR_PCT*(A[1]+B[1]), sot:mixCur([(A[1]+B[2])/2,(B[1]+A[2])/2],pair,0), cor:mixCur([(A[3]+B[4])/2,(B[3]+A[4])/2],pair,2), car:mixCur([A[5],B[5]],pair,4) }; }
 export function sot10(Hh,Aa){ if(!Hh||!Aa) return null; return [(Hh[1]+Aa[2])/2,(Aa[1]+Hh[2])/2]; }
 export const eloE=(eh,ea)=>1/(1+Math.pow(10,-(eh+60-ea)/400));
 // Promedios de la temporada de un equipo del historial: [golesAFavorPorPartido, golesEnContraPorPartido] o null.
@@ -112,7 +120,7 @@ export function buildModel(hist){
   for(const r of hist.partidos){ const [lg,se,date,h,a,hg,ag,o1,o2,o3,u1,u2,hs,as_,hst,ast,hc,ac,hy,ay,hr,ar]=r;
     ((byL[lg]=byL[lg]||{})[se]=byL[lg][se]||[]).push({h,a,date,hg,ag,hs,as:as_,hst,ast,hc:hc??null,ac:ac??null,hy:hy??null,ay:ay??null,hr:hr??null,ar:ar??null}); }
   // Últimos partidos de local y de visitante de cada equipo (todas las temporadas, en orden), con remates al arco, córners y tarjetas.
-  const vg=(m,home)=>home?{sf:m.hst,sa:m.ast,cf:m.hc,ca:m.ac,cd:m.hy==null?null:m.hy+(m.hr||0)}:{sf:m.ast,sa:m.hst,cf:m.ac,ca:m.hc,cd:m.ay==null?null:m.ay+(m.ar||0)};
+  const vg=(m,home)=>home?{sf:m.hst,sa:m.ast,cf:m.hc,ca:m.ac,cd:m.hy==null?null:m.hy+(m.hr||0),gf:m.hg,ga:m.ag}:{sf:m.ast,sa:m.hst,cf:m.ac,ca:m.hc,cd:m.ay==null?null:m.ay+(m.ar||0),gf:m.ag,ga:m.hg};
   const ven={};
   for(const [lg,seasons] of Object.entries(byL)){ const V=ven[lg]={h:{},a:{}};
     for(const se of Object.keys(seasons).sort()) for(const m of [...seasons[se]].sort((x,y)=>x.date<y.date?-1:1)){ (V.h[m.h]=V.h[m.h]||[]).push(vg(m,true)); (V.a[m.a]=V.a[m.a]||[]).push(vg(m,false)); } }
@@ -148,7 +156,7 @@ export function buildModel(hist){
         const names=Object.values(lg.groups).flat().map(r=>r[0]), t={};
         for(const n of names){ const c=resolve(L,n); const T=c&&L.st.t[c]; if(!T) continue; const sq=l=>l&&l.length?l.slice(-5).map(x=>x===1?'G':x===.5?'E':'P').join(''):'', F=L.st.fm&&L.st.fm[c], wh=winPct(F&&F.h), wa=winPct(F&&F.a);
           t[n]=[T.n,T.gf,T.ga,r2(T.xf),r2(T.xa),r2(eloNow(L.st,c)),T.ns||0,r2(T.sf||0),r2(T.sa||0),wh==null?null:Math.round(wh*100),wa==null?null:Math.round(wa*100),sq(F&&F.h),sq(F&&F.a)];
-          { const VV=ven[lg.id], r1=x=>x==null?null:Math.round(x*10)/10, vh=VV&&venueAvg(VV.h[c]), va=VV&&venueAvg(VV.a[c]); t[n][13]=vh?[vh[0],...vh.slice(1).map(r1)]:null; t[n][14]=va?[va[0],...va.slice(1).map(r1)]:null; }   /* [13]=últimos 10 de local, [14]=últimos 10 de visitante: [partidos, remates al arco a favor, en contra, córners a favor, en contra, tarjetas] */ /* [9]=% victorias de local (últimos 5), [10]=% de visitante (últimos 5), [11]/[12]=secuencia G/E/P de local y de visitante (más viejo primero) */ }
+          { const VV=ven[lg.id], r1=x=>x==null?null:Math.round(x*10)/10, vh=VV&&venueAvg(VV.h[c]), va=VV&&venueAvg(VV.a[c]); t[n][13]=vh?[vh[0],...vh.slice(1).map(r1)]:null; t[n][14]=va?[va[0],...va.slice(1).map(r1)]:null; t[n][15]=VV?venuePrem(VV.h[c]):null; t[n][16]=VV?venuePrem(VV.a[c]):null; }   /* [15]/[16]=estadísticas premium de local / de visitante (venuePrem) */   /* [13]=últimos 10 de local, [14]=últimos 10 de visitante: [partidos, remates al arco a favor, en contra, córners a favor, en contra, tarjetas] */ /* [9]=% victorias de local (últimos 5), [10]=% de visitante (últimos 5), [11]/[12]=secuencia G/E/P de local y de visitante (más viejo primero) */ }
         if(Object.keys(t).length<2) continue;
         const g=L.st.xg||{goals:0,den:0}; out[lg.id]={ l:[L.st.n,L.st.hg,L.st.ag,g.goals,r2(g.den),L.st.ns||0,L.st.hsot||0,L.st.asot||0], t }; }
       out._fk=FORM_K; out._wr=W_RECENT; out._ws=W_SHOTS; out._eg=ELO_G; out._hd=hdate; out._eu=[Math.round(conv*10000)/10000, cn];      // [goles por remate al arco, partidos con datos de remates]
@@ -174,8 +182,8 @@ export function buildModel(hist){
                   const xx={ sot:sot10(venueAvg(vh[m.h]),venueAvg(va[m.a])), E:eloE(eloNow(st,m.h),eloNow(st,m.a)) };
                   const ge=goalsExp((rec[m.h]||[]).slice(-5),(rec[m.a]||[]).slice(-5),seasonOf(H),seasonOf(A),xx,conv)||[null,null,null,null];
                   out.push([lg,m.date.slice(0,10),m.h,m.a,r[0],r[1],r[2],m.hg,m.ag,...ge,m.hst??null,m.ast??null,...(sotExpOf(st,m.h,m.a)||[null,null]),Math.max(cnt[m.h]||0,cnt[m.a]||0)+1,
-                    ...(()=>{ const q=statExpects(vh[m.h],va[m.a],pairOf(m.h,m.a)), r2=v=>v==null?null:Math.round(v*100)/100; /* [18..21] córners y tarjetas esperados (local, visita); [22..25] córners y tarjetas reales */
-                      return [q?r2(q.cor[0]):null,q?r2(q.cor[1]):null,q?r2(q.car[0]):null,q?r2(q.car[1]):null,m.hc??null,m.ac??null,cdOf(m.hy,m.hr),cdOf(m.ay,m.ar)]; })()]); }
+                    ...(()=>{ const q=statExpects(vh[m.h],va[m.a],pairOf(m.h,m.a)), r2=v=>v==null?null:Math.round(v*100)/100; /* [18..19] córners: esperado del partido (60 % de la suma de promedios) y la línea “más de N”; [26..27] remates al arco: esperado del partido (60 % de la suma de promedios) y la línea “más de N”; [20..21] tarjetas esperadas (local, visita); [22..25] córners y tarjetas reales */
+                      return [q?r2(q.corT):null,q?Math.floor(q.corT+1e-9):null,q?r2(q.car[0]):null,q?r2(q.car[1]):null,m.hc??null,m.ac??null,cdOf(m.hy,m.hr),cdOf(m.ay,m.ar),q?r2(q.sotT):null,q?Math.floor(q.sotT+1e-9):null]; })()]); }
               }
             }
             learn(st,m); cnt[m.h]=(cnt[m.h]||0)+1; cnt[m.a]=(cnt[m.a]||0)+1;
