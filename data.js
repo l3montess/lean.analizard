@@ -5,7 +5,7 @@ window.DATA = [
   "name": "Premier League",
   "pill": "Inglaterra",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "groups": {
    "Liga": [
     [
@@ -348,7 +348,7 @@ window.DATA = [
   "name": "LaLiga",
   "pill": "España",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "groups": {
    "Liga": [
     [
@@ -691,7 +691,7 @@ window.DATA = [
   "name": "Ligue 1",
   "pill": "Francia",
   "desc": "Temporada 2026-27. 18 equipos.",
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "groups": {
    "Liga": [
     [
@@ -1012,7 +1012,7 @@ window.DATA = [
   "name": "Bundesliga",
   "pill": "Alemania",
   "desc": "Temporada 2026-27. 18 equipos, 5 fechas jugadas.",
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "groups": {
    "Liga": [
     [
@@ -1405,7 +1405,7 @@ window.DATA = [
   "name": "Serie A",
   "pill": "Italia",
   "desc": "Temporada 2026-27. 20 equipos.",
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "groups": {
    "Liga": [
     [
@@ -2141,7 +2141,7 @@ window.DATA = [
    ]
   ],
   "cal": [],
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "probSrc": "un modelo propio (Elo + goles y remates de la temporada), probado contra unos 6.000 partidos pasados",
   "scNote": "Actualizado automáticamente."
  },
@@ -2471,7 +2471,7 @@ window.DATA = [
    ]
   ],
   "cal": [],
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "probSrc": "un modelo propio (Elo + goles y remates de la temporada), probado contra unos 6.000 partidos pasados",
   "scNote": "Actualizado automáticamente."
  },
@@ -2814,7 +2814,7 @@ window.DATA = [
    ]
   ],
   "cal": [],
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "probSrc": "un modelo propio (Elo + goles y remates de la temporada), probado contra unos 6.000 partidos pasados",
   "scNote": "Actualizado automáticamente."
  },
@@ -2824,7 +2824,7 @@ window.DATA = [
   "pill": "Champions",
   "cup": true,
   "desc": "Temporada 2026-27, fase de liga. Jornada 2 de 8 en juego: la mitad de los equipos ya la jugó y el resto juega el 14/10. 36 equipos.",
-  "asof": "01/11/2026",
+  "asof": "02/11/2026",
   "groups": {
    "Fase de liga": [
     [
